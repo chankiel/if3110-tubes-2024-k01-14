@@ -60,7 +60,6 @@ html,
 */
 
 body {
-  background-color: #fff4e4;
   margin: 0; /* 1 */
   line-height: inherit; /* 2 */
 }
@@ -414,4 +413,8 @@ video {
 /* Make elements with the HTML hidden attribute stay hidden by default */
 [hidden] {
   display: none;
+}
+
+h1{
+    color: green;
 }
