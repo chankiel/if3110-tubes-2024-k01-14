@@ -1,5 +1,4 @@
 <?php
 
-
-require_once __DIR__ . '/main/Main.php';
-$main = new Main();
+require_once __DIR__ . '/autoload.php';
+$main = new \Main\Main();
