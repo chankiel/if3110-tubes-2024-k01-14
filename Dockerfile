@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql
 
 # Copy the application files
-COPY ./src/ /var/www/html/
+COPY ./php/src/ /var/www/html/
 
 # Enable mod_rewrite
 RUN a2enmod rewrite
