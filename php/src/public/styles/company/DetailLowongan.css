@@ -1,0 +1,98 @@
+section{
+    background-color: white;
+    padding: 20px 20px;
+}
+
+.position-heading{
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+.lowongan-details{
+    margin: 10px 0;
+    color: var(--gray);
+}
+
+.details-format li{
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.general-btn{
+    border-radius: 70px;
+    font-weight: 700;
+}
+
+.lamar-btn {
+    border: 2px solid var(--blue);
+    background-color: var(--blue);
+    color: white;
+    padding: 5px 15px;
+}
+
+.lamar-btn:hover{
+    background-color: var(--darkblue);
+}
+
+.lowongan-heading{
+    font-size: larger;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.applied-btn{
+    background-color: var(--green);
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 15px;
+}
+
+.applied-btn:hover{
+    background-color: var(--darkgreen);
+}
+
+.small-details{
+    color: var(--lightgray);
+}
+
+.applied-details{
+    margin-top: 10px;
+}
+
+.status{
+    margin-top: 5px;
+    font-weight: bolder;
+    font-size: larger;
+    color: var(--green);
+}
+
+.applied-detail-heading{
+    margin-top: 10px;
+    font-weight: 500;
+
+}
+
+.attachment-list{
+    display: flex;
+    gap: 5px;
+}
+
+.attachment-list li{
+    border: 2px solid var(--gray);
+    width: auto;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.attachment-list li:hover{
+    color: var(--blue);
+    cursor: pointer;
+    background-color: var(--subtleblue);
+}
+
+.attachment-list li p:hover{
+    text-decoration: underline;
+}
