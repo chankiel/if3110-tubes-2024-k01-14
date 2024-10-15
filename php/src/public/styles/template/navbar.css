@@ -1,3 +1,119 @@
+:root{
+    --blue: #0A66C2;
+    --darkblue: #004182;
+}
+
 header{
     background-color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    align-items: center;
+    color: #808080;
 }
+
+
+.logo-container{
+    width: 70%;
+    height: 100%;
+}
+
+.logo-container img{
+    height: auto;
+    max-height: 100%;
+}
+
+.navbar-list{
+    display: flex;
+    align-items: center;
+}
+
+.navbar-list li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-weight: 500;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.navbar-list li:hover{
+    color: black;
+    cursor: pointer;
+}
+
+.navbar-list li img{
+    height: 27px;
+    border-radius: 100%;
+}
+
+.navbar-icon{
+    font-size: xx-large;
+}
+
+.home a{
+    line-height: 10px;
+}
+
+.name-link{
+    margin-top: 5px;
+}
+
+.login-btn{
+ border: 2px solid var(--blue);
+ color: var(--blue);
+ padding: 5px 0;
+ border-radius: 70px;
+ width: 80px;
+}
+
+.register-btn{
+    background-color: var(--blue);
+    color: white;
+    padding: 5px 0;
+    border-radius: 70px;
+    width: 80px;
+}
+
+.register-btn:hover{
+    background-color: var(--darkblue);
+}
+
+.login-btn:hover{
+    background-color: #F0F7FE;
+}
+
+@media (min-width: 576px) {
+    .navbar{
+        width: auto;
+    }
+
+    .logo-container{
+        width: auto;
+    }
+
+    .navbar-list li{
+        margin-right: 20px;
+    }
+}
+
+/* <header class="header">
+    <img src="/public/images/linkedin.png" alt="logo">
+    <nav class="navbar">
+        <ul class="navbar-list">
+            <li>
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+                <a href="/">Home</a>
+            </li>
+            <li><a href="/login" class="login-btn">Login</a></li>
+            <li><a href="/register" class="register-btn">Register</a></li>
+        </ul>
+    </nav>
+</header> */
