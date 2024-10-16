@@ -1,0 +1,87 @@
+.img-container{
+    height: 50px;
+    background-color: #F4F2EE;
+    position: relative;
+}
+
+.img-logo{
+    height: 100px;
+    width: 100px;
+    background-color: var(--blue);
+    position: absolute;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 20px;
+    border: 5px solid white;
+    color: white;
+}
+
+.edit-container{
+    padding-top: 50px;
+}
+
+.img-logo{
+    font-size: 56px;
+    font-weight: bolder;
+}
+
+.input-area{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.input-area input{
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.normal-state input{
+    border: 1px solid black;
+}
+
+.error-state input{
+    border: 3px solid red;
+}
+
+.error-details{
+    color: red;
+    font-size: 15px;
+}
+
+#quill-editor{
+    height: 100px;
+    overflow: auto;
+}
+
+#hiddenArea{
+    display: none;
+}
+
+.input-area label, .quil-container label{
+    font-size: small;
+    margin-bottom: 3px;
+}
+
+
+.edit-container button{
+    display: block;
+    margin-left: auto;
+    background-color: var(--blue);
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.edit-container button:hover{
+    background-color: var(--darkblue);
+}
+
+.required-ctt{
+    color: var(--gray);
+    font-size: small;
+    margin-top: 20px;
+}
