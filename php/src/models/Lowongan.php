@@ -20,7 +20,7 @@ class Lowongan {
     }
 
     public function getLamaranById($id){
-        return $this->db->findById('lamaran', $id);
+        return $this->db->findById('lowongan', $id);
     }
 
     public function searchPosisi($posisi){
