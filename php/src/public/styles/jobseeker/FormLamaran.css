@@ -23,9 +23,6 @@ section > *{
 
 #back-btn {
   font-size: xx-large;
-  left: 0;
-  position: absolute;
-  top: -50%;
   width: auto;
   background-color: white;
 }
@@ -133,6 +130,7 @@ label {
   }
 
   #back-btn{
+    position: absolute;
     top: 25%;
     left: -10%;
   }
