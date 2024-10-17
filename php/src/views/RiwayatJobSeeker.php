@@ -15,30 +15,29 @@
 <body>
     <?php include(dirname(__DIR__) . '/components/template/navbar.php') ?>
     <main>
-        <h1>Riwayat Lamaran <?= $user ?></h1>
         <section>
             <ul>
-                <li class="lamaran-item">
-                    <a class="lamaran-link">
-                        <h1 class="role">
-                            Software Engineer
-                        </h1>
-                        <h2 class="company">
-                            at Agoda
-                        </h2>
-                        <p class="details">
-                            <span class="material-symbols-outlined">
-                                work
-                            </span>
-                            Internship - Full Time
-                        </p>
-                        <h3 class="status rejected">Rejected</h3>
-                    </a>
-                </li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <?php for($i=0;$i<10;$i++): ?>
+                    <li class="lamaran-item">
+                        <a class="lamaran-link" href="https://google.com">
+                            <h1 class="role">
+                                Software Engineer
+                            </h1>
+                            <h2 class="company">
+                                at Agoda
+                            </h2>
+                            <p class="details">
+                                <span class="material-symbols-outlined">
+                                    work
+                                </span>
+                                Internship - Full Time
+                            </p>
+                            <h3 class="status waiting">Rejected</h3>
+                            <p class="date-container">Uploaded <span class="date-upload">2 months</span> ago</p>
+                        </a>
+                    </li>
+                    <?php endfor; ?>
+                
             </ul>
         </section>
     </main>
