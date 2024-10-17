@@ -8,21 +8,21 @@
 
                 <!-- Jika authed -->
                 <?php if (true): ?>
-                    <li class="home">
+                    <li class="icon">
                         <span class="material-symbols-outlined navbar-icon">
                             home
                         </span>
                         <a href="/">Home</a>
                     </li>
                     <?php if (false): ?>
-                        <li class="history">
+                        <li class="icon">
                             <span class="material-symbols-outlined navbar-icon">
                                 history
                             </span>
                             <a href="/">History</a>
                         </li>
                     <?php else: ?>
-                        <li class="home">
+                        <li class="icon">
                             <img src="/public/images/linkedin.png" alt="logo">
                             <a href="/" class="name-link">Ignatius</a>
                         </li>

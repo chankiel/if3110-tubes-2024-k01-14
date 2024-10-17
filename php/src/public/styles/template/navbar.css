@@ -75,7 +75,7 @@ header {
   padding-bottom: 10px;
 }
 
-.navbar-list li::after {
+.icon::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -86,17 +86,17 @@ header {
   transition: width 0.4s ease, left 0.4s ease;
 }
 
-.navbar-list li:hover {
+.icon:hover {
   color: black;
   cursor: pointer;
 }
 
-.navbar-list li:hover::after {
+.icon:hover::after {
   width: 100%;
   left: 0;
 }
 
-.navbar-list li img {
+.icon img {
   height: 27px;
   border-radius: 100%;
 }
@@ -105,8 +105,7 @@ header {
   font-size: xx-large;
 }
 
-.home a,
-.history a {
+.icon a {
   line-height: 10px;
 }
 
