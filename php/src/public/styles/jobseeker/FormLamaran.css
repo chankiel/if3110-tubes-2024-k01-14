@@ -1,5 +1,19 @@
 main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  padding: 5px;
+}
+
+section > *{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .heading-container {
@@ -14,8 +28,6 @@ main {
   top: -50%;
   width: auto;
   background-color: white;
-  border: 4px solid var(--darkblue);
-  border-radius: 10px;
 }
 
 #back-btn:hover{
@@ -65,24 +77,12 @@ label {
   font-size: 15px;
 }
 
-.edit-container {
-  height: calc(100vh - 200px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.edit-container > * {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .submit-btn {
   display: block;
   background-color: var(--blue);
   width: 100%;
   color: white;
-  padding: 10px 20px;
+  padding: 7px 20px;
   font-weight: bold;
   border-radius: 20px;
 }
@@ -111,7 +111,7 @@ label {
 }
 
 @media (min-width: 768px) {
-  .edit-container > * {
+  section > * {
     width: 75%;
   }
 
@@ -124,7 +124,7 @@ label {
   }
 
   .required-ctt {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   .submit-btn {
