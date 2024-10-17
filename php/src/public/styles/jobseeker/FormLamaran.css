@@ -107,23 +107,12 @@ label {
   display: none;
 }
 
-.container {
-  width: 100%;
-}
-
 @media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
 }
 
 @media (min-width: 768px) {
   .edit-container > * {
     width: 75%;
-  }
-
-  .container {
-    max-width: 768px;
   }
 
   .job-desc {
@@ -150,9 +139,6 @@ label {
 }
 
 @media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
   
   .h1-lamaran {
     font-size: 64px;
@@ -167,16 +153,10 @@ label {
 }
 
 @media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
   .edit-container > * {
     width: 60%;
   }
 }
 
 @media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
 }
