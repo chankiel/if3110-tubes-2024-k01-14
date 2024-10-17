@@ -1,3 +1,27 @@
+main {
+  position: relative;
+}
+
+.heading-container {
+  position: relative;
+  margin-right: auto;
+}
+
+#back-btn {
+  font-size: xx-large;
+  left: 0;
+  position: absolute;
+  top: -50%;
+  width: auto;
+  background-color: white;
+  border: 4px solid var(--darkblue);
+  border-radius: 10px;
+}
+
+#back-btn:hover{
+    background-color: var(--subtleblue);
+}
+
 .h1-lamaran {
   font-size: xx-large;
   font-weight: 500;
@@ -53,17 +77,17 @@ label {
   margin-right: auto;
 }
 
-.edit-container button {
+.submit-btn {
   display: block;
-  width: 100%;
   background-color: var(--blue);
+  width: 100%;
   color: white;
   padding: 10px 20px;
   font-weight: bold;
   border-radius: 20px;
 }
 
-.edit-container button:hover {
+.submit-btn:hover {
   background-color: var(--darkblue);
 }
 
@@ -94,22 +118,12 @@ label {
 }
 
 @media (min-width: 768px) {
-  .edit-container * {
+  .edit-container > * {
     width: 75%;
   }
 
   .container {
     max-width: 768px;
-  }
-
-  .h1-lamaran {
-    font-size: 64px;
-    line-height: 50px;
-  }
-
-  .h2-lamaran {
-    font-size: 48px;
-    line-height: normal;
   }
 
   .job-desc {
@@ -124,9 +138,14 @@ label {
     margin-bottom: 40px;
   }
 
-  .edit-container button {
-    font-size: 24px;
+  .submit-btn {
+    font-size: 20px;
     border-radius: 30px;
+  }
+
+  #back-btn{
+    top: 25%;
+    left: -10%;
   }
 }
 
@@ -134,11 +153,25 @@ label {
   .container {
     max-width: 1024px;
   }
+  
+  .h1-lamaran {
+    font-size: 64px;
+    line-height: 50px;
+    width: 100%;
+  }
+
+  .h2-lamaran {
+    font-size: 48px;
+    line-height: normal;
+  }
 }
 
 @media (min-width: 1280px) {
   .container {
     max-width: 1280px;
+  }
+  .edit-container > * {
+    width: 60%;
   }
 }
 

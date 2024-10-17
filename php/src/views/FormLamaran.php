@@ -17,9 +17,14 @@
     <?php include(dirname(__DIR__) . '/components/template/navbar.php') ?>
     <main>
         <section class="edit-container">
-            <h1 class="h1-lamaran container">
-                Application Form
-            </h1>
+            <div class="heading-container container">
+                <button id="back-btn" class="material-symbols-outlined hidden">
+                    arrow_back
+                </button>
+                <h1 class="h1-lamaran">
+                    Application Form
+                </h1>
+            </div>
             <h2 class="h2-lamaran container">for Software Engineering Position at Google</h2>
             <p class="job-desc container">Thank you for your interest in joining our team.
                 Please ensure all mandatory fields are completed accurately to avoid delays in processing your application.</p>
@@ -34,7 +39,7 @@
                     <input type="file" id="video" name="video" accept=".mp4">
                 </div>
                 <p class="required-ctt">*required</p>
-                <button type="submit" class="">Submit</button>
+                <button type="submit" class="submit-btn">Submit</button>
             </form>
         </section>
     </main>
