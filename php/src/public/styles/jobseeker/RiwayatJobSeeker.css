@@ -1,0 +1,28 @@
+.lamaran-link{
+    position: relative;
+}
+
+.status{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 15px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 15px;
+    font-weight: bolder;
+    color: white;
+}
+
+.accepted{
+    background-color: var(--green);
+}
+
+.waiting{
+    background-color: var(--gray);
+}
+
+.rejected{
+    background-color: red;
+}
