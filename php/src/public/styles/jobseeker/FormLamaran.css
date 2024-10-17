@@ -1,0 +1,149 @@
+.h1-lamaran {
+  font-size: xx-large;
+  font-weight: 500;
+  line-height: 40px;
+  margin: 10px 0;
+}
+
+.h2-lamaran {
+  font-size: x-large;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.input-area {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  font-size: small;
+}
+
+.input-area input {
+  border-radius: 5px;
+  margin: 3px 0;
+  display: inline-block;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.normal-state label {
+  color: black;
+}
+
+.error-state label {
+  color: red;
+}
+
+.error-details {
+  color: red;
+  font-size: 15px;
+}
+
+.edit-container {
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.edit-container > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-container button {
+  display: block;
+  width: 100%;
+  background-color: var(--blue);
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.edit-container button:hover {
+  background-color: var(--darkblue);
+}
+
+.required-ctt {
+  color: var(--gray);
+  font-size: small;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.job-desc {
+  margin-top: 5px;
+  font-size: small;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .edit-container * {
+    width: 75%;
+  }
+
+  .container {
+    max-width: 768px;
+  }
+
+  .h1-lamaran {
+    font-size: 64px;
+    line-height: 50px;
+  }
+
+  .h2-lamaran {
+    font-size: 48px;
+    line-height: normal;
+  }
+
+  .job-desc {
+    font-size: medium;
+  }
+
+  label {
+    font-size: large;
+  }
+
+  .required-ctt {
+    margin-bottom: 40px;
+  }
+
+  .edit-container button {
+    font-size: 24px;
+    border-radius: 30px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
