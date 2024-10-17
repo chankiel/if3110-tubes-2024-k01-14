@@ -1,22 +1,39 @@
 <header class="">
-    <div class="logo-container">
-        <img src="/public/images/linkedin.png" alt="logo">
-    </div>
-    <nav class="navbar ">
-        <ul class="navbar-list ">
-            <li class="home">
-                <span class="material-symbols-outlined navbar-icon">
-                    home
-                </span>
-                <a href="/">Home</a>
-            </li>
-            <li><a href="/login" class="login-btn">Login</a></li>
-            <li><a href="/register" class="register-btn">Register</a></li>
-            <!-- <li class="home">
-                <img src="/public/images/linkedin.png" alt="logo">
-                <a href="/" class="name-link">Ignatius</a>
-            </li> -->
+    <div class="header-container">
+        <a class="logo-container" href="/">
+            <img src="/public/images/linkedin.png" alt="logo">
+        </a>
+        <nav class="navbar ">
+            <ul class="navbar-list ">
 
-        </ul>
-    </nav>
+                <!-- Jika authed -->
+                <?php if (true): ?>
+                    <li class="icon">
+                        <span class="material-symbols-outlined navbar-icon">
+                            home
+                        </span>
+                        <a href="/">Home</a>
+                    </li>
+                    <?php if (false): ?>
+                        <li class="icon">
+                            <span class="material-symbols-outlined navbar-icon">
+                                history
+                            </span>
+                            <a href="/">History</a>
+                        </li>
+                    <?php else: ?>
+                        <li class="icon">
+                            <img src="/public/images/linkedin.png" alt="logo">
+                            <a href="/" class="name-link">Ignatius</a>
+                        </li>
+                    <?php endif; ?>
+                    <!-- Jika belum authed -->
+                <?php else: ?>
+                    <li><a href="/login" class="login-btn">Login</a></li>
+                    <li><a href="/register" class="register-btn">Register</a></li>
+                <?php endif; ?>
+
+            </ul>
+        </nav>
+    </div>
 </header>
