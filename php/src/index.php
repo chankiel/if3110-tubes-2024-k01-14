@@ -1,4 +1,6 @@
 <?php
-
+use Core\Router;
 require_once __DIR__ . '/autoload.php';
-$main = new \Main\Main();
+
+Router::initRoutes();
+Router::dispatch();
