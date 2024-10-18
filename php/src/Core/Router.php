@@ -48,7 +48,7 @@ class Router
         self::get("/jobs/add","");
         self::get("/jobs/edit/{id}","");
         self::get("/applications/{id}","");
-        self::get("/profile/company","");
+        self::get("/profile/company","UserController@showProfileCompany");
 
         self::post("/jobs","");
         self::put("/jobs/{id}","");

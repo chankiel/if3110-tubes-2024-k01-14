@@ -1,87 +1,145 @@
-.img-container{
-    height: 50px;
-    background-color: #F4F2EE;
-    position: relative;
+section {
+  width: 100%;
+  position: relative;
 }
 
-.img-logo{
-    height: 100px;
-    width: 100px;
-    background-color: var(--blue);
+section > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#back-btn {
+  position: absolute;
+  left: 0;
+  top: -100px;
+  font-size: xx-large;
+  width: auto;
+  background-color: white;
+  margin-left: 0;
+}
+
+.img-logo {
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid white;
+  overflow: hidden;
+}
+
+.img-logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.img-logo {
+  font-size: 56px;
+  font-weight: bolder;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  position: relative;
+}
+
+.input-area input {
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.normal-state input {
+  border: 1px solid black;
+}
+
+.error-state input {
+  border: 3px solid red;
+}
+
+.error-state p {
+  color: red;
+  font-size: 15px;
+}
+
+#quill-editor {
+  height: 100px;
+  overflow: auto;
+}
+
+#hiddenArea {
+  display: none;
+}
+
+.input-area label,
+.quil-container label {
+  font-size: small;
+  margin-bottom: 3px;
+  color: var(--gray);
+}
+
+.submit-btn {
+  display: block;
+  margin-left: auto;
+  background-color: var(--blue);
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 20px;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: var(--darkblue);
+}
+
+.required-ctt {
+  color: var(--gray);
+  font-size: small;
+  margin-top: 20px;
+}
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+  section > * {
+    width: 75%;
+  }
+
+  .input-area label, .quil-container label{
+    font-size: 18px;
+  }
+
+  .input-area input{
+    height: 40px;
+    font-size: 18px;
+    border-radius: 11px;
+  }
+
+  .required-ctt{
+    font-size: medium;
+  }
+
+
+
+  /* #back-btn {
     position: absolute;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    left: 20px;
-    border: 5px solid white;
-    color: white;
+    top: 25%;
+    left: -10%;
+  } */
 }
 
-.edit-container{
-    padding-top: 50px;
+@media (min-width: 1024px) {
 }
 
-.img-logo{
-    font-size: 56px;
-    font-weight: bolder;
+@media (min-width: 1280px) {
+  section > * {
+    width: 60%;
+  }
 }
 
-.input-area{
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-
-.input-area input{
-    border-radius: 5px;
-    padding-left: 10px;
-}
-
-.normal-state input{
-    border: 1px solid black;
-}
-
-.error-state input{
-    border: 3px solid red;
-}
-
-.error-details{
-    color: red;
-    font-size: 15px;
-}
-
-#quill-editor{
-    height: 100px;
-    overflow: auto;
-}
-
-#hiddenArea{
-    display: none;
-}
-
-.input-area label, .quil-container label{
-    font-size: small;
-    margin-bottom: 3px;
-}
-
-
-.edit-container button{
-    display: block;
-    margin-left: auto;
-    background-color: var(--blue);
-    color: white;
-    padding: 10px 20px;
-    font-weight: bold;
-    border-radius: 20px;
-}
-
-.edit-container button:hover{
-    background-color: var(--darkblue);
-}
-
-.required-ctt{
-    color: var(--gray);
-    font-size: small;
-    margin-top: 20px;
+@media (min-width: 1536px) {
 }

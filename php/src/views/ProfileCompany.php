@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=home" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="../public/styles/style.css">
     <link rel="stylesheet" href="../public/styles/template/navbar.css">
     <link rel="stylesheet" href="../public/styles/company/ProfileCompany.css">
@@ -15,49 +15,38 @@
 <body>
     <?php include(dirname(__DIR__) . '/components/template/navbar.php') ?>
     <main>
-        <div class="img-container">
-            <div class="img-logo"><p>I</p></div>
-            <div>
-
-            </div>
-        </div>
         <section class="edit-container">
-            <form action="">
-                <div class="input-area normal-state">
+            <div class="img-logo">
+                <img src="/public/images/linkedin.png" alt="profile-picture">
+            </div>
+            <form action="" class="profile-form">
+                <div class="input-area normal-state" id="input-nama">
+                    <button id="back-btn" class="material-symbols-outlined">
+                        arrow_back
+                    </button>
                     <label for="nama">Nama*</label>
                     <input type="text" id="nama" name="nama" value="Bu Fazat">
+                    <p class="error-details hidden err-nama">Nama tidak boleh kosong!</p>
                 </div>
-                <div class="input-area error-state">
+                <div class="input-area normal-state" id="input-lokasi">
                     <label for="lokasi">Lokasi*</label>
                     <input type="text" id="lokasi" name="lokasi" value="Hehehe">
-                    <p class="error-details">Location cannot be empty!</p>
+                    <p class="error-details hidden err-lokasi">Lokasi tidak boleh kosong!</p>
                 </div>
-                <div class="quil-container">
+                <div class="quil-container" id="input-about">
                     <label for="quill-editor">About Company</label>
                     <div id="quill-editor">
 
                     </div>
+                    <textarea name="about" id="hiddenArea"></textarea>
                 </div>
-                <textarea name="about" id="hiddenArea"></textarea>
+                <p class="error-details hidden err-about">About Company tidak boleh kosong!</p>
                 <p class="required-ctt">*required</p>
-                <button type="submit" class="">Simpan</button>
+                <button type="submit" class="submit-btn">Simpan</button>
             </form>
         </section>
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-
-<script>
-    const quill = new Quill('#quill-editor', {
-        theme: 'snow'
-    });
-
-    const textarea = document.querySelector('#hiddenArea');
-    const form = document.querySelector("form");
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        textarea.value = quill.root.innerHTML;
-    })
-</script>
-
+<script src="../public/scripts/ProfileCompany.js"></script>
 </html>
