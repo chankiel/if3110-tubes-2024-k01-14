@@ -20,9 +20,12 @@
                 <?php for($i=0;$i<10;$i++): ?>
                     <li class="lamaran-item">
                         <a class="lamaran-link" href="https://google.com">
-                            <h1 class="role">
-                                Software Engineer
-                            </h1>
+                            <div class="top-container">
+                                <h1 class="role">
+                                    Software Engineer
+                                </h1>
+                                <h3 class="status waiting">Waiting</h3>
+                            </div>
                             <h2 class="company">
                                 at Agoda
                             </h2>
@@ -32,7 +35,6 @@
                                 </span>
                                 Internship - Full Time
                             </p>
-                            <h3 class="status waiting">Rejected</h3>
                             <p class="date-container">Uploaded <span class="date-upload">2 months</span> ago</p>
                         </a>
                     </li>

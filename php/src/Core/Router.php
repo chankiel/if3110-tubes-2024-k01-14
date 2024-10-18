@@ -58,7 +58,7 @@ class Router
 
         self::get("/jobs/{id}/details","");
         self::get("/jobs/{id}/apply","");
-        self::get("/applications","");
+        self::get("/applications","LamaranController@showRiwayat");
 
         self::post("/jobs/{id}/apply","");
     }

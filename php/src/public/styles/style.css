@@ -69,6 +69,12 @@ html,
 2. Inherit line-height from html so users can set them as a class directly on the html element.
 */
 
+main{
+  min-height:calc(100vh - 200px);;
+  background-color: white;
+  /* padding: 20px; */
+}
+
 body {
   margin: 0; /* 1 */
   line-height: inherit; /* 2 */
