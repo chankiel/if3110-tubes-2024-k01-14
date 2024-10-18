@@ -1,115 +1,152 @@
-header{
-    background-color: white;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 15px;
-    align-items: center;
-    color: #808080;
-    margin-bottom: 10px;
+header {
+  background-color: white;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  height: 60px;
+  padding: 10px 15px;
+  color: #808080;
+  margin-bottom: 10px;
+  z-index: 20;
 }
 
-
-.logo-container{
-    width: 70%;
-    height: 100%;
+.header-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
 
-.logo-container img{
-    height: auto;
-    max-height: 100%;
+@media (min-width: 640px) {
+  .header-container {
+    max-width: 640px;
+  }
 }
 
-.navbar-list{
-    display: flex;
-    align-items: center;
+@media (min-width: 768px) {
+  .header-container {
+    max-width: 768px;
+  }
 }
 
-.navbar-list li{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-weight: 500;
-    height: 100%;
-    margin-right: 10px;
+@media (min-width: 1024px) {
+  .header-container {
+    max-width: 1024px;
+  }
 }
 
-.navbar-list li:hover{
-    color: black;
-    cursor: pointer;
+@media (min-width: 1280px) {
+  .header-container {
+    max-width: 1280px;
+  }
 }
 
-.navbar-list li img{
-    height: 27px;
-    border-radius: 100%;
+@media (min-width: 1536px) {
+  .header-container {
+    max-width: 1536px;
+  }
 }
 
-.navbar-icon{
-    font-size: xx-large;
+.logo-container {
+  width: 70%;
+  height: 100%;
 }
 
-.home a{
-    line-height: 10px;
+.logo-container img {
+  height: auto;
+  max-height: 100%;
 }
 
-.name-link{
-    margin-top: 5px;
+.navbar-list {
+  display: flex;
+  align-items: center;
 }
 
-.login-btn{
- border: 2px solid var(--blue);
- color: var(--blue);
- padding: 5px 0;
- border-radius: 70px;
- width: 80px;
+.navbar-list li {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-weight: 500;
+  height: 100%;
+  margin-right: 10px;
+  padding-bottom: 10px;
 }
 
-.register-btn{
-    background-color: var(--blue);
-    color: white;
-    padding: 5px 0;
-    border-radius: 70px;
-    width: 80px;
+.icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: #3490dc;
+  transition: width 0.4s ease, left 0.4s ease;
 }
 
-.register-btn:hover{
-    background-color: var(--darkblue);
+.icon:hover {
+  color: black;
+  cursor: pointer;
 }
 
-.login-btn:hover{
-    background-color: #F0F7FE;
+.icon:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.icon img {
+  height: 27px;
+  border-radius: 100%;
+}
+
+.navbar-icon {
+  font-size: xx-large;
+}
+
+.icon a {
+  line-height: 10px;
+}
+
+.name-link {
+  margin-top: 5px;
+}
+
+.login-btn {
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  padding: 5px 0;
+  border-radius: 70px;
+  width: 80px;
+}
+
+.register-btn {
+  background-color: var(--blue);
+  color: white;
+  padding: 5px 0;
+  border-radius: 70px;
+  width: 80px;
+}
+
+.register-btn:hover {
+  background-color: var(--darkblue);
+}
+
+.login-btn:hover {
+  background-color: #f0f7fe;
 }
 
 @media (min-width: 576px) {
-    .navbar{
-        width: auto;
-    }
+  .navbar {
+    width: auto;
+  }
 
-    .logo-container{
-        width: auto;
-    }
+  .logo-container {
+    width: auto;
+  }
 
-    .navbar-list li{
-        margin-right: 20px;
-    }
+  .navbar-list li {
+    margin-right: 20px;
+  }
 }
-
-/* <header class="header">
-    <img src="/public/images/linkedin.png" alt="logo">
-    <nav class="navbar">
-        <ul class="navbar-list">
-            <li>
-                <span class="material-symbols-outlined">
-                    home
-                </span>
-                <a href="/">Home</a>
-            </li>
-            <li><a href="/login" class="login-btn">Login</a></li>
-            <li><a href="/register" class="register-btn">Register</a></li>
-        </ul>
-    </nav>
-</header> */
