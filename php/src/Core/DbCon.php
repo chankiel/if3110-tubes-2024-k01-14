@@ -39,7 +39,7 @@ class DbCon {
             ];
             $this->pdo = new PDO($dsn,$this->user,$this->password, $options);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connect successfully";
+            // echo "Connect successfully";
         }catch(PDOException $e){
             echo $e->getMessage();
         }
