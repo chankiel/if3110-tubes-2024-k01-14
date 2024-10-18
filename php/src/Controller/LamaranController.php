@@ -1,6 +1,8 @@
 <?php
 
-class LamaranController {
+namespace Controller;
+use Model\Lamaran;
+class LamaranController extends Controller {
     private Lamaran $model;
 
     public function __construct(){

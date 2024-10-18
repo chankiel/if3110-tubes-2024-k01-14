@@ -1,5 +1,6 @@
-<?php 
-use Main\DbCon;
+<?php
+namespace Model;
+use Core\DbCon;
 class Lamaran {
     private DbCon $db;
     public function __construct() {

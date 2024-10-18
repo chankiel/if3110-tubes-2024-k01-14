@@ -1,5 +1,6 @@
 <?php
-use Main\DbCon;
+namespace Model;
+use Core\DbCon;
 
 class Lowongan {
     private DbCon $db;

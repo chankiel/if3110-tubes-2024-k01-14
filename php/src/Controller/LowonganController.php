@@ -1,5 +1,7 @@
 <?php
-class LowonganController {
+namespace Controller;
+use Model\Lowongan;
+class LowonganController extends Controller {
     private Lowongan $model;
     public function __construct(){
         $this->model  = new Lowongan();
