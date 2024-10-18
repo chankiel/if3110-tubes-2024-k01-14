@@ -16,6 +16,16 @@ class Router
         self::addRoute('POST', $uri, $callback, $middleware);
     }
 
+    public static function put($uri, $callback, $middleware = null)
+    {
+        self::addRoute('PUT', $uri, $callback, $middleware);
+    }
+
+    public static function delete($uri, $callback, $middleware = null)
+    {
+        self::addRoute('DELETE', $uri, $callback, $middleware);
+    }
+
     private static function addRoute($method, $uri, $callback, $middleware)
     {
         self::$routes[] = [
@@ -24,6 +34,33 @@ class Router
             'callback' => $callback,
             'middleware' => $middleware,
         ];
+    }
+
+    public static function initRoutes(){
+        self::get("/","");
+        self::get("/login","");
+        self::get("/register","");
+
+        self::post("/login","");
+        self::post("/register","");
+        self::post("/logout","");
+
+        self::get("/jobs/add","");
+        self::get("/jobs/edit/{id}","");
+        self::get("/applications/{id}","");
+        self::get("/profile/company","");
+
+        self::post("/jobs","");
+        self::put("/jobs/{id}","");
+        self::put("/applications/{id}/approve","");
+        self::get("/applications/{id}/reject","");
+        self::put("/profile/company","");
+
+        self::get("/jobs/{id}/details","");
+        self::get("/jobs/{id}/apply","");
+        self::get("/applications","");
+
+        self::post("/jobs/{id}/apply","");
     }
 
     public static function dispatch()
