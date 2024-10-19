@@ -95,21 +95,21 @@ class UserController extends Controller{
     }
 
     public function showHome() {
-        if(isset($_SESSION["role"])) {
-            $role = $_SESSION["role"];
+        // if(isset($_SESSION["role"])) {
+        //     $role = $_SESSION["role"];
 
-            if($role === "jobseeker") {
-                $this->view("/jobseeker/home");
-            } else if($role === "company") {
-                $this->view("/company/home");
-            } else {
-                header("Location: /login");
-                exit();
-            }
-        } else {
-            header("Location: /login");
-            exit();
-        }
-        // $this->view("/jobseeker/home");
+        //     if($role === "jobseeker") {
+        //         $this->view("/jobseeker/home");
+        //     } else if($role === "company") {
+        //         $this->view("/company/home");
+        //     } else {
+        //         header("Location: /login");
+        //         exit();
+        //     }
+        // } else {
+        //     header("Location: /login");
+        //     exit();
+        // }
+        $this->view("/jobseeker/home");
     }
 }

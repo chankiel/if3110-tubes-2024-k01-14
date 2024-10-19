@@ -4,18 +4,20 @@ namespace Controller;
 
 use Model\UserModel;
 
+session_start();
+
 class AuthController {
     private $userModel;
+    private $userController;
 
     public function __construct() {
-        session_start();
         $this->userModel = new UserModel();
+        $this->userController = new UserController();
     }
 
     public function login() {
         $email = $_POST["email"];
         $password = $_POST["password"];
-    
         if ($this->userModel->verifyUser($email, $password)) {
             $user = $this->userModel->getUserByEmail($email);
     
@@ -26,13 +28,15 @@ class AuthController {
                 $_SESSION["email"] = $user["email"];
                 $_SESSION["role"] = $user["role"];
     
-                error_log("User Role: " . $_SESSION["role"]);
-    
-                header("Location: /");
+                // header('Location: /');
+                $this->userController->showHome();
                 exit();
             }
         } else {
-            error_log("Login failed for email: $email");
+            // print_r("gagal");
+            $_SESSION['error_message'] = 'Invalid email or password.';
+            header('Location: /login');
+            // header('Location: /');
             exit();
         }
     }

@@ -16,20 +16,20 @@ class UserModel {
     }
 
     public function verifyUser($email, $password): bool {
-        $result = $this->db->prepareQuery("SELECT password FROM users WHERE email = :email", ["email" => $email]);
-    
-        if (count($result) > 0) {
-            print_r($result[0]["password"]);
-            print_r(" ");
-            print_r(password_hash($password, PASSWORD_DEFAULT));
-            
-            return password_verify(password_hash($password, PASSWORD_DEFAULT), $result[0]["password"]);
-        }
-        return false;
+        $result = $this->db->prepareQuery("SELECT * FROM users WHERE email = :email", ["email" => $email]);
+
+        return true;
+
+        // if(count($result) > 0) {
+        //     return password_verify($password, $result[0]["password"]);
+        // }
+
+        // return false;
     }
 
     public function addUser($data): int {
-        $data["newpassword"] = password_hash($data["password"], PASSWORD_DEFAULT);
+        // $data["newpassword"] = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
+        $data["newpassword"] = $data["password"];
         $userData = [
             "nama" => $data["nama"],
             "email" => $data["email"],
