@@ -37,12 +37,12 @@ class Router
     }
 
     public static function initRoutes(){
-        self::get("/","");
-        self::get("/login","");
-        self::get("/register","");
+        self::get("/","UserController@showHome");
+        self::get("/login","UserController@showLogin");
+        self::get("/register", "UserController@showRegister");
 
-        self::post("/login","");
-        self::post("/register","");
+        self::post("/login","AuthController@login");
+        self::post("/register","UserController@register");
         self::post("/logout","");
 
         self::get("/jobs/add","");
@@ -67,7 +67,6 @@ class Router
     {
         // Ubah http://tes.com/user/123/?q=a -> /user/123/ -> user/123/ 
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-
         // Ambil method request (GET/POST/...)
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach (self::$routes as $route) {
@@ -76,7 +75,6 @@ class Router
 
             if ($route['method'] === $requestMethod && preg_match("#^{$routeUri}$#", $requestUri, $matches)) {
                 array_shift($matches);
-
                 // Kalau bentuk callbacknya langsung fungsi
                 if (is_callable($route['callback'])) {
                     return call_user_func($route['callback'], $matches);
