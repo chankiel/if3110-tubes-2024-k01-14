@@ -56,7 +56,7 @@ class Router
         self::get("/applications/{id}/reject","");
         self::put("/profile/company","");
 
-        self::get("/jobs/{id}/details","");
+        self::get("/jobs/{id}/details","LowonganController@showDetailJS");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
 
