@@ -60,7 +60,7 @@ class Router
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
 
-        self::post("/jobs/{id}/apply","");
+        self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
     }
 
     public static function dispatch()
