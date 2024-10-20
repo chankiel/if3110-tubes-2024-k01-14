@@ -3,12 +3,22 @@ namespace Controller;
 use Model\Lowongan;
 class LowonganController extends Controller {
     private Lowongan $model;
+
     public function __construct(){
         $this->model  = new Lowongan();
     }    
+
+    public function showDetailJS($matches){
+        $lowongan_id = $matches[0];
+        $data = $this->model->getDetailLowongan($lowongan_id);
+        if(!$data){
+            header("Location: /not-found");
+            exit();
+        }
+        $this->view("/jobseeker/DetailLowongan",$data);
+    }
+
     public function tambahLowongan(){
-        // posisi,deskripsi,jenis_pekerjaan,jenis_lokasi,attachment(s)
-        
         $dataLowongan = [
             "company_id" => $_SESSION["user_id"],
             "posisi" => $_POST["posisi"],

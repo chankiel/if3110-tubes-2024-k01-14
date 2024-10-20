@@ -47,7 +47,7 @@ class DbCon {
 
     // Langsung query mentah, jangan untuk input user
     // Cth: query("SELECT * FROM USERS")
-    public function query($sql) {
+    public function rawQuery($sql) {
         $result = $this->pdo->query($sql)->fetchAll();
         return $result;
     }
@@ -64,6 +64,16 @@ class DbCon {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
             return $stmt->fetchAll();
+        }catch(PDOException $e){
+            die("Error prepare query :".$e->getMessage());
+        }
+    }
+
+    public function fetchQuery($sql, $params=[]) {
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt->fetch();
         }catch(PDOException $e){
             die("Error prepare query :".$e->getMessage());
         }

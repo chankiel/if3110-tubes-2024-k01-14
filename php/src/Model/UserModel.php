@@ -51,11 +51,11 @@ class UserModel {
     }
 
     public function getAllUsers() {
-        return $this->db->query("SELECT * FROM users");
+        return $this->db->rawQuery("SELECT * FROM users");
     }
 
     public function getUserById($userId) {
-        return $this->db->findById("users", ["id"=> $userId]);
+        return $this->db->findById("users",  $userId);
     }
 
     public function getUsersByRole($role) {
