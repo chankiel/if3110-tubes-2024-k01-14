@@ -61,6 +61,10 @@ class Router
         self::get("/applications","LamaranController@showRiwayat");
 
         self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
+
+        self::get("/not-found",function(){
+            require_once __DIR__ . "/../views/general/not-found.php";
+        });
     }
 
     public static function dispatch()
@@ -71,7 +75,7 @@ class Router
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach (self::$routes as $route) {
             // Ubah user/{id} jadi user/([a-zA-Z0-9_]+)
-            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([a-zA-Z0-9_]+)', trim($route['uri'], '/'));
+            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([0-9]+)', trim($route['uri'], '/'));
 
             if ($route['method'] === $requestMethod && preg_match("#^{$routeUri}$#", $requestUri, $matches)) {
                 array_shift($matches);
@@ -88,5 +92,6 @@ class Router
                 }
             }
         }
+        header("Location: /not-found");
     }
 }

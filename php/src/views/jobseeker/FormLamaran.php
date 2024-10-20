@@ -14,10 +14,10 @@
 </head>
 
 <body>
-    <?php include(dirname(__DIR__) . '/components/template/navbar.php') ?>
+    <?php include(dirname(__DIR__) . '/../components/template/navbar.php') ?>
     <main>
         <section class="edit-container">
-            <div class="heading-container container">
+            <div class="heading-container">
                 <button id="back-btn" class="material-symbols-outlined hidden">
                     arrow_back
                 </button>
@@ -25,10 +25,10 @@
                     Application Form
                 </h1>
             </div>
-            <h2 class="h2-lamaran container">for Software Engineering Position at Google</h2>
-            <p class="job-desc container">Thank you for your interest in joining our team.
+            <h2 class="h2-lamaran">for <?= $posisi ?> Position at <?= $company_name ?></h2>
+            <p class="job-desc ">Thank you for your interest in joining our team.
                 Please ensure all mandatory fields are completed accurately to avoid delays in processing your application.</p>
-            <form action="" class="container apply-form">
+            <form action="/jobs/<?=$lowongan_id?>/apply" method="POST" class="apply-form" enctype="multipart/form-data">
                 <div class="input-area ">
                     <label for="cv"><em>Curriculum Vitae</em> (CV)*</label>
                     <input type="file" id="cv" name="cv" accept=".pdf,.docx">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="input-area">
                     <label for="video">Video Perkenalan</label>
-                    <input type="file" id="video" name="video" accept=".mp4">
+                    <input type="file" id="video" name="video_path" accept=".mp4">
                 </div>
                 <p class="required-ctt">*required</p>
                 <button type="submit" class="submit-btn">Submit</button>
@@ -44,6 +44,6 @@
         </section>
     </main>
 </body>
-<script src="/public/scripts/FormLamaran.js"></script>
+<script src="/public/scripts/jobseeker/FormLamaran.js"></script>
 
 </html>

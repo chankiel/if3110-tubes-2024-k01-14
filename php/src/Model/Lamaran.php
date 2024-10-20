@@ -27,12 +27,18 @@ class Lamaran {
 
     public function getDaftarLamaranByLowongan($lowongan_id){
         $sql = "SELECT * FROM company WHERE lowongan_id = $lowongan_id";
-        return $this->db->query($sql);    
+        return $this->db->rawQuery($sql);    
     }
 
     public function getRiwayatLamaran($id){
         $sql = "SELECT * FROM company WHERE user_id = $id";
-        return $this->db->query($sql); 
+        return $this->db->rawQuery($sql); 
     } 
+
+    public function getLamaran($user_id,$lowongan_id){
+        $sql = "SELECT * FROM  lamaran WHERE user_id = :user_id AND lowongan_id = :lowongan_id";
+        $params = ['user_id'=>$user_id, 'lowongan_id' => $lowongan_id];
+        return $this->db->fetchQuery($sql,$params);
+    }
 
 }

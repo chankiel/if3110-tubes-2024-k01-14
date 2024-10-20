@@ -8,7 +8,7 @@ applyForm.addEventListener("submit",function(e){
     if(inputCV.files.length === 0){
         document.querySelector(".error-details").classList.remove("hidden");
     }else{
-
+        applyForm.submit();
     }
 })
 
