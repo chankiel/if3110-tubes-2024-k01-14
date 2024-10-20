@@ -24,3 +24,22 @@ document.getElementById("role").addEventListener("change", function() {
         });
     }
 });
+
+document.querySelector('form').addEventListener('submit', function(event) {
+    const role = document.getElementById("role").value;
+    let passwordField, confirmPasswordField;
+
+    if (role === "jobseeker") {
+        passwordField = document.querySelector('input[name="password"]');
+        confirmPasswordField = document.querySelector('input[name="confirm_password"]');
+    } else {
+        passwordField = document.querySelector('input[name="password_company"]');
+        confirmPasswordField = document.querySelector('input[name="confirm_password_company"]');
+    }
+
+    if (passwordField.value !== confirmPasswordField.value) {
+        event.preventDefault();
+        alert("Passwords do not match. Please enter the same password in both fields.");
+        confirmPasswordField.focus();
+    }
+});

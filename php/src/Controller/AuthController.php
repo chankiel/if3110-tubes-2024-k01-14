@@ -4,46 +4,41 @@ namespace Controller;
 
 use Model\UserModel;
 
-session_start();
-
-class AuthController {
+class AuthController extends Controller {
     private $userModel;
-    private $userController;
 
     public function __construct() {
         $this->userModel = new UserModel();
-        $this->userController = new UserController();
     }
 
     public function login() {
         $email = $_POST["email"];
         $password = $_POST["password"];
+
         if ($this->userModel->verifyUser($email, $password)) {
             $user = $this->userModel->getUserByEmail($email);
     
             if ($user) {
                 $user = $user[0];
     
-                $_SESSION["user_id"] = $user["id"];
-                $_SESSION["email"] = $user["email"];
-                $_SESSION["role"] = $user["role"];
+                setCookie("user_id", $user["id"], time() + 86400, "/");
+                setCookie("email", $user["email"], time() + 86400, "/");
+                setCookie("role", $user["role"], time() + 86400, "/");
     
-                // header('Location: /');
-                $this->userController->showHome();
+                header('Location: /');
                 exit();
             }
         } else {
-            // print_r("gagal");
-            $_SESSION['error_message'] = 'Invalid email or password.';
+            $_COOKIE["error_message"] = "Invalid email or password";
             header('Location: /login');
-            // header('Location: /');
             exit();
         }
     }
     
-
     public function logout() {
-        session_destroy();
+        setcookie("user_id", "", time() - 86400, "/");
+        setcookie("email", "", time() - 86400, "/");
+        setcookie("role", "", time() - 86400, "/");
 
         return [
             "success" => true,
@@ -52,13 +47,13 @@ class AuthController {
     }
 
     public static function getCurrentUser() {
-        if (isset($_SESSION['user_id'])) {
+        if (isset($_COOKIE['user_id'])) {
             return [
                 "success" => true,
                 "user" => [
-                    "id" => $_SESSION['user_id'],
-                    "email" => $_SESSION['email'],
-                    "role" => $_SESSION['role']
+                    "id" => $_COOKIE['user_id'],
+                    "email" => $_COOKIE['email'],
+                    "role" => $_COOKIE['role']
                 ]
             ];
         }
@@ -70,6 +65,6 @@ class AuthController {
     }
 
     public function isLoggedIn() {
-        return isset($_SESSION['user_id']);
+        return isset($_COOKIE['user_id']);
     }
 }

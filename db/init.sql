@@ -2,7 +2,7 @@ CREATE TABLE
     IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) NOT NULL UNIQUE,
-        password VARCHAR(500) NOT NULL,
+        password VARCHAR(255) NOT NULL,
         role VARCHAR(50) CHECK (role IN ('jobseeker', 'company')) NOT NULL,
         nama VARCHAR(255) NOT NULL
     );

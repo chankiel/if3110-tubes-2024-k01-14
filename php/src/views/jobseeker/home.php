@@ -30,6 +30,7 @@
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search">
+                <i class="fa-solid fa-filter toggle-filter"></i>
             </div>
             <div class="filter-sort">
                 <div class="filter">
@@ -71,13 +72,7 @@
                 <div class="job-list">
                     <?php
                     $jobs = [
-                        ["author" => "Google", "time" => "2 hours ago", "type" => "Full Time", "position" => "Software Engineer", "location" => "Remote"],
-                        ["author" => "Microsoft", "time" => "3 hours ago", "type" => "Part Time", "position" => "Frontend Developer", "location" => "Remote"],
-                        ["author" => "Amazon", "time" => "5 hours ago", "type" => "Full Time", "position" => "Operations Manager", "location" => "Seattle, WA"],
-                        ["author" => "Apple", "time" => "1 hour ago", "type" => "Internship", "position" => "Data Analyst", "location" => "San Francisco, CA"],
-                        ["author" => "Facebook", "time" => "4 hours ago", "type" => "Full Time", "position" => "Product Designer", "location" => "New York, NY"],
-                        ["author" => "Tesla", "time" => "30 minutes ago", "type" => "Part Time", "position" => "Electrical Engineer", "location" => "Austin, TX"],
-                        ["author" => "Netflix", "time" => "1 day ago", "type" => "Full Time", "position" => "Marketing Specialist", "location" => "Los Gatos, CA"]
+                        
                     ];
 
                     if (empty($jobs)): ?>
@@ -152,9 +147,9 @@
         $(function () {
             var numberOfItems = $(".job-list .job").length;
             if (numberOfItems > 0) {
-                var limitPerPage = 3;
+                var limitPerPage = 2;
                 var totalPages = Math.ceil(numberOfItems / limitPerPage);
-                var paginationSize = 7;
+                var paginationSize =  5;
                 var currentPage;
 
                 function showPage(whichPage) {
@@ -198,6 +193,13 @@
                     return showPage(currentPage - 1);
                 });
             }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $(".toggle-filter").on("click", function() {
+                $(".filter-sort").toggle(); // Toggle visibility of the filter sort section
+            });
         });
     </script>
 </body>

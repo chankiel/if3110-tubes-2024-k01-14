@@ -1,3 +1,12 @@
+<?php
+if (isset($_COOKIE["error_message"])) {
+    $errorMessage = htmlentities($_COOKIE["error_message"]);
+    setcookie("error_message", "", time() - 3600, "/");
+} else {
+    $errorMessage = "";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +25,12 @@
     <section class="form-register-login">
         <div class="register-login-container">
             <h1>Register</h1>
+            <?php if ($errorMessage): ?>
+                <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
+                    <?= $errorMessage ?>
+                </div>
+            <?php endif; ?>
+
             <form action="/register" method="POST">
                 <label for="role">I am a</label>
                 <select id="role" name="role">
@@ -51,10 +66,10 @@
                     <input name="about"></textarea>
 
                     <label for="password_company">Password</label>
-                    <input type="password" name="password">
+                    <input type="password" name="password_company">
 
                     <label for="confirm_password_company">Confirm Password</label>
-                    <input type="password" name="confirm_password">
+                    <input type="password" name="confirm_password_company">
                 </div>
 
                 <button type="submit">Agree & Join</button>

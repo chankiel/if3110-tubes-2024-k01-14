@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +17,10 @@ session_start();
         <div class="register-login-container">
             <h1>Login</h1>
             <?php
-            if (isset($_SESSION['error_message'])) {
+            if (isset($_COOKIE["error_message"])) {
                 echo "<div class='error-message' style='color: red; text-align: center; margin-bottom: 10px;'>"
-                    . $_SESSION['error_message'] . "</div>";
-                unset($_SESSION['error_message']);
+                    . htmlentities($_COOKIE["error_message"]) . "</div>";
+                    setcookie("error_message", '', time() - 86400, "/");
             }
             ?>
             <form action="/login" method="POST">

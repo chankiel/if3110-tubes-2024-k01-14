@@ -13,6 +13,12 @@ class UserController extends Controller{
         $role = $_POST["role"];
         $data = [];
 
+        if ($this->userModel->userExists($_POST["email"]) || $this->userModel->userExists($_POST["email_company"])) {
+            setcookie("error_message", "Email is already registered.", time() + 3600, "/");
+            header('Location: /register');
+            exit();
+        }
+
         if ($role === "jobseeker") {
             $data = [
                 "role" => $role,
@@ -27,11 +33,11 @@ class UserController extends Controller{
                 "email" => $_POST["email_company"],
                 "lokasi" => $_POST["location"],
                 "about" => $_POST["about"],
-                "password" => $_POST["password"]
+                "password" => $_POST["password_company"]
             ];
         }
 
-        $userId = $this->userModel->addUser($data);
+        $this->userModel->addUser($data);
 
         header("Location: /login");
         exit();
@@ -95,21 +101,19 @@ class UserController extends Controller{
     }
 
     public function showHome() {
-        // if(isset($_SESSION["role"])) {
-        //     $role = $_SESSION["role"];
+        if(isset($_COOKIE["role"])) {
+            $role = $_COOKIE["role"];
 
-        //     if($role === "jobseeker") {
-        //         $this->view("/jobseeker/home");
-        //     } else if($role === "company") {
-        //         $this->view("/company/home");
-        //     } else {
-        //         header("Location: /login");
-        //         exit();
-        //     }
-        // } else {
-        //     header("Location: /login");
-        //     exit();
-        // }
-        $this->view("/jobseeker/home");
+            if($role === "jobseeker") {
+                $this->view("/jobseeker/home");
+            } else if($role === "company") {
+                $this->view("/company/home");
+            } else {
+                header("Location: /login");
+                exit();
+            }
+        } else {
+            $this->view("/jobseeker/home");
+        }
     }
 }

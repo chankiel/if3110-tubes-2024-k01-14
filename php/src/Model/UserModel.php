@@ -12,30 +12,30 @@ class UserModel {
 
     public function userExists($email): bool {
         $result = $this->db->prepareQuery("SELECT COUNT(*) FROM users WHERE email = :email", ["email" => $email]);
-        return $result[0]['count'] > 0;
+        return $result[0]["count"] > 0;
     }
 
     public function verifyUser($email, $password): bool {
         $result = $this->db->prepareQuery("SELECT * FROM users WHERE email = :email", ["email" => $email]);
 
-        return true;
-
-        // if(count($result) > 0) {
-        //     return password_verify($password, $result[0]["password"]);
-        // }
-
-        // return false;
+        if(count($result) > 0) {
+            $user = $result[0];
+            return password_verify($password, $user["password"]);
+        } else {
+            return false;
+        }
     }
 
     public function addUser($data): int {
-        // $data["newpassword"] = password_hash(trim($data["password"]), PASSWORD_DEFAULT);
-        $data["newpassword"] = $data["password"];
+        $data["newpassword"] = password_hash($data["password"], PASSWORD_DEFAULT);
+        
         $userData = [
             "nama" => $data["nama"],
             "email" => $data["email"],
             "password" => $data["newpassword"],
             "role" => $data["role"]
         ];
+
         $userId = $this->db->insert("users", $userData);
         
         if ($data["role"] === "company") {

@@ -101,7 +101,6 @@ a {
 
 .left-sidebar {
    flex-basis: 25%; 
-   align-self: flex-start;
    margin-top: 5px; 
    width: 100%;
 }
@@ -135,11 +134,6 @@ a {
     color: #045be6;
     display: inline-block;
     margin: 10px 0;
-}
-
-.right-sidebar {
-    flex-basis: 25%;
-    align-self: flex-start;
 }
 
 .main-content {
@@ -201,6 +195,10 @@ a {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.box > * {
+    flex: 1 auto;
 }
 
 .logout {
@@ -472,7 +470,6 @@ input[type="radio"]:checked + span {
 }
 
 .pagination li a {
-    /* color: rgb(10, 102, 194); */
     font-size: 1.2em;
     line-height: 45px;
 }
@@ -533,4 +530,214 @@ input[type="radio"]:checked + span {
 
 .company-name {
     color: #045be6;
+}
+
+.fa-filter {
+    display: none !important;
+}
+
+
+@media (max-width: 1280px) {
+    .navbar {
+        padding: 10px 3%;
+    }
+
+    .navbar-center ul li a {
+        font-size: 12px;
+        margin: 5px 5px;
+    }
+
+    .container {
+        padding: 10px;
+        flex-direction: row;
+    }
+
+    .search-box {
+        font-size: 16px;
+        padding: 2px;
+    }
+
+    .filter-sort {
+        padding: 10px;
+    }
+
+    .filter-sort h3 {
+        font-size: 1.2em;
+    }
+
+    .job {
+        padding: 15px 20px;
+        margin: 10px 0;
+    }
+
+    .job-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .job-location {
+        margin-top: 10px;
+    }
+
+    .sort {
+        margin-top: 15px;
+    }
+
+    .add-job {
+        font-size: 0.9em;
+        padding: 12px;
+    }
+
+    .pagination {
+        margin: 20px 0;
+    }
+
+    .no-jobs h2 {
+        font-size: 20px;
+    }
+
+    .filter-location, .filter-jenis {
+        margin-bottom: 10px;
+    }
+
+    .filter-location label, 
+    .filter-jenis label {
+        font-size: 14px; /* Adjust if labels are too large */
+    }
+
+    .logout button {
+        font-size: 0.9em;
+        padding: 12px;
+    }
+
+    .sidebar-profile-info h1 {
+        font-size: 18px;
+    }
+
+    .sidebar-profile-info h3 {
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-center ul li {
+        margin: 5px 0;
+    }
+
+    .container {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .left-sidebar {
+        width: 100%;
+    }
+
+    .fa-filter {
+        display: block !important;
+        padding-right: 30px;
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .filter-sort {
+        display: none;
+        padding: 10px;
+    }
+
+    .filter-sort h3 {
+        font-size: 1.3em;
+    }
+
+    .filter-location label,
+    .filter-jenis label {
+        font-size: 14px;
+    }
+    
+    .job {
+        padding: 12px;
+    }
+    
+    .job-author h1,
+    .job-info p,
+    .job-location p {
+        font-size: 12px;
+    }
+
+    .job-details a {
+        font-size: 12px; 
+    }
+
+    .no-jobs h2 {
+        font-size: 20px;
+    }
+
+    .pagination {
+        text-align: center;
+        margin: 20px 0; 
+        user-select: none;
+    }
+    
+    .pagination li {
+        display: inline-block;
+        margin: 2px;
+    }
+    
+    .pagination li a {
+        font-size: 1em;
+        line-height: 30px;
+        padding: 5px 10px;
+    }
+    
+    .previous-page, .next-page {
+        background: white;
+        color: white;
+        width: 60px;
+        border-radius: 30px;
+        cursor: pointer;
+        border-color: rgb(10, 102, 194);
+        transition: 0.3s ease;
+        border-style: solid;
+    }
+    
+    .previous-page:hover, .next-page:hover {
+        transform: translateY(-2px);
+    }
+    
+    .current-page, .dots {
+        background: white;
+        width: 35px;
+        border-radius: 50%;
+    }
+    
+    .active {
+        background: rgb(10, 102, 194);
+    }
+    
+    .active > a {
+        color: white;
+    }
+    
+    .disable {
+        background-color: grey;
+        border: none;
+    }
+    
+    .disable > a {
+        color: white;
+    }
+}
+
+@media (min-width: 401px) {
+    .fa-filter {
+        display: none; /* Keep it hidden */
+    }
 }
