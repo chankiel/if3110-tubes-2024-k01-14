@@ -10,12 +10,12 @@ class UserController extends Controller
 {
     private $user;
     private $userAuth;
-
-    public function __construct()
-    {
+    private $lowongan;
+    public function __construct() {
         parent::__construct();
         $this->user = new User();
         $this->userAuth = new AuthController();
+        $this->lowongan = new LowonganController();
     }
 
     public function register()
@@ -123,21 +123,25 @@ class UserController extends Controller
         $this->view("/general/login");
     }
 
-    public function showHome()
-    {
-        if (isset($_COOKIE["role"])) {
+    public function showHome() {
+        if(isset($_COOKIE["role"])) {
+            $user_id = $_COOKIE["user_id"];
             $role = $_COOKIE["role"];
 
-            if ($role === "jobseeker") {
-                $this->view("/jobseeker/home");
-            } else if ($role === "company") {
-                $this->view("/company/home");
+            $allLowongan = $this->lowongan->getOpenLowongan($user_id, $role);
+
+            // var_dump($allLowongan);
+            if($role === "jobseeker") {
+                $this->view("/jobseeker/home", ["jobs" => $allLowongan]);
+            } else if($role === "company") {
+                $this->view("/company/home", ["jobs" => $allLowongan]);
             } else {
                 header("Location: /login");
                 exit();
             }
         } else {
-            $this->view("/jobseeker/home");
+            $allOpenLowongan = $this->lowongan->getOpenLowongan(null, null);  
+            $this->view("/jobseeker/home", ["jobs" => $allOpenLowongan]);
         }
     }
 

@@ -38,11 +38,7 @@ class LowonganController extends Controller {
             header("Location: /not-found");
         }
 
-        $data = [
-            "lowongan_id" => $lowongan_id,
-        ];
-
-        $this->view("/company/editLowongan", $data);
+        $this->view("/company/editLowongan", $lowongan);
     }
 
     public function tambahLowongan(){
@@ -124,14 +120,17 @@ class LowonganController extends Controller {
         header("Location: $target_url");
     }
 
-    public function hapusLowongan($lowongan_id){
+    public function deleteLowongan($lowongan_id){
         $condition = "id= :id";
         $params = ["id" => $lowongan_id];
         $this->lowongan->deleteLowongan( $condition, $params);
     }
 
-    public function getOpenLowongan(){
-        $this->lowongan->getPreviewOpenLowongan();  
+    public function getOpenLowongan($user_id, $role){
+        if($role === "company") {
+            return $this->lowongan->getAllLowonganByCompany($user_id);
+        } else {
+            return $this->lowongan->getAllOpenLowongan();  
+        }
     }
-
 }

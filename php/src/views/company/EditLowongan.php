@@ -15,24 +15,26 @@
     include(dirname(__DIR__) . '/../components/template/modal.php')
     ?>
     <main>
-        <h1>Edit Lowongan</h1>
+        <h1>Halaman Edit</h1>
         <div class="form-edit-lowongan">
-            <form action="/jobs/" method="POST">
+            <form action="/jobs/<?=$id?>" method="POST">
                 <label for="posisi">Posisi</label>
-                <input type="text" name="posisi" required>
+                <input type="text" name="posisi" placeholder="<?=$posisi?>">
                 
                 <label for="deskripsi">Deskripsi</label>
-                <input type="text" name="deskripsi" required>
+                <input type="text" name="deskripsi" placeholder="<?=$deskripsi?>">
                 
                 <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
                 <select id="jenis_pekerjaan" name="jenis_pekerjaan">
+                    <option selected disabled value="default"><?=$jenis_pekerjaan?></option>
                     <option value="Full-time">Full-time</option>
                     <option value="Part-time">Part-time</option>
                     <option value="Internship">Internship</option>
                 </select>
         
-                <label for="jenis_lokasi">Jenis Pekerjaan</label>
+                <label for="jenis_lokasi">Jenis Lokasi</label>
                 <select id="jenis_lokasi" name="jenis_lokasi">
+                    <option selected disabled value="default"><?=$jenis_lokasi?></option>
                     <option value="on-site">On-site</option>
                     <option value="hybrid">Hybrid</option>
                     <option value="remote">Remote</option>
@@ -40,11 +42,10 @@
 
                 <div class="input-area ">
                     <label for="cv">Gambar Pendukung</label>
-                    <input type="file" id="cv" name="cv" accept=".jpeg, .png. jpg">
+                    <input type="file" id="cv" name="cv" accept="*.jpeg, *.png *.jpg">
                 </div>
                 
                 <button type="submit">Simpan Perubahan</button>
-
         </form>
     </div>
     </main>

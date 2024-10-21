@@ -21,7 +21,7 @@
             <aside class="left-sidebar">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search">
+                    <input id = "job-search" type="text" placeholder="Search">
                     <i class="fa-solid fa-filter toggle-filter"></i>
                 </div>
                 <div class="filter-sort">
@@ -29,18 +29,19 @@
                         <h3>Filter</h3>
                         <div class="filter-location">
                             <p><strong>Lokasi</strong></p>
-                            <form>
-                                <label><input type="checkbox" name="fl-colour" value="on-site" /><span></span> On-site</label>
-                                <label><input type="checkbox" name="fl-colour" value="remote" /><span></span> Remote</label>
-                                <label><input type="checkbox" name="fl-colour" value="hybrid" /><span></span> Hybrid</label>
+                            <form action="/filter-jobs" method="GET"> 
+                                <label><input type="checkbox" name="filter[]" value="on-site" <?php echo (isset($_GET['filter']) && in_array('on-site', $_GET['filter'])) ? 'checked' : ''; ?> /><span></span> On-site</label>
+                                <label><input type="checkbox" name="filter[]" value="remote" <?php echo (isset($_GET['filter']) && in_array('remote', $_GET['filter'])) ? 'checked' : ''; ?> /><span></span> Remote</label>
+                                <label><input type="checkbox" name="filter[]" value="hybrid" <?php echo (isset($_GET['filter']) && in_array('hybrid', $_GET['filter'])) ? 'checked' : ''; ?> /><span></span> Hybrid</label>
                             </form>
                         </div>
+
                         <div class="filter-jenis">
                             <p><strong>Jenis pekerjaan</strong></p>
-                            <form>
-                                <label><input type="checkbox" name="job-type" value="full-time" /><span></span> Full time</label>
-                                <label><input type="checkbox" name="job-type" value="part-time" /><span></span> Part time</label>
-                                <label><input type="checkbox" name="job-type" value="internship" /><span></span> Internship</label>
+                            <form action="/filter-jobs" method="GET"> 
+                                <label><input type="checkbox" name="job-type[]" value="full-time" <?php echo (isset($_GET['job-type']) && in_array('full-time', $_GET['job-type'])) ? 'checked' : ''; ?> /><span></span> Full time</label>
+                                <label><input type="checkbox" name="job-type[]" value="part-time" <?php echo (isset($_GET['job-type']) && in_array('part-time', $_GET['job-type'])) ? 'checked' : ''; ?> /><span></span> Part time</label>
+                                <label><input type="checkbox" name="job-type[]" value="internship" <?php echo (isset($_GET['job-type']) && in_array('internship', $_GET['job-type'])) ? 'checked' : ''; ?> /><span></span> Internship</label>
                             </form>
                         </div>
                     </div>
@@ -64,15 +65,16 @@
                 <div class="show-jobs">
                     <div class="job-list">
                         <?php
-                        $jobs = [
-                            ["author" => "Google", "time" => "2 hours ago", "type" => "Full Time", "position" => "Software Engineer", "location" => "Remote", "details" => "More details"],
-                            ["author" => "Microsoft", "time" => "3 hours ago", "type" => "Part Time", "position" => "Frontend Developer", "location" => "Remote", "details" => "More details"],
-                            ["author" => "Amazon", "time" => "5 hours ago", "type" => "Full Time", "position" => "Operations Manager", "location" => "Seattle, WA", "details" => "More details"],
-                            ["author" => "Apple", "time" => "1 hour ago", "type" => "Internship", "position" => "Data Analyst", "location" => "San Francisco, CA", "details" => "More details"],
-                            ["author" => "Facebook", "time" => "4 hours ago", "type" => "Full Time", "position" => "Product Designer", "location" => "New York, NY", "details" => "More details"],
-                            ["author" => "Tesla", "time" => "30 minutes ago", "type" => "Part Time", "position" => "Electrical Engineer", "location" => "Austin, TX", "details" => "More details"],
-                            ["author" => "Netflix", "time" => "1 day ago", "type" => "Full Time", "position" => "Marketing Specialist", "location" => "Los Gatos, CA", "details" => "More details"]
-                        ];
+                        // $jobs = [
+                        //     ["author" => "Google", "time" => "2 hours ago", "type" => "Full Time", "position" => "Software Engineer", "location" => "Remote", "details" => "More details"],
+                        //     ["author" => "Microsoft", "time" => "3 hours ago", "type" => "Part Time", "position" => "Frontend Developer", "location" => "Remote", "details" => "More details"],
+                        //     ["author" => "Amazon", "time" => "5 hours ago", "type" => "Full Time", "position" => "Operations Manager", "location" => "Seattle, WA", "details" => "More details"],
+                        //     ["author" => "Apple", "time" => "1 hour ago", "type" => "Internship", "position" => "Data Analyst", "location" => "San Francisco, CA", "details" => "More details"],
+                        //     ["author" => "Facebook", "time" => "4 hours ago", "type" => "Full Time", "position" => "Product Designer", "location" => "New York, NY", "details" => "More details"],
+                        //     ["author" => "Tesla", "time" => "30 minutes ago", "type" => "Part Time", "position" => "Electrical Engineer", "location" => "Austin, TX", "details" => "More details"],
+                        //     ["author" => "Netflix", "time" => "1 day ago", "type" => "Full Time", "position" => "Marketing Specialist", "location" => "Los Gatos, CA", "details" => "More details"]
+                        // ];
+                    
 
                         if (empty($jobs)): ?>
                             <div class="no-jobs">
@@ -83,8 +85,8 @@
                                 <div class="job">
                                     <div class="job-author">
                                         <div class="author">
-                                            <h1><?php echo $job['position']; ?></h1>
-                                            <p><?php echo $job['type']; ?></p>
+                                            <h1><?php echo $job['posisi']; ?></h1>
+                                            <p><?php echo $job['jenis_pekerjaan']; ?></p>
                                         </div>
                                     </div>
                                     <div class="job-info">
@@ -92,15 +94,15 @@
                                             <h2>
                                                 <strong>
                                                     <a href="#" title="View Author Profile" class="company-name">
-                                                        <?php echo $job['author']; ?>
+                                                        <?php echo $job['nama']; ?>
                                                     </a>
                                                 </strong>
                                             </h2>
                                             <div class="job-location">
                                                 <i class="fa-solid fa-location-dot"></i>
-                                                <p><?php echo $job['location']; ?></p>
+                                                <p><?php echo $job['jenis_lokasi']; ?></p>
                                             </div>
-                                            <small><?php echo $job['time']; ?></small>
+                                            <small><?php echo $job['lowongan_diffTime']; ?></small>
                                         </div>
                                     </div>
                                     <div class="job-details">

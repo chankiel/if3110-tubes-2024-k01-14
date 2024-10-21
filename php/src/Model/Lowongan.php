@@ -79,23 +79,43 @@ class Lowongan
     //     return $result;
     // }
 
-    public function getPreviewOpenLowongan(){
-        $allLowongan = $this->db->rawQuery(
-            "SELECT nama, posisi, jenis_pekerjaan, jenis_lokasi, created_at FROM lowongan JOIN user ON users.id = lowongan.company_id WHERE lowongan.is_open = TRUE");
-        if (!$allLowongan) {
+    public function getAllOpenLowongan(){
+        $query = "SELECT u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
+                  FROM lowongan l
+                  JOIN users u ON u.id = l.company_id
+                  WHERE l.is_open = TRUE";
+
+        $allLowongan = $this->db->prepareQuery($query);
+
+        if (count($allLowongan) == 0) {
             return[];
         }
 
-        foreach ($allLowongan as $lowongan_diffTime => $value) {
-            $lowongan_diffTime["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_diffTime["created_at"]); 
-            unset($lowongan_diffTime["created_at"]);
-            unset($lowongan_diffTime["updated_at"]);
+        foreach ($allLowongan as &$lowongan) {
+            $lowongan["lowongan_diffTime"] = DateHelper::timeDifference($lowongan["created_at"]); 
         }
 
-        return $allLowongan;
-
-        
+        return $allLowongan;        
     }
+
+    public function getAllLowonganByCompany($company_id) {
+        $query = "SELECT u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
+                  FROM lowongan l
+                  JOIN users u ON u.id = l.company_id
+                  WHERE company_id = :company_id";
+
+        $allCompanyLowongan = $this->db->prepareQuery($query, ["company_id" => $company_id]);
+        if (count($allCompanyLowongan) == 0)  {
+            return [];
+        }
+
+        foreach ($allCompanyLowongan as &$lowongan) {
+            $lowongan["lowongan_diffTime"] = DateHelper::timeDifference($lowongan["created_at"]); 
+        }
+        
+        return $allCompanyLowongan;
+    }
+
     public function getDetailLowongan($id, $user_id)
     {
         // Lowongan Details
