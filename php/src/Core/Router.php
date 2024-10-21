@@ -47,13 +47,15 @@ class Router
 
         self::get("/jobs/add","LowonganController@showTambahLowongan");
         self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
+        self::get("/jobs/{id}","LowonganController@showDetailLowonganCompany");
         self::get("/applications/{id}","LamaranController@showDetailLamaran");
+
         self::get("/profile/company","");
 
         self::post("/jobs","LowonganController@tambahLowongan");
         self::put("/jobs/{id}","LowonganController@editLowongan");
         self::put("/applications/{id}/approve","");
-        self::get("/applications/{id}/reject","");
+        self::put("/applications/{id}/reject","");
         self::put("/profile/company","");
 
         self::get("/jobs/{id}/details","LowonganController@showDetailJS");

@@ -133,4 +133,16 @@ class LowonganController extends Controller {
             return $this->lowongan->getAllOpenLowongan();  
         }
     }
+
+    public function showDetailLowonganCompany($matches){
+        $lowongan_id = $matches[0];
+        $data = $this->lowongan->getDataPelamar($lowongan_id);
+
+        if(!$data){
+            header("Location: /not-found");
+            exit();
+        }
+        $result = array_merge($data, ["applications" => $data["lamaran_details"]]);
+        $this->view("/company/DetailLowongan",$result);
+    }
 }
