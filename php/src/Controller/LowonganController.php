@@ -5,12 +5,13 @@ class LowonganController extends Controller {
     private Lowongan $model;
 
     public function __construct(){
+        parent::__construct();
         $this->model  = new Lowongan();
     }    
 
     public function showDetailJS($matches){
         $lowongan_id = $matches[0];
-        $data = $this->model->getDetailLowongan($lowongan_id);
+        $data = $this->model->getDetailLowongan($lowongan_id,$this->cur_user['id']);
         if(!$data){
             header("Location: /not-found");
             exit();
@@ -56,8 +57,8 @@ class LowonganController extends Controller {
         $this->model->deleteLowongan( $condition, $params);
     }
 
-    public function lihatDetailLowongan($params = null){
-        $this->model->getDetailLowongan($params);
-    }
+    // public function lihatDetailLowongan($params = null){
+    //     $this->model->getDetailLowongan($params);
+    // }
 
 }

@@ -17,28 +17,28 @@
     <main>
         <section>
             <ul>
-                <?php for($i=0;$i<10;$i++): ?>
+                <?php foreach ($lamarans as $lamaran): ?>
                     <li class="lamaran-item">
-                        <a class="lamaran-link" href="https://google.com">
+                        <a class="lamaran-link" href="/jobs/<?=$lamaran["lowongan_id"]?>/details">
                             <div class="top-container">
                                 <h1 class="role">
-                                    Software Engineer
+                                    <?= $lamaran['posisi'] ?>
                                 </h1>
-                                <h3 class="status waiting">Waiting</h3>
+                                <h3 class="status <?= $lamaran['status'] ?>"><?= ucfirst($lamaran['status']) ?></h3>
                             </div>
                             <h2 class="company">
-                                at Agoda
+                                at <?= $lamaran['company_name'] ?>
                             </h2>
                             <p class="details">
                                 <span class="material-symbols-outlined">
                                     work
                                 </span>
-                                Internship - Full Time
+                                <?= $lamaran['jenis_pekerjaan'] ?>- <?= $lamaran['jenis_lokasi'] ?>
                             </p>
-                            <p class="date-container">Uploaded <span class="date-upload">2 months</span> ago</p>
+                            <p class="date-container">Uploaded <span class="date-upload"><?= $lamaran['lamaran_diffTime']?></span> ago</p>
                         </a>
                     </li>
-                    <?php endfor; ?>
+                    <?php endforeach; ?>
                 
             </ul>
         </section>

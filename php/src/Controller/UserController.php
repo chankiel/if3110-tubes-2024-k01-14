@@ -6,7 +6,9 @@ use Model\User;
 class UserController extends Controller{
     private $userModel;
     private $userAuth;
+
     public function __construct() {
+        parent::__construct();
         $this->userModel = new User();
         $this->userAuth = new AuthController();
     }
