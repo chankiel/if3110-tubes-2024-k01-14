@@ -116,7 +116,7 @@ class Lowongan
         return $allCompanyLowongan;
     }
 
-    public function getDetailLowongan($id)
+    public function getDetailLowongan($id, $user_id)
     {
         // Lowongan Details
         $lowongan_details = $this->db->findById("lowongan", $id);
