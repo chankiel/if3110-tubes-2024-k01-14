@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet" href="../public/styles/style.css">
-    <link rel="stylesheet" href="../public/styles/template/navbar.css">
-    <link rel="stylesheet" href="../public/styles/jobseeker/RiwayatJobSeeker.css">
+    <link rel="stylesheet" href="/public/styles/style.css">
+    <link rel="stylesheet" href="/public/styles/template/navbar.css">
+    <link rel="stylesheet" href="/public/styles/jobseeker/RiwayatJobSeeker.css">
 
 </head>
 
 <body>
-    <?php include(dirname(__DIR__) . '/components/template/navbar.php') ?>
+    <?php include(dirname(__DIR__) . '/../components/template/navbar.php') ?>
     <main>
         <section>
             <ul>
