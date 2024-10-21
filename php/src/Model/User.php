@@ -3,7 +3,7 @@
 namespace Model;
 use Core\DbCon;
 
-class UserModel {
+class User {
     private $db;
 
     public function __construct() {

@@ -7,19 +7,19 @@ use Model\Lamaran;
 use Model\Lowongan;
 use Helper\FileManager;
 use Helper\Validator;
-use Model\UserModel;
+use Model\User;
 
 class LamaranController extends Controller
 {
     private Lamaran $lamaran;
     private Lowongan $lowongan;
-    private UserModel $user;
+    private User $user;
 
     public function __construct()
     {
         $this->lamaran = new Lamaran();
         $this->lowongan = new Lowongan();
-        $this->user = new UserModel();
+        $this->user = new User();
     }
 
     public function tambahLamaran($matches)

@@ -15,7 +15,7 @@ a {
     color: #5f5f5f;
 }
 
-.navbar {
+/* .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -45,7 +45,7 @@ a {
     content: "";
     width: 0;
     height: 2px;
-    background: #045be6;
+    background: #0A66C2;
     position: absolute;
     bottom: -15px;
     transition: width 0.3s;
@@ -60,7 +60,7 @@ a {
 .navbar-left {
     display: flex;
     align-items: center;
-}
+} */
 
 .search-box {
     background-color: white;
@@ -131,7 +131,7 @@ a {
 }
 
 .discover-more-link a {
-    color: #045be6;
+    color: #0A66C2;
     display: inline-block;
     margin: 10px 0;
 }
@@ -184,7 +184,7 @@ a {
 }
 
 .job-details a {
-    color: #045be6;
+    color: #0A66C2;
     display: inline-block;
     margin: 10px 0;
 }
@@ -347,7 +347,7 @@ a {
 }
 
 strong { 
-    color: #045be6;
+    color: #0A66C2;
 }
 
 .filter-location label, 
@@ -374,7 +374,7 @@ input[type="checkbox"] + span {
     width: 16px;
     height: 16px;
     margin-right: 8px;
-    border: 2px solid #045be6;
+    border: 2px solid #0A66C2;
     border-radius: 4px;
     background-color: white; 
     vertical-align: middle; 
@@ -386,7 +386,7 @@ input[type="checkbox"]:checked + span::before {
     position: absolute;
     width: 12px;
     height: 12px; 
-    background-color: #045be6; 
+    background-color: #0A66C2; 
 }
 
 input[type="radio"] + span {
@@ -394,7 +394,7 @@ input[type="radio"] + span {
     width: 16px;
     height: 16px;
     margin-right: 8px; 
-    border: 2px solid #045be6;
+    border: 2px solid #0A66C2;
     border-radius: 50%; 
     background-color: white;
     vertical-align: middle;
@@ -402,7 +402,7 @@ input[type="radio"] + span {
 }
 
 input[type="radio"]:checked + span {
-    background-color: #045be6; 
+    background-color: #0A66C2; 
 }
 
 .sort {
@@ -418,7 +418,7 @@ input[type="radio"]:checked + span {
     display: block;
     margin: 5px 0;
 }
-
+/* 
 .logout {
     text-align: center;
 }
@@ -438,7 +438,7 @@ input[type="radio"]:checked + span {
 
 .logout button:hover {
     background: #005fa3;
-}
+} */
 
 .add-job {
     width: 100%;
@@ -525,11 +525,11 @@ input[type="radio"]:checked + span {
 .no-jobs h2 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #045be6;
+    color: #0A66C2;
 }
 
 .company-name {
-    color: #045be6;
+    color: #0A66C2;
 }
 
 .fa-filter {

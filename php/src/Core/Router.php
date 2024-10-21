@@ -43,7 +43,7 @@ class Router
 
         self::post("/login","AuthController@login");
         self::post("/register","UserController@register");
-        self::post("/logout","");
+        self::post("/logout","AuthController@logout");
 
         self::get("/jobs/add","");
         self::get("/jobs/edit/{id}","");
