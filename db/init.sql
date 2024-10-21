@@ -129,9 +129,9 @@ VALUES
     (2, '/path/to/resume_2.pdf');
 
 INSERT INTO
-    lamaran (user_id, lowongan_id, status, status_reason)
+    lamaran (user_id, lowongan_id, status, status_reason, cv_path, video_path)
 VALUES
-    (1, 1, 'waiting', NULL),
-    (1, 2, 'waiting', NULL),
-    (3, 1, 'accepted', 'Great fit for the team.'),
-    (2, 1, 'waiting', NULL);
+    (1, 1, 'waiting', NULL, '/storage/cv/lamaran_1.pdf','/storage/cv/lamaran_1.mp4' ),
+    (1, 2, 'waiting', NULL , '/storage/cv/lamaran_2.pdf','/storage/cv/lamaran_2.mp4'),
+    (3, 1, 'accepted', 'Great fit for the team.', '/storage/cv/lamaran_3.pdf',NULL),
+    (2, 1, 'waiting', NULL, '/storage/cv/lamaran_4.pdf','/storage/cv/lamaran_4.mp4');

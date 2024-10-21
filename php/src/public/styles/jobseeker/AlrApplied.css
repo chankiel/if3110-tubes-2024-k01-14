@@ -26,7 +26,7 @@ section > * {
   display: block;
   background-color: var(--blue);
   color: white;
-  padding: 5px 20px;
+  padding: 8px 15px;
   border-radius: 70px;
   font-size: 15px;
   font-weight: bold;
@@ -82,7 +82,7 @@ h2, .attachments-container{
   }
 
   .back-btn {
-    font-size: 25px;
+    font-size: 18px;
   }
 }
 
