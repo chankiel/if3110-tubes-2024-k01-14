@@ -28,10 +28,11 @@ unset($_SESSION['response']);
     include(dirname(__DIR__) . '/../components/template/modal.php')
     ?>
     <main>
+        <div class="img-container">
+            <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
+            <img src="/public/images/linkedin.png" alt="profile-picture" class="img-logo">
+        </div>
         <section class="edit-container">
-            <div class="img-logo">
-                <img src="/public/images/linkedin.png" alt="profile-picture">
-            </div>
             <form action="" class="profile-form">
                 <div class="input-area normal-state" id="input-nama">
                     <label for="nama">Nama*</label>
