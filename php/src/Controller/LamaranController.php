@@ -17,6 +17,7 @@ class LamaranController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->lamaran = new Lamaran();
         $this->lowongan = new Lowongan();
         $this->user = new User();
@@ -68,7 +69,7 @@ class LamaranController extends Controller
         $video_path = FileManager::uploadFile("video");
 
         $data = [
-            "user_id" => 1,
+            "user_id" => $this->cur_user['id'],
             "lowongan_id" => $lowongan_id,
             "cv_path" => $cv_path,
             "video_path" => $video_path,
@@ -100,11 +101,6 @@ class LamaranController extends Controller
         $this->lamaran->updateLamaran($data, $condition, $param);
     }
 
-    public function riwayatLamaran($id)
-    {
-        $this->lamaran->getRiwayatLamaran($id);
-    }
-
     public function showFormLamaran($matches)
     {
         $lowongan_id = $matches[0];
@@ -116,7 +112,7 @@ class LamaranController extends Controller
         }
 
         // Cek user_id udah pernah lamar lowongan_id
-        $lamaran = $this->lamaran->getLamaran(1, $lowongan_id);
+        $lamaran = $this->lamaran->getLamaran($this->cur_user['id'], $lowongan_id);
         if ($lamaran) {
             $lamaran["lamaran_diffTime"] = DateHelper::timeDifference($lamaran['created_at']);
             unset($lamaran['created_at']);
@@ -130,7 +126,7 @@ class LamaranController extends Controller
         $data = [
             "company_name" => $company_name['nama'],
             "posisi" => $lowongan["posisi"],
-            "user_id" => 1,
+            "user_id" => $this->cur_user['id'],
             "lowongan_id" => $lowongan_id,
         ];
 
@@ -138,10 +134,14 @@ class LamaranController extends Controller
     }
 
     public function showRiwayat(){
-        $this->view("/jobseeker/RiwayatJobSeeker");
+        $lamarans = $this->lamaran->getRiwayatLamaran($this->auth['user']['id']);
+        foreach($lamarans as &$lamaran){
+            $lamaran['lamaran_diffTime'] = DateHelper::timeDifference($lamaran['created_at']);
+        }
+        $this->view("/jobseeker/RiwayatJobSeeker",["lamarans"=>$lamarans]);
     }
 
-    private function handleErrors($errors,$url){
+    public function handleErrors($errors,$url){
         session_start();
         $_SESSION['response'] = [
             "success" => false,

@@ -10,6 +10,7 @@ class LowonganController extends Controller {
     private User $user;
 
     public function __construct(){
+        parent::__construct();
         $this->lowongan  = new Lowongan();
         $this->user = new User();
     }    
@@ -20,7 +21,7 @@ class LowonganController extends Controller {
 
     public function showDetailJS($matches){
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id,$this->cur_user['id']);
         if(!$data){
             header("Location: /not-found");
             exit();

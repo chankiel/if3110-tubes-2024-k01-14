@@ -144,7 +144,7 @@ class Lowongan
             "SELECT cv_path, video_path, status, status_reason, created_at 
             FROM lamaran 
             WHERE lowongan_id=:lowongan_id AND user_id=:user_id",
-            ["lowongan_id" => $id, 'user_id' => 1]
+            ["lowongan_id" => $id, 'user_id' => $user_id]
         );
 
         if($lamaran_details){

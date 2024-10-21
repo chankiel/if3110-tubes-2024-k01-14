@@ -2,6 +2,14 @@
 namespace Controller;
 
 class Controller{
+    protected $auth;
+    protected $cur_user;
+
+    public function __construct(){
+        $this->auth = AuthController::getCurrentUser();
+        $this->cur_user = $this->auth['user'];
+    }
+
     public function model($model){
         $modelClass = "\\Model\\{$model}";
         return new $modelClass();
@@ -9,9 +17,7 @@ class Controller{
 
     public function view($view, $data = []){
         extract($data);
-
-        $user = AuthController::getCurrentUser();
-        extract($user);
+        extract($this->auth);
 
         require_once __DIR__ . '/../views/'.$view.'.php';
     }

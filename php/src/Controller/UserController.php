@@ -8,6 +8,7 @@ class UserController extends Controller{
     private $userAuth;
     private $lowongan;
     public function __construct() {
+        parent::__construct();
         $this->userModel = new User();
         $this->userAuth = new AuthController();
         $this->lowongan = new LowonganController();
