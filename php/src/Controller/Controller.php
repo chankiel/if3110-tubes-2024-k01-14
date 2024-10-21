@@ -7,7 +7,9 @@ class Controller{
 
     public function __construct(){
         $this->auth = AuthController::getCurrentUser();
-        $this->cur_user = $this->auth['user'];
+        if(isset($this->auth['user'])){
+            $this->cur_user = $this->auth['user'];
+        }
     }
 
     public function model($model){
@@ -24,5 +26,21 @@ class Controller{
 
     public function showNotFound(){
         $this->view("/general/not-found");
+    }
+
+    public function handleErrors($errors,$url=''){
+        session_start();
+        $response =  [
+            "success" => false,
+            "message" => "There are validation errors.",
+            "errors" => $errors
+        ];
+
+        $_SESSION['response'] =$response;
+        if($url){
+            header("Location: {$url}");
+            exit();
+        }
+        return $response;
     }
 }

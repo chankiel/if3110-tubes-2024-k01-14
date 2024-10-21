@@ -35,10 +35,9 @@ class LamaranController extends Controller
         }else{
             $validator->integer("lowongan_id",(int)$lowongan_id,"Lowongan id");
         }
-
         
         if(!$validator->passes()){
-            return $validator->errors();
+            return $this->handleErrors($validator->errors(),$target_url);
         }
 
         // Validate lowongan id exists
@@ -139,18 +138,6 @@ class LamaranController extends Controller
             $lamaran['lamaran_diffTime'] = DateHelper::timeDifference($lamaran['created_at']);
         }
         $this->view("/jobseeker/RiwayatJobSeeker",["lamarans"=>$lamarans]);
-    }
-
-    public function handleErrors($errors,$url){
-        session_start();
-        $_SESSION['response'] = [
-            "success" => false,
-            "message" => "There are validation errors.",
-            "errors" => $errors
-        ];
-
-        header("Location: {$url}");
-        exit();
     }
 
     public function showDetailLamaran($matches): void{
