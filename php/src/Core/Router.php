@@ -37,12 +37,12 @@ class Router
     }
 
     public static function initRoutes(){
-        self::get("/","");
-        self::get("/login","");
-        self::get("/register","");
+        self::get("/","UserController@showHome");
+        self::get("/login","UserController@showLogin");
+        self::get("/register", "UserController@showRegister");
 
-        self::post("/login","");
-        self::post("/register","");
+        self::post("/login","AuthController@login");
+        self::post("/register","UserController@register");
         self::post("/logout","");
 
         self::get("/jobs/add","");
@@ -56,27 +56,29 @@ class Router
         self::get("/applications/{id}/reject","");
         self::put("/profile/company","");
 
-        self::get("/jobs/{id}/details","");
-        self::get("/jobs/{id}/apply","");
+        self::get("/jobs/{id}/details","LowonganController@showDetailJS");
+        self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
 
-        self::post("/jobs/{id}/apply","");
+        self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
+
+        self::get("/not-found",function(){
+            require_once __DIR__ . "/../views/general/not-found.php";
+        });
     }
 
     public static function dispatch()
     {
         // Ubah http://tes.com/user/123/?q=a -> /user/123/ -> user/123/ 
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-
         // Ambil method request (GET/POST/...)
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach (self::$routes as $route) {
             // Ubah user/{id} jadi user/([a-zA-Z0-9_]+)
-            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([a-zA-Z0-9_]+)', trim($route['uri'], '/'));
+            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([0-9]+)', trim($route['uri'], '/'));
 
             if ($route['method'] === $requestMethod && preg_match("#^{$routeUri}$#", $requestUri, $matches)) {
                 array_shift($matches);
-
                 // Kalau bentuk callbacknya langsung fungsi
                 if (is_callable($route['callback'])) {
                     return call_user_func($route['callback'], $matches);
@@ -90,5 +92,6 @@ class Router
                 }
             }
         }
+        header("Location: /not-found");
     }
 }
