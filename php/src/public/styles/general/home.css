@@ -100,9 +100,9 @@ a {
 }
 
 .left-sidebar {
-   flex-basis: 25%; 
+   /* flex-basis: 25%;  */
    margin-top: 5px; 
-   width: 100%;
+   width: 20%;
 }
 
 .sidebar-profile-box {
@@ -137,8 +137,8 @@ a {
 }
 
 .main-content {
-    flex-basis: 73%;
-    width: 100%;
+    /* flex-basis: 73%; */
+    width: 75%;
 }
 
 .job {
@@ -193,8 +193,9 @@ a {
 .container {
     padding: 20px 6%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin: 0 auto;
 }
 
 .box > * {
@@ -549,7 +550,6 @@ input[type="radio"]:checked + span {
 
     .container {
         padding: 10px;
-        flex-direction: row;
     }
 
     .search-box {
@@ -620,7 +620,7 @@ input[type="radio"]:checked + span {
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
@@ -633,6 +633,8 @@ input[type="radio"]:checked + span {
     .container {
         padding: 10px;
         flex-direction: column;
+        width: 90%;
+
     }
 
     .left-sidebar {
