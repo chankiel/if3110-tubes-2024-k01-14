@@ -71,6 +71,15 @@ class User {
         return $this->db->prepareQuery("SELECT * FROM users WHERE email = :id", ["id" => $id]);
     }
 
+    public function getCompanyDetails($id){
+        $company_details = $this->db->fetchQuery("SELECT lokasi,about FROM companydetail WHERE user_id=:id",["id"=>$id]);
+        if(!$company_details){
+            return [];
+        }
+        $company_details['company_name'] = $this->db->findById("users",$id,"nama");
+        return $company_details;
+    }
+
     public function editEmail($id, $newEmail): bool {
         return $this->db->update("users", ["email" => $newEmail], "id = :id", ["id" => $id]) > 0;
     }
@@ -85,11 +94,11 @@ class User {
     }
 
     public function editLocation($id, $newLocation): bool {
-        return $this->db->update("companydetail", ["lokasi" => $newLocation], "id = :id", ["id" => $id]) > 0;
+        return $this->db->update("companydetail", ["lokasi" => $newLocation], "user_id = :id", ["id" => $id]) > 0;
     }
 
     public function editAbout($id, $newAbout): bool {
-        return $this->db->update("companydetail", ["about" => $newAbout], "id = :id", ["id" => $id]) > 0;
+        return $this->db->update("companydetail", ["about" => $newAbout], "user_id = :id", ["id" => $id]) > 0;
     }
 
     public function deleteUser($id): bool {

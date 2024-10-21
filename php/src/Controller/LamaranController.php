@@ -35,10 +35,9 @@ class LamaranController extends Controller
         }else{
             $validator->integer("lowongan_id",(int)$lowongan_id,"Lowongan id");
         }
-
         
         if(!$validator->passes()){
-            return $validator->errors();
+            return $this->handleErrors($validator->errors(),$target_url);
         }
 
         // Validate lowongan id exists
@@ -141,25 +140,13 @@ class LamaranController extends Controller
         $this->view("/jobseeker/RiwayatJobSeeker",["lamarans"=>$lamarans]);
     }
 
-    public function handleErrors($errors,$url){
-        session_start();
-        $_SESSION['response'] = [
-            "success" => false,
-            "message" => "There are validation errors.",
-            "errors" => $errors
-        ];
-
-        header("Location: {$url}");
-        exit();
-    }
-
-    private function showDetailLamaran($matches){
-            $lowongan_id = $matches[0];
-            $data = $this->lowongan->getDetailLowongan($lowongan_id);
-            if(!$data){
-                header("Location: /not-found");
-                exit();
-            }
-            $this->view("/jobseeker/DetailLowongan",$data);
-        }
+    // private function showDetailLamaran($matches){
+    //         $lowongan_id = $matches[0];
+    //         $data = $this->lowongan->getDetailLowongan($lowongan_id);
+    //         if(!$data){
+    //             header("Location: /not-found");
+    //             exit();
+    //         }
+    //         $this->view("/jobseeker/DetailLowongan",$data);
+    //     }
 }

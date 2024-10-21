@@ -22,15 +22,40 @@ profileForm.addEventListener("submit",function(e){
     if(inputNama.value === "" ){
         errNama.classList.remove("hidden");
         divNama.classList.add("error-state");
+        return;
     }
     if(inputLokasi.value === ""){
         errLokasi.classList.remove("hidden");
         divLokasi.classList.add("error-state");
+        return;
     }
     if(inputAbout.value === ""){
         errAbout.classList.remove("hidden");
         divAbout.classList.add("error-state");
+        return;
     }
+
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData(this);
+    const urlEncodedData = new URLSearchParams(formData).toString();
+
+    xhr.open('PUT','/profile/company');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+        } else {
+            console.log('Error',xhr.responseText);
+        }
+        location.reload();
+    };
+
+    xhr.onerror = function() {
+        console.error('Request failed');
+    };
+
+    xhr.send(urlEncodedData);
 })
 
 inputNama.addEventListener("change", function(e){
@@ -54,12 +79,19 @@ inputAbout.addEventListener("change", function(e){
     }
 })
 
-if(window.history.length>1){
-    backBtn.classList.remove("hidden");
+const modal = document.getElementById("modal");
+const modalOkBtn = document.getElementById("modalOkBtn");
+
+function hideModal() {
+  modal.classList.remove("modal-active");
+  modal.classList.add("hidden");
+
 }
 
-backBtn.addEventListener("click",function(){
-    if(window.history.length>1){
-        window.history.back();
-    }
-})
+if (modalOkBtn) {
+  modalOkBtn.addEventListener("click", hideModal);
+}
+
+if (modal) {
+  modal.classList.add("modal-active");
+}
