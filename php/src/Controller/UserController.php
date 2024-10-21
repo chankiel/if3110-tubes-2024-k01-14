@@ -1,12 +1,14 @@
 <?php
 namespace Controller;
 
-use Model\UserModel;
+use Model\User;
 
 class UserController extends Controller{
     private $userModel;
+    private $userAuth;
     public function __construct() {
-        $this->userModel = new UserModel();
+        $this->userModel = new User();
+        $this->userAuth = new AuthController();
     }
 
     public function register() {
@@ -115,5 +117,9 @@ class UserController extends Controller{
         } else {
             $this->view("/jobseeker/home");
         }
+    }
+
+    public function showLogout() {
+        $this->userAuth->logout();
     }
 }

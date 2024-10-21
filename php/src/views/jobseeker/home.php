@@ -4,121 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/styles/general/home.css">
+    <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Jobs</title>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="home.html" class="logo"></a>
-        </div>
-        <div class="navbar-center">
-            <ul class="navbar-control">
-                <li><a href="#" class="active-link"><img src=""><span>Home</span></a></li>
-                <li><a href="#"><img src=""><span>My Network</span></a></li>
-                <li><a href="#"><img src=""><span>Jobs</span></a></li>
-                <li><a href="#"><img src=""><span>Messaging</span></a></li>
-                <li><a href="#"><img src=""><span>Notifications</span></a></li>
-            </ul>
-        </div>
-        <div class="navbar-right"></div>
-    </nav>
-
-    <div class="container">
-        <div class="left-sidebar">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search">
-                <i class="fa-solid fa-filter toggle-filter"></i>
-            </div>
-            <div class="filter-sort">
-                <div class="filter">
-                    <h3>Filter</h3>
-                    <div class="filter-location">
-                        <p><strong>Lokasi</strong></p>
-                        <form>
-                            <label><input type="checkbox" name="fl-colour" value="on-site"/><span></span> On-site</label>
-                            <label><input type="checkbox" name="fl-colour" value="remote"/><span></span> Remote</label>
-                            <label><input type="checkbox" name="fl-colour" value="hybrid"/><span></span> Hybrid</label>
+    
+    <header class="">
+        <div class="header-container">
+            <a class="logo-container" href="/">
+                <img src="/public/images/linkedin.png" alt="logo">
+            </a>
+            <nav class="navbar ">
+                <ul class="navbar-list ">
+                    <?php if (isset($_COOKIE["role"])): ?>
+                        <?php if ($_COOKIE["role"] === "jobseeker"): ?>
+                            <li><a href="/" class="login-btn">Profile</a></li>
+                            <li><a href="/" class="login-btn">Riwayat</a></li>
+                        <?php elseif ($_COOKIE["role"] === "company"): ?>
+                            <li><a href="/" class="login-btn">Profile</a></li>
+                        <?php endif; ?>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Logout</button>
                         </form>
-                    </div>
-                    <div class="filter-jenis">
-                        <p><strong>Jenis pekerjaan</strong></p>
-                        <form>
-                            <label><input type="checkbox" name="job-type" value="full-time"/><span></span> Full time</label>
-                            <label><input type="checkbox" name="job-type" value="part-time"/><span></span> Part time</label>
-                            <label><input type="checkbox" name="job-type" value="internship"/><span></span> Internship</label>
-                        </form>
-                    </div>
-                </div>
-                <div class="sort">
-                    <p><strong>Waktu rilis</strong></p>
-                    <form>
-                        <label><input type="radio" id="terbaru" name="job_sort" value="terbaru" checked/><span></span> Terbaru</label>
-                        <label><input type="radio" id="terlama" name="job_sort" value="terlama"/><span></span> Terlama</label>
-                    </form>
-                </div>
-            </div>
+                    <?php else: ?>
+                        <li><a href="/login" class="login-btn">Login</a></li>
+                        <li><a href="/register" class="login-btn">Register</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <div class="main-content">
-            <button class="add-job">
-                <i class="fa-solid fa-plus"></i>
-                Add job
-            </button>
-
-            <div class="show-jobs">
-                <div class="job-list">
-                    <?php
-                    $jobs = [
-                        
-                    ];
-
-                    if (empty($jobs)): ?>
-                        <div class="no-jobs">
-                            <h2>No job listings available</h2>
-                        </div>
-                    <?php else: 
-                        foreach ($jobs as $job): ?>
-                            <div class="job">
-                                <div class="job-author">
-                                    <div class="author">
-                                        <h1><?php echo $job['position']; ?></h1>
-                                        <p><?php echo $job['type']; ?></p>
-                                    </div>
-                                </div>
-                                <div class="job-info">
-                                <div class="job-type-location">
-                                    <h2>
-                                        <strong>
-                                            <a href="#" title="View Author Profile" class = "company-name">
-                                                <?php echo $job['author']; ?>
-                                            </a>
-                                        </strong>
-                                    </h2>
-                                    <div class="job-location">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <p><?php echo $job['location']; ?></p>
-                                    </div>
-                                    <small><?php echo $job['time']; ?></small>
-                                </div>
-                                </div>
-                                <div class="job-details">
-                                    <a href="#">More details</a>
-                                </div>
+    <section>
+        <div class="container">
+            <aside>
+                <div class="left-sidebar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search">
+                        <i class="fa-solid fa-filter toggle-filter"></i>
+                    </div>
+                    <div class="filter-sort">
+                        <div class="filter">
+                            <h3>Filter</h3>
+                            <div class="filter-location">
+                                <p><strong>Lokasi</strong></p>
+                                <form>
+                                    <label><input type="checkbox" name="fl-colour" value="on-site"/><span></span> On-site</label>
+                                    <label><input type="checkbox" name="fl-colour" value="remote"/><span></span> Remote</label>
+                                    <label><input type="checkbox" name="fl-colour" value="hybrid"/><span></span> Hybrid</label>
+                                </form>
                             </div>
-                        <?php endforeach;
-                    endif; ?>
+                            <div class="filter-jenis">
+                                <p><strong>Jenis pekerjaan</strong></p>
+                                <form>
+                                    <label><input type="checkbox" name="job-type" value="full-time"/><span></span> Full time</label>
+                                    <label><input type="checkbox" name="job-type" value="part-time"/><span></span> Part time</label>
+                                    <label><input type="checkbox" name="job-type" value="internship"/><span></span> Internship</label>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="sort">
+                            <p><strong>Waktu rilis</strong></p>
+                            <form>
+                                <label><input type="radio" id="terbaru" name="job_sort" value="terbaru" checked/><span></span> Terbaru</label>
+                                <label><input type="radio" id="terlama" name="job_sort" value="terlama"/><span></span> Terlama</label>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+            </aside>
+            
 
-                <?php if (!empty($jobs)): ?>
-                <div class="pagination"></div>
-                <?php endif; ?>
+            <div class="main-content">
+                <!-- <button class="add-job">
+                    <i class="fa-solid fa-plus"></i>
+                    Add job
+                </button> -->
+
+                <div class="show-jobs">
+                    <div class="job-list">
+                        <?php
+                        $jobs = [
+                            ["author" => "Google", "time" => "2 hours ago", "type" => "Full Time", "position" => "Software Engineer", "location" => "Remote", "details" => "More details"],
+                            ["author" => "Microsoft", "time" => "3 hours ago", "type" => "Part Time", "position" => "Frontend Developer", "location" => "Remote", "details" => "More details"],
+                            ["author" => "Amazon", "time" => "5 hours ago", "type" => "Full Time", "position" => "Operations Manager", "location" => "Seattle, WA", "details" => "More details"],
+                            ["author" => "Apple", "time" => "1 hour ago", "type" => "Internship", "position" => "Data Analyst", "location" => "San Francisco, CA", "details" => "More details"],
+                            ["author" => "Facebook", "time" => "4 hours ago", "type" => "Full Time", "position" => "Product Designer", "location" => "New York, NY", "details" => "More details"],
+                            ["author" => "Tesla", "time" => "30 minutes ago", "type" => "Part Time", "position" => "Electrical Engineer", "location" => "Austin, TX", "details" => "More details"],
+                            ["author" => "Netflix", "time" => "1 day ago", "type" => "Full Time", "position" => "Marketing Specialist", "location" => "Los Gatos, CA", "details" => "More details"]
+                        ];
+
+                        if (empty($jobs)): ?>
+                            <div class="no-jobs">
+                                <h2>No job listings available</h2>
+                            </div>
+                        <?php else: 
+                            foreach ($jobs as $job): ?>
+                                <div class="job">
+                                    <div class="job-author">
+                                        <div class="author">
+                                            <h1><?php echo $job['position']; ?></h1>
+                                            <p><?php echo $job['type']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="job-info">
+                                    <div class="job-type-location">
+                                        <h2>
+                                            <strong>
+                                                <a href="#" title="View Author Profile" class = "company-name">
+                                                    <?php echo $job['author']; ?>
+                                                </a>
+                                            </strong>
+                                        </h2>
+                                        <div class="job-location">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <p><?php echo $job['location']; ?></p>
+                                        </div>
+                                        <small><?php echo $job['time']; ?></small>
+                                    </div>
+                                    </div>
+                                    <div class="job-details">
+                                        <a href="#">More details</a>
+                                    </div>
+                                </div>
+                            <?php endforeach;
+                        endif; ?>
+                    </div>
+
+                    <?php if (!empty($jobs)): ?>
+                    <div class="pagination"></div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
-
+    </section>
+    
     <script type="text/javascript">
         function getPageList(totalPages, page, maxLength) {
             function range(start, end) {
@@ -198,7 +221,7 @@
     <script>
         $(document).ready(function() {
             $(".toggle-filter").on("click", function() {
-                $(".filter-sort").toggle(); // Toggle visibility of the filter sort section
+                $(".filter-sort").toggle();
             });
         });
     </script>

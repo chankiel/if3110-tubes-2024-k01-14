@@ -1,5 +1,5 @@
 <?php
-if (isset($_COOKIE["error_message"])) {
+if(isset($_COOKIE["error_message"])) {
     $errorMessage = htmlentities($_COOKIE["error_message"]);
     setcookie("error_message", "", time() - 3600, "/");
 } else {
@@ -46,10 +46,10 @@ if (isset($_COOKIE["error_message"])) {
                     <input type="email" name="email" required>
 
                     <label for="password">Password</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" required minlength="6">
 
                     <label for="confirm_password">Confirm Password</label>
-                    <input type="password" name="confirm_password" required>
+                    <input type="password" name="confirm_password" required minlength="6">
                 </div>
 
                 <div id="companyFields" class="companyFields" style="display: none;">
@@ -66,10 +66,10 @@ if (isset($_COOKIE["error_message"])) {
                     <input name="about"></textarea>
 
                     <label for="password_company">Password</label>
-                    <input type="password" name="password_company">
+                    <input type="password" name="password_company" minlength="6">
 
                     <label for="confirm_password_company">Confirm Password</label>
-                    <input type="password" name="confirm_password_company">
+                    <input type="password" name="confirm_password_company" minlength="6">
                 </div>
 
                 <button type="submit">Agree & Join</button>
