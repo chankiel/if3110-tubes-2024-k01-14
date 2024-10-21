@@ -1,3 +1,13 @@
+:root{
+  --blue: #0A66C2;
+  --darkblue: #004182;
+  --gray: #6c757d;
+  --lightgray: #adb5bd;
+  --green: #4CAF50;
+  --darkgreen: #218838;
+  --subtleblue: #f0f7fe;
+}
+
 header {
   background-color: white;
   width: 100%;
@@ -113,7 +123,7 @@ header {
   margin-top: 5px;
 }
 
-/* .login-btn {
+.login-btn {
   border: 2px solid var(--blue);
   color: var(--blue);
   padding: 5px 0;
@@ -127,7 +137,7 @@ header {
   padding: 5px 0;
   border-radius: 70px;
   width: 80px; 
-}*/
+}
 
 .login-btn {
   background-color: white;
