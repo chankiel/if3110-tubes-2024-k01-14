@@ -19,7 +19,7 @@
                             <span class="material-symbols-outlined navbar-icon">
                                 history
                             </span>
-                            <a href="/">History</a>
+                            <a href="/applications">History</a>
                         </li>
                     <?php else: ?>
                         <li class="icon">

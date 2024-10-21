@@ -18,6 +18,7 @@ CREATE TABLE
     IF NOT EXISTS lowongan (
         id SERIAL PRIMARY KEY,
         company_id INT REFERENCES users (id) ON DELETE CASCADE,
+        company_name VARCHAR(255),
         posisi VARCHAR(255),
         deskripsi TEXT,
         jenis_pekerjaan VARCHAR(255),
@@ -89,6 +90,7 @@ VALUES
 INSERT INTO
     lowongan (
         company_id,
+        company_name,
         posisi,
         deskripsi,
         jenis_pekerjaan,
@@ -98,6 +100,7 @@ INSERT INTO
 VALUES
     (
         2,
+        'Company Inc.',
         'Software Engineer',
         'Responsible for developing applications.',
         'Full-time',
@@ -106,6 +109,7 @@ VALUES
     ),
     (
         2,
+        'Company Inc.',
         'Data Analyst',
         'Analyze and interpret complex data.',
         'Part-time',
@@ -114,6 +118,7 @@ VALUES
     ),
     (
         2,
+        'Company Inc.',
         'Product Manager',
         'Manage product development and strategy.',
         'Contract',

@@ -1,14 +1,18 @@
 <?php
 namespace Controller;
 use Model\Lowongan;
+use Model\User;
 use Helper\Validator;
 use Helper\FileManager;
 
 class LowonganController extends Controller {
     private Lowongan $lowongan;
+    private User $user;
 
     public function __construct(){
+        parent::__construct();
         $this->lowongan  = new Lowongan();
+        $this->user = new User();
     }    
 
     public function showTambahLowongan(){
@@ -17,7 +21,7 @@ class LowonganController extends Controller {
 
     public function showDetailJS($matches){
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id,$this->cur_user['id']);
         if(!$data){
             header("Location: /not-found");
             exit();
@@ -116,14 +120,17 @@ class LowonganController extends Controller {
         header("Location: $target_url");
     }
 
-    public function hapusLowongan($lowongan_id){
+    public function deleteLowongan($lowongan_id){
         $condition = "id= :id";
         $params = ["id" => $lowongan_id];
         $this->lowongan->deleteLowongan( $condition, $params);
     }
 
-    public function getOpenLowongan(){
-        $this->lowongan->getPreviewOpenLowongan();  
+    public function getOpenLowongan($user_id, $role){
+        if($role === "company") {
+            return $this->lowongan->getAllLowonganByCompany($user_id);
+        } else {
+            return $this->lowongan->getAllOpenLowongan();  
+        }
     }
-
 }
