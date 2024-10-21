@@ -2,13 +2,13 @@
 
 namespace Controller;
 
-use Model\UserModel;
+use Model\User;
 
 class AuthController extends Controller {
     private $userModel;
 
     public function __construct() {
-        $this->userModel = new UserModel();
+        $this->userModel = new User();
     }
 
     public function login() {
@@ -29,7 +29,7 @@ class AuthController extends Controller {
                 exit();
             }
         } else {
-            $_COOKIE["error_message"] = "Invalid email or password";
+            setcookie("error_message", "Invalid email or password", time() + 3600, "/");
             header('Location: /login');
             exit();
         }
@@ -40,10 +40,8 @@ class AuthController extends Controller {
         setcookie("email", "", time() - 86400, "/");
         setcookie("role", "", time() - 86400, "/");
 
-        return [
-            "success" => true,
-            "message" => "Logged out successfully"
-        ];
+        header('Location: /');
+        exit();
     }
 
     public static function getCurrentUser() {
@@ -66,5 +64,17 @@ class AuthController extends Controller {
 
     public function isLoggedIn() {
         return isset($_COOKIE['user_id']);
+    }
+
+    public function getRole(){
+        return $_COOKIE['role'];
+    }
+
+    public function getEmail(){
+        return $_COOKIE['email'];
+    }
+
+    public function getUserId(){
+        return $_COOKIE['user_id'];
     }
 }

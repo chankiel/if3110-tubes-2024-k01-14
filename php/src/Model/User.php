@@ -3,7 +3,7 @@
 namespace Model;
 use Core\DbCon;
 
-class UserModel {
+class User {
     private $db;
 
     public function __construct() {
@@ -54,8 +54,8 @@ class UserModel {
         return $this->db->rawQuery("SELECT * FROM users");
     }
 
-    public function getUserById($userId) {
-        return $this->db->findById("users",  $userId);
+    public function getUserById($userId,$attr="*") {
+        return $this->db->findById("users",  $userId,$attr);
     }
 
     public function getUsersByRole($role) {

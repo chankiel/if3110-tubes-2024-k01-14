@@ -157,8 +157,8 @@ class DbCon {
          1,
         )
     */
-    public function findById($table, $id) {
-        $sql = "SELECT * FROM $table WHERE id = :id";
+    public function findById($table, $id,$attr = "*") {
+        $sql = "SELECT $attr FROM $table WHERE id = :id";
         
         try {
             $stmt = $this->pdo->prepare($sql);

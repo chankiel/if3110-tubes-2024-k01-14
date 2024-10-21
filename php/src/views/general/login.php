@@ -1,3 +1,12 @@
+<?
+if(isset($_COOKIE["error_message"])) {
+    $errorMessage = htmlentities($_COOKIE["error_message"]);
+    setcookie("error_message", "", time() - 3600, "/");
+} else {
+    $errorMessage = "";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,13 +25,11 @@
     <section class="form-register-login">
         <div class="register-login-container">
             <h1>Login</h1>
-            <?php
-            if (isset($_COOKIE["error_message"])) {
-                echo "<div class='error-message' style='color: red; text-align: center; margin-bottom: 10px;'>"
-                    . htmlentities($_COOKIE["error_message"]) . "</div>";
-                    setcookie("error_message", '', time() - 86400, "/");
-            }
-            ?>
+            <?php if ($errorMessage): ?>
+                <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
+                    <?= $errorMessage ?>
+                </div>
+            <?php endif; ?>
             <form action="/login" method="POST">
                 <label for="email">Email</label>
                 <input type="email" name="email" required>

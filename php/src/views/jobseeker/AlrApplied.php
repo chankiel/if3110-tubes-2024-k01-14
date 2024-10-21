@@ -37,10 +37,13 @@
                     </li>
                     <?php if ($video_path): ?>
                         <li>
-                            <span class="material-symbols-outlined">
-                                videocam
-                            </span>
-                            <p><?= basename($video_path) ?></p>
+                            <a href="<?= $video_path ?>" target="_blank">
+
+                                <span class="material-symbols-outlined">
+                                    videocam
+                                </span>
+                                <p><?= basename($video_path) ?></p>
+                            </a>
                         </li>
                     <?php endif; ?>
                 </ul>

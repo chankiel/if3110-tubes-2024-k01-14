@@ -8,8 +8,8 @@ class FileManager
     {
         $upload_dir = dirname(__DIR__) . '/storage/'. $type;
 
-        $file = $_FILES['cv']['tmp_name'];
-        $filename = basename($_FILES['cv']['name']);
+        $file = $_FILES[$type]['tmp_name'];
+        $filename = basename($_FILES[$type]['name']);
         $target = $upload_dir . '/' . $filename;
 
         if (!empty($file)) {

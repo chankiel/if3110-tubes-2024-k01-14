@@ -43,7 +43,7 @@ class Router
 
         self::post("/login","AuthController@login");
         self::post("/register","UserController@register");
-        self::post("/logout","");
+        self::post("/logout","AuthController@logout");
 
         self::get("/jobs/add","LowonganController@showTambahLowongan");
         self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
@@ -62,9 +62,7 @@ class Router
 
         self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
 
-        self::get("/not-found",function(){
-            require_once __DIR__ . "/../views/general/not-found.php";
-        });
+        self::get("/not-found","Controller@showNotFound");
     }
 
     public static function dispatch()

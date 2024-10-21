@@ -4,26 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/styles/general/home.css">
+    <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Jobs</title>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a href="home.html" class="logo"></a>
+    
+    <header class="">
+        <div class="header-container">
+            <a class="logo-container" href="/">
+                <img src="/public/images/linkedin.png" alt="logo">
+            </a>
+            <nav class="navbar ">
+                <ul class="navbar-list ">
+                    <?php if (isset($_COOKIE["role"])): ?>
+                        <?php if ($_COOKIE["role"] === "jobseeker"): ?>
+                            <li><a href="/" class="login-btn">Profile</a></li>
+                            <li><a href="/" class="login-btn">Riwayat</a></li>
+                        <?php elseif ($_COOKIE["role"] === "company"): ?>
+                            <li><a href="/" class="login-btn">Profile</a></li>
+                        <?php endif; ?>
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
+                    <?php else: ?>
+                        <li><a href="/login" class="login-btn">Login</a></li>
+                        <li><a href="/register" class="login-btn">Register</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
         </div>
-        <div class="navbar-center">
-            <ul class="navbar-control">
-                <li><a href="#" class="active-link"><img src=""><span>Home</span></a></li>
-                <li><a href="#"><img src=""><span>My Network</span></a></li>
-                <li><a href="#"><img src=""><span>Jobs</span></a></li>
-                <li><a href="#"><img src=""><span>Messaging</span></a></li>
-                <li><a href="#"><img src=""><span>Notifications</span></a></li>
-            </ul>
-        </div>
-        <div class="navbar-right"></div>
-    </nav>
+    </header>
 
     <div class="container">
         <div class="left-sidebar">
@@ -160,7 +172,7 @@
         $(function () {
             var numberOfItems = $(".job-list .job").length;
             if (numberOfItems > 0) {
-                var limitPerPage = 3;
+                var limitPerPage = 2;
                 var totalPages = Math.ceil(numberOfItems / limitPerPage);
                 var paginationSize = 7;
                 var currentPage;
