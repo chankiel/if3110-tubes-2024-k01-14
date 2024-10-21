@@ -6,9 +6,11 @@ use Model\User;
 class UserController extends Controller{
     private $userModel;
     private $userAuth;
+    private $lowongan;
     public function __construct() {
         $this->userModel = new User();
         $this->userAuth = new AuthController();
+        $this->lowongan = new LowonganController();
     }
 
     public function register() {
@@ -104,18 +106,23 @@ class UserController extends Controller{
 
     public function showHome() {
         if(isset($_COOKIE["role"])) {
+            $user_id = $_COOKIE["user_id"];
             $role = $_COOKIE["role"];
 
+            $allLowongan = $this->lowongan->getOpenLowongan($user_id, $role);
+
+            // var_dump($allLowongan);
             if($role === "jobseeker") {
-                $this->view("/jobseeker/home");
+                $this->view("/jobseeker/home", ["jobs" => $allLowongan]);
             } else if($role === "company") {
-                $this->view("/company/home");
+                $this->view("/company/home", ["jobs" => $allLowongan]);
             } else {
                 header("Location: /login");
                 exit();
             }
         } else {
-            $this->view("/jobseeker/home");
+            $allOpenLowongan = $this->lowongan->getOpenLowongan(null, null);  
+            $this->view("/jobseeker/home", ["jobs" => $allOpenLowongan]);
         }
     }
 
