@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 use Core\DbCon;
+
 class Lamaran {
     private DbCon $db;
     public function __construct() {
@@ -41,4 +42,28 @@ class Lamaran {
         return $this->db->fetchQuery($sql,$params);
     }
 
+    public function getDetailAllLamaran($user_id){
+        $sql = "SELECT nama, email, cv_path, video_path, status, status_reason FROM users JOIN lamaran ON user_id = users.id WHERE user_id = :user_id";
+        $params = ['user_id'=>$user_id];
+        return $this->db->fetchQuery($sql, $params);
+    }
+
+    public function getDetailLamaran($id)
+    {
+        // Lamaran Details
+        $lamaran_details = $this->db->findById("lamaran", $id);
+        if(!$lamaran_details){
+            return [];
+        }
+
+        // User Details
+        $user_details = $this->db->fetchQuery("SELECT nama, email FROM users WHERE id=:user_id",
+        params: ["user_id"=>$lamaran_details['user_id']]);
+
+        $details = array_merge(
+            $user_details, $lamaran_details
+        );
+
+        return $details;
+    }
 }

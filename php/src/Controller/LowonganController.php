@@ -1,17 +1,14 @@
 <?php
 namespace Controller;
 use Model\Lowongan;
-use Model\UserModel;
 use Helper\Validator;
 use Helper\FileManager;
 
 class LowonganController extends Controller {
     private Lowongan $lowongan;
-    private UserModel $user;
 
     public function __construct(){
         $this->lowongan  = new Lowongan();
-        $this->user = new UserModel();
     }    
 
     public function showTambahLowongan(){
@@ -37,11 +34,7 @@ class LowonganController extends Controller {
             header("Location: /not-found");
         }
 
-        $data = [
-            "lowongan_id" => $lowongan_id,
-        ];
-
-        $this->view("/company/editLowongan", $data);
+        $this->view("/company/editLowongan", $lowongan);
     }
 
     public function tambahLowongan(){
