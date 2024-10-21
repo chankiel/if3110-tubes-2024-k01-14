@@ -112,7 +112,7 @@ class LamaranController extends Controller
         // Cek lowongan id valid
         $lowongan = $this->lowongan->getLowonganById($lowongan_id);
         if (!$lowongan) {
-            header("Location: /");
+            header("Location: /not-found");
         }
 
         // Cek user_id udah pernah lamar lowongan_id
@@ -125,7 +125,7 @@ class LamaranController extends Controller
             return;
         }
 
-        $company_name = $this->user->getUserById($lowongan["company_id"]);
+        $company_name = $this->user->getUserById($lowongan["company_id"],"nama");
 
         $data = [
             "company_name" => $company_name['nama'],
@@ -135,6 +135,10 @@ class LamaranController extends Controller
         ];
 
         $this->view("/jobseeker/FormLamaran", $data);
+    }
+
+    public function showRiwayat(){
+        $this->view("/jobseeker/RiwayatJobSeeker");
     }
 
     private function handleErrors($errors,$url){

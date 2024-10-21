@@ -62,9 +62,7 @@ class Router
 
         self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
 
-        self::get("/not-found",function(){
-            require_once __DIR__ . "/../views/general/not-found.php";
-        });
+        self::get("/not-found","Controller@showNotFound");
     }
 
     public static function dispatch()

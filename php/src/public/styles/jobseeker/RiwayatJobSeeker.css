@@ -1,28 +1,112 @@
-.lamaran-link{
-    position: relative;
+.lamaran-link {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 90%;
+  padding: 10px 0;
 }
 
-.status{
-    display: flex;
-    justify-content: center;
-    gap: 5px;
+.lamaran-item {
+  border-bottom: 1px solid black;
+  padding: 20px;
+  padding: 5px;
+}
+
+.top-container {
+  position: relative;
+}
+
+.role {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--gray);
+  font-size: small;
+}
+
+.company {
+  font-size: 15px;
+}
+
+.date-container {
+  margin-top: 13px;
+  font-size: 14px;
+}
+
+.date-upload {
+  font-weight: 500;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 20px;
+  font-weight: bolder;
+  color: white;
+  font-size: 10px;
+}
+
+.accepted {
+  background-color: var(--green);
+}
+
+.waiting {
+  background-color: var(--gray);
+}
+
+.rejected {
+  background-color: red;
+}
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+  .lamaran-link {
+    width: 85%;
+  }
+
+  .role {
+    font-size: 64px;
+    line-height: 1;
+  }
+
+  .company {
+    font-size: 40px;
+  }
+
+  .details {
+    font-size: 20px;
+  }
+
+  .date-container {
+    font-size: 16px;
+  }
+
+  .status {
+    font-size: 20px;
     padding: 8px 15px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: 15px;
-    font-weight: bolder;
-    color: white;
+  }
 }
 
-.accepted{
-    background-color: var(--green);
+@media (min-width: 1024px) {
+  .lamaran-link {
+    width: 80%;
+  }
 }
 
-.waiting{
-    background-color: var(--gray);
+@media (min-width: 1280px) {
 }
 
-.rejected{
-    background-color: red;
+@media (min-width: 1536px) {
 }

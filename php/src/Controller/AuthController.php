@@ -65,4 +65,16 @@ class AuthController extends Controller {
     public function isLoggedIn() {
         return isset($_COOKIE['user_id']);
     }
+
+    public function getRole(){
+        return $_COOKIE['role'];
+    }
+
+    public function getEmail(){
+        return $_COOKIE['email'];
+    }
+
+    public function getUserId(){
+        return $_COOKIE['user_id'];
+    }
 }
