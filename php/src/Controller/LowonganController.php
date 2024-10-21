@@ -1,16 +1,26 @@
 <?php
 namespace Controller;
 use Model\Lowongan;
+use Model\UserModel;
+use Helper\Validator;
+use Helper\FileManager;
+
 class LowonganController extends Controller {
-    private Lowongan $model;
+    private Lowongan $lowongan;
+    private UserModel $user;
 
     public function __construct(){
-        $this->model  = new Lowongan();
+        $this->lowongan  = new Lowongan();
+        $this->user = new UserModel();
     }    
+
+    public function showTambahLowongan(){
+        $this->view("/company/FormTambahLowongan",[]);
+    }
 
     public function showDetailJS($matches){
         $lowongan_id = $matches[0];
-        $data = $this->model->getDetailLowongan($lowongan_id);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id);
         if(!$data){
             header("Location: /not-found");
             exit();
@@ -18,46 +28,109 @@ class LowonganController extends Controller {
         $this->view("/jobseeker/DetailLowongan",$data);
     }
 
-    public function tambahLowongan(){
-        $dataLowongan = [
-            "company_id" => $_SESSION["user_id"],
-            "posisi" => $_POST["posisi"],
-            "deskripsi" => $_POST["deskripsi"],
-            "jenis_pekerjaan" => $_POST["jenis_pekerjaan"],
-            "jenis_lokasi"=> $_POST["jenis_lokasi"],
-            "attachment"=> $_POST["attachment"]
+    public function showEditLowongan($matches){
+        $lowongan_id = $matches[0];
+
+        // Cek lowongan id valid
+        $lowongan = $this->lowongan->getLowonganById($lowongan_id);
+        if (!$lowongan) {
+            header("Location: /not-found");
+        }
+
+        $data = [
+            "lowongan_id" => $lowongan_id,
         ];
-        
-                
-        $this->model->addLowongan($dataLowongan);
+
+        $this->view("/company/editLowongan", $data);
     }
 
-    public function editLowongan($params = null){
+    public function tambahLowongan(){
+        $validator = new Validator();
+        $target_url = "/";
 
-        $company_id = $_SESSION["user_id"];
+        $company_id =  $_COOKIE["user_id"];
+
         $posisi = $_POST["posisi"];
-        
+        $validator->string("posisi",$posisi,"Posisi");
+        if(!$validator->passes()){
+            return $validator->errors();
+        }
+
+        $deskripsi = $_POST["deskripsi"];
+        $validator->string("deskripsi",$deskripsi,"Deskripsi");
+        if(!$validator->passes()){
+            return $validator->errors();
+        }
+
+        $jenis_pekerjaan =$_POST["jenis_pekerjaan"];
+        $jenis_lokasi = $_POST["jenis_lokasi"];
+        // // validasi belum
+        // $image_path = FileManager::uploadFile("cv");
+
         $dataLowongan = [
             "company_id" => $company_id,
             "posisi" => $posisi,
-            "deskripsi" => $_POST["deskripsi"],
-            "jenis_pekerjaan" => $_POST["jenis_pekerjaan"],
-            "jenis_lokasi"=> $_POST["jenis_lokasi"],
-            "attachment"=> $_POST["attachment"],
+            "deskripsi" => $deskripsi,
+            "jenis_pekerjaan" =>$jenis_pekerjaan ,
+            "jenis_lokasi"=> $jenis_lokasi,
+            // "file_path"=> $image_path??"",
+        ];
+        
+                
+        $this->lowongan->addLowongan($dataLowongan);
+        
+        header("Location: $target_url");
+    }
+
+    public function editLowongan($lowongan_id){
+        $validator = new Validator();
+        $target_url = "/";
+        
+        $company_id =  $_COOKIE["user_id"];
+
+        $posisi = $_POST["posisi"];
+        $validator->string("posisi",$posisi,"Posisi");
+        if(!$validator->passes()){
+            return $validator->errors();
+        }
+
+        $deskripsi = $_POST["deskripsi"];
+        $validator->string("deskripsi",$deskripsi,"Deskripsi");
+        if(!$validator->passes()){
+            return $validator->errors();
+        }
+
+        $jenis_pekerjaan =$_POST["jenis_pekerjaan"];
+        $jenis_lokasi = $_POST["jenis_lokasi"];
+
+        // // validasi belum
+        // $image_path = FileManager::uploadFile("cv");
+
+        $dataLowongan = [
+            "company_id" => $company_id,
+            "posisi" => $posisi,
+            "deskripsi" => $deskripsi,
+            "jenis_pekerjaan" =>$jenis_pekerjaan ,
+            "jenis_lokasi"=> $jenis_lokasi,
+            "file_path"=> $image_path??""
         ];
 
-        $condition = "id=:id";
-
-        $this->model->updateLowongan($dataLowongan, $condition, $params);
-    }
-
-    public function hapusLowongan($params = null){
         $condition = "id= :id";
-        $this->model->deleteLowongan( $condition, $params);
+        $params = ["id" => $lowongan_id];
+
+        $this->lowongan->updateLowongan($dataLowongan, $condition, $params);
+
+        header("Location: $target_url");
     }
 
-    public function lihatDetailLowongan($params = null){
-        $this->model->getDetailLowongan($params);
+    public function hapusLowongan($lowongan_id){
+        $condition = "id= :id";
+        $params = ["id" => $lowongan_id];
+        $this->lowongan->deleteLowongan( $condition, $params);
+    }
+
+    public function getOpenLowongan(){
+        $this->lowongan->getPreviewOpenLowongan();  
     }
 
 }

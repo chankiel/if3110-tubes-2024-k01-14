@@ -18,8 +18,8 @@ class Lowongan
         $dataLowongan = array_slice($data, 0, 5);
         $dataAttachment = array_slice($data, 5);
         $lowonganID = $this->db->insert("lowongan", data: $dataLowongan);
-        $attachment = array_merge(["id" => $lowonganID], $dataAttachment);
-        $this->db->insert("attachmentlowongan", $attachment);
+        // $attachment = array_merge(["id" => $lowonganID], $dataAttachment);
+        // $this->db->insert("attachmentlowongan", $attachment);
         $this->db->commit();
     }
 
@@ -44,9 +44,9 @@ class Lowongan
 
     public function searchFilterSort($posisi, $filter, $sortir)
     {
-        $sql = "SELECT * FROM lowongan WHERE posisi is like '%$posisi%' ";
+        $sql = "SELECT * FROM lowongan WHERE posisi like '%$posisi%' ";
         foreach ($filter as $key => $value) {
-            $sql .= "AND $key = :$key";
+            $sql .= "OR $key = :$key";
         }
 
         if ($sortir == "descending") {
@@ -79,6 +79,23 @@ class Lowongan
     //     return $result;
     // }
 
+    public function getPreviewOpenLowongan(){
+        $allLowongan = $this->db->rawQuery(
+            "SELECT nama, posisi, jenis_pekerjaan, jenis_lokasi, created_at FROM lowongan JOIN user ON users.id = lowongan.company_id WHERE lowongan.is_open = TRUE");
+        if (!$allLowongan) {
+            return[];
+        }
+
+        foreach ($allLowongan as $lowongan_diffTime => $value) {
+            $lowongan_diffTime["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_diffTime["created_at"]); 
+            unset($lowongan_diffTime["created_at"]);
+            unset($lowongan_diffTime["updated_at"]);
+        }
+
+        return $allLowongan;
+
+        
+    }
     public function getDetailLowongan($id)
     {
         // Lowongan Details

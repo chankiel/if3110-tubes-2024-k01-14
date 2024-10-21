@@ -45,13 +45,13 @@ class Router
         self::post("/register","UserController@register");
         self::post("/logout","");
 
-        self::get("/jobs/add","");
-        self::get("/jobs/edit/{id}","");
+        self::get("/jobs/add","LowonganController@showTambahLowongan");
+        self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
         self::get("/applications/{id}","");
         self::get("/profile/company","");
 
-        self::post("/jobs","");
-        self::put("/jobs/{id}","");
+        self::post("/jobs","LowonganController@tambahLowongan");
+        self::put("/jobs/{id}","LowonganController@editLowongan");
         self::put("/applications/{id}/approve","");
         self::get("/applications/{id}/reject","");
         self::put("/profile/company","");
