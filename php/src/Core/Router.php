@@ -37,46 +37,46 @@ class Router
     }
 
     public static function initRoutes(){
-        self::get("/","");
-        self::get("/login","");
-        self::get("/register","");
+        self::get("/","UserController@showHome");
+        self::get("/login","UserController@showLogin");
+        self::get("/register", "UserController@showRegister");
 
-        self::post("/login","");
-        self::post("/register","");
-        self::post("/logout","");
+        self::post("/login","AuthController@login");
+        self::post("/register","UserController@register");
+        self::post("/logout","AuthController@logout");
 
-        self::get("/jobs/add","");
-        self::get("/jobs/edit/{id}","");
+        self::get("/jobs/add","LowonganController@showTambahLowongan");
+        self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
         self::get("/applications/{id}","");
         self::get("/profile/company","UserController@showProfileCompany");
 
-        self::post("/jobs","");
-        self::put("/jobs/{id}","");
+        self::post("/jobs","LowonganController@tambahLowongan");
+        self::put("/jobs/{id}","LowonganController@editLowongan");
         self::put("/applications/{id}/approve","");
         self::get("/applications/{id}/reject","");
         self::put("/profile/company","");
 
-        self::get("/jobs/{id}/details","");
-        self::get("/jobs/{id}/apply","");
-        self::get("/applications","");
+        self::get("/jobs/{id}/details","LowonganController@showDetailJS");
+        self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
+        self::get("/applications","LamaranController@showRiwayat");
 
-        self::post("/jobs/{id}/apply","");
+        self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
+
+        self::get("/not-found","Controller@showNotFound");
     }
 
     public static function dispatch()
     {
         // Ubah http://tes.com/user/123/?q=a -> /user/123/ -> user/123/ 
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-
         // Ambil method request (GET/POST/...)
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         foreach (self::$routes as $route) {
             // Ubah user/{id} jadi user/([a-zA-Z0-9_]+)
-            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([a-zA-Z0-9_]+)', trim($route['uri'], '/'));
+            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([0-9]+)', trim($route['uri'], '/'));
 
             if ($route['method'] === $requestMethod && preg_match("#^{$routeUri}$#", $requestUri, $matches)) {
                 array_shift($matches);
-
                 // Kalau bentuk callbacknya langsung fungsi
                 if (is_callable($route['callback'])) {
                     return call_user_func($route['callback'], $matches);
@@ -90,5 +90,6 @@ class Router
                 }
             }
         }
+        header("Location: /not-found");
     }
 }

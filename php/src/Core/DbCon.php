@@ -39,7 +39,7 @@ class DbCon {
             ];
             $this->pdo = new PDO($dsn,$this->user,$this->password, $options);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connect successfully";
+            // echo "Connect successfully";
         }catch(PDOException $e){
             echo $e->getMessage();
         }
@@ -47,7 +47,7 @@ class DbCon {
 
     // Langsung query mentah, jangan untuk input user
     // Cth: query("SELECT * FROM USERS")
-    public function query($sql) {
+    public function rawQuery($sql) {
         $result = $this->pdo->query($sql)->fetchAll();
         return $result;
     }
@@ -64,6 +64,16 @@ class DbCon {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
             return $stmt->fetchAll();
+        }catch(PDOException $e){
+            die("Error prepare query :".$e->getMessage());
+        }
+    }
+
+    public function fetchQuery($sql, $params=[]) {
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt->fetch();
         }catch(PDOException $e){
             die("Error prepare query :".$e->getMessage());
         }
@@ -147,8 +157,8 @@ class DbCon {
          1,
         )
     */
-    public function findById($table, $id) {
-        $sql = "SELECT * FROM $table WHERE id = :id";
+    public function findById($table, $id,$attr = "*") {
+        $sql = "SELECT $attr FROM $table WHERE id = :id";
         
         try {
             $stmt = $this->pdo->prepare($sql);

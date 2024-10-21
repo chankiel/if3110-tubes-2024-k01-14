@@ -1,0 +1,60 @@
+main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section {
+  width: 100%;
+  position: relative;
+  padding: 5px;
+}
+
+section > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.desc {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.back-btn {
+  display: block;
+  background-color: var(--blue);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 70px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+  .desc{
+    font-size: 35px;
+    width: 75%;
+  }
+
+  .back-btn{
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1280px) {
+  .desc {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1536px) {
+}
