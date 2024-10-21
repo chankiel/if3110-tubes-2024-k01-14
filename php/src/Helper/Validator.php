@@ -68,7 +68,6 @@ class Validator
         return $this;
     }
 
-    // Check if a file has a valid extension
     public function fileExtension($field, $fileName, $allowedExtensions, $field_name = null)
     {
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -78,7 +77,6 @@ class Validator
         return $this;
     }
 
-    // Check if a numeric field falls within a range
     public function between($field, $value, $min, $max, $field_name = null)
     {
         if ($value < $min || $value > $max) {
@@ -87,13 +85,11 @@ class Validator
         return $this;
     }
 
-    // Get the list of errors
     public function errors()
     {
         return $this->errors;
     }
 
-    // Check if validation passed (no errors)
     public function passes()
     {
         return empty($this->errors);
