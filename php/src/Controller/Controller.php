@@ -43,4 +43,11 @@ class Controller{
         }
         return $response;
     }
+
+    public function authorizeRole($role){
+        if($this->cur_user['role']!=$role){
+            header("Location: /not-found");
+            exit();
+        }
+    }
 }
