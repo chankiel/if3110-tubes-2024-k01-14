@@ -53,7 +53,7 @@ class Router
 
         self::post("/jobs","LowonganController@tambahLowongan");
         self::post("/jobs/{id}","LowonganController@editLowongan");
-        self::put("/applications/{id}/approve","");
+        self::post("/applications/{id}/approve","LamaranController@");
         self::put("/applications/{id}/reject","");
         self::put("/profile/company","UserController@editCompany");
 
@@ -61,9 +61,11 @@ class Router
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
 
-        self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
+        self::post( "/jobs/{id}/apply","LamaranController@tambahLamaran");
 
         self::get("/not-found","Controller@showNotFound");
+
+        self::post("/jobs/{id}/close","LowonganController@changeOpenClosed");
     }
 
     public static function dispatch()

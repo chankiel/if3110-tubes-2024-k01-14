@@ -119,12 +119,31 @@ class DbCon {
     
         try {
             $stmt = $this->pdo->prepare($sql);
+    
+            // Bind the values from the $data array
             foreach ($data as $key => $value) {
-                $stmt->bindValue(":new_$key", $value);
+                // Determine the correct type for binding
+                if (is_bool($value)) {
+                    $stmt->bindValue(":new_$key", $value, PDO::PARAM_BOOL);
+                } elseif (is_int($value)) {
+                    $stmt->bindValue(":new_$key", $value, PDO::PARAM_INT);
+                } else {
+                    $stmt->bindValue(":new_$key", $value, PDO::PARAM_STR);
+                }
             }
+    
+            // Bind the values from the $params array for WHERE clause
             foreach ($params as $key => $value) {
-                $stmt->bindValue(":$key", $value); 
+                // Use the same type-checking logic if needed
+                if (is_bool($value)) {
+                    $stmt->bindValue(":$key", $value, PDO::PARAM_BOOL);
+                } elseif (is_int($value)) {
+                    $stmt->bindValue(":$key", $value, PDO::PARAM_INT);
+                } else {
+                    $stmt->bindValue(":$key", $value, PDO::PARAM_STR);
+                }
             }
+    
             $stmt->execute();    
             return $stmt->rowCount();
     
@@ -132,6 +151,7 @@ class DbCon {
             die("Error updating data: " . $e->getMessage());
         }
     }
+    
     
     /*
         delete(
