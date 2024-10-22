@@ -29,17 +29,6 @@ class LamaranController extends Controller
         $lowongan_id = $matches[0];
         $target_url = "/jobs/{$matches[0]}/details";
 
-        // Validate lowongan_id integer
-        if(!is_numeric($lowongan_id)){
-            $validator->customError("lowongan_id", "Lowongan id is invalid");
-        }else{
-            $validator->integer("lowongan_id",(int)$lowongan_id,"Lowongan id");
-        }
-        
-        if(!$validator->passes()){
-            return $this->handleErrors($validator->errors(),$target_url);
-        }
-
         // Validate lowongan id exists
         if(!$this->lowongan->existsLowongan($lowongan_id)){
             header("Location: /not-found");
@@ -64,8 +53,8 @@ class LamaranController extends Controller
             return $this->handleErrors($validator->errors(),$target_url);
         }
 
-        $cv_path = FileManager::uploadFile("cv");
-        $video_path = FileManager::uploadFile("video");
+        $cv_path = FileManager::getAndUploadFile('/storage/',"cv");
+        $video_path = FileManager::getAndUploadFile('/storage/',"video");
 
         $data = [
             "user_id" => $this->cur_user['id'],
