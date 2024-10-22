@@ -259,6 +259,26 @@ class LowonganController extends Controller
         // return $jobListHtml;
     }
 
+
+    public function changeOpenClosed($matches){
+        $is_open = $_POST["action"];
+        $lowongan_id = $matches[0];
+        if ($is_open === "close") {
+            $status = false;
+        } else {
+            $status = true;
+        }
+        $this->lowongan->updateLowongan(['is_open'=>$status], "id=:id", ['id' => $lowongan_id]);
+        session_start();
+        
+        $response =  [
+            "success" => true,
+            "message" => "status change succesfully!"
+        ];
+        $_SESSION['response'] = $response;
+        header("Location: /jobs/$lowongan_id");
+    }
+
     public function renderJobAndPagination($jobs, $currentPage, $totalPages): string {
         $html = '<div class="job-list">';
         
