@@ -26,6 +26,7 @@ class Lowongan
 
     public function deleteLowongan($condition, $params)
     {
+        $this->deleteAttachments($params['id']);
         return $this->db->delete("lowongan", $condition, $params);
     }
 

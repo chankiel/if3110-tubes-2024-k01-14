@@ -21,12 +21,13 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
-        $this->view("/company/FormTambahLowongan", []);
+        $this->view("/company/FormTambahLowongan");
     }
 
     public function showDetailJS($matches)
     {
         $this->authorizeRole("jobseeker");
+
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
         if (!$data) {
@@ -198,13 +199,14 @@ class LowonganController extends Controller
     
         $lowongan_id = $matches[0];
         $lowongan = $this->validateLowongan($lowongan_id,$this->cur_user['id'],true);
+
         $this->lowongan->deleteLowongan("id= :id", ["id" => $lowongan_id]);
         $this->lowongan->deleteAttachments($lowongan_id);
         
         session_start();
         $response =  [
             "success" => true,
-            "message" => "Job updated successfully!"
+            "message" => "Job deleted successfully!"
         ];
 
         $_SESSION['response'] = $response;
@@ -221,6 +223,8 @@ class LowonganController extends Controller
         }
     }
     public function showDetailLowonganCompany($matches){
+        $this->authorizeRole("company");
+        
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDataPelamar($lowongan_id);
 

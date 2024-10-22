@@ -62,6 +62,12 @@ class Lamaran
         return $this->db->fetchQuery($sql, $params);
     }
 
+    public function getCompanyId($lamaran_id){
+        $sql = "SELECT lo.company_id FROM  lowongan lo JOIN lamaran lm ON lm.lowongan_id = lo.id WHERE lm.id= :lamaran_id";
+        $params = ['lamaran_id'=>$lamaran_id];
+        return $this->db->fetchQuery($sql, $params);
+    }
+
     public function getDetailLamaran($id)
     {
         // Lamaran Details
@@ -70,14 +76,20 @@ class Lamaran
             return [];
         }
 
+        $lowongan_details = $this->db->findById("lowongan",$lamaran_details['lowongan_id'],"company_id");
+
         // User Details
         $user_details = $this->db->fetchQuery("SELECT nama, email FROM users WHERE id=:user_id",
         params: ["user_id"=>$lamaran_details['user_id']]);
 
         $details = array_merge(
-            $user_details, $lamaran_details
+            $user_details, $lamaran_details, $lowongan_details
         );
 
         return $details;
+    }
+
+    public function changeStatusLamaran($status, $status_reason,$lamaran_id){
+        return $this->db->update("lamaran",['status'=>$status,'status_reason'=>$status_reason],"id=:id",['id'=>$lamaran_id]);
     }
 }

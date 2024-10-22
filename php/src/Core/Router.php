@@ -53,9 +53,10 @@ class Router
 
         self::post("/jobs","LowonganController@tambahLowongan");
         self::post("/jobs/{id}","LowonganController@editLowongan");
-        self::put("/applications/{id}/approve","");
-        self::put("/applications/{id}/reject","");
+        self::put("/applications/{id}/approve","LamaranController@approveLamaran");
+        self::put("/applications/{id}/reject","LamaranController@rejectLamaran");
         self::put("/profile/company","UserController@editCompany");
+        self::post("/jobs/{id}/delete","LowonganController@deleteLowongan");
 
         self::get("/jobs/{id}/details","LowonganController@showDetailJS");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");

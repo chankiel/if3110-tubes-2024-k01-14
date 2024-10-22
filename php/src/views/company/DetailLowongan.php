@@ -52,7 +52,9 @@ unset($_SESSION['response']);
             </ul>
             <h1 class="lowongan-heading">Tentang Pekerjaan Ini</h1>
             <p><?= $deskripsi ?></p>
-            <button class="delete-job">Delete</button>
+            <form action="/jobs/<?=$id?>/delete" method="POST">
+                <button type="submit" class="delete-job">Delete</button>
+            </form>
             <button class="close-job">Close</button>
         </section>
         <div class="list-application">

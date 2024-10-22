@@ -25,12 +25,13 @@ class LamaranController extends Controller
 
     public function tambahLamaran($matches)
     {
-        $validator = new Validator();
+        $this->authorizeRole("jobseeker");
         $lowongan_id = $matches[0];
+        $validator = new Validator();
         $target_url = "/jobs/{$matches[0]}/details";
 
         // Validate lowongan id exists
-        if(!$this->lowongan->existsLowongan($lowongan_id)){
+        if (!$this->lowongan->existsLowongan($lowongan_id)) {
             header("Location: /not-found");
             exit();
         }
@@ -49,12 +50,12 @@ class LamaranController extends Controller
         }
 
         // Cek pass validator
-        if(!$validator->passes()){
-            return $this->handleErrors($validator->errors(),$target_url);
+        if (!$validator->passes()) {
+            return $this->handleErrors($validator->errors(), $target_url);
         }
 
-        $cv_path = FileManager::getAndUploadFile('/storage/',"cv");
-        $video_path = FileManager::getAndUploadFile('/storage/',"video");
+        $cv_path = FileManager::getAndUploadFile('/storage/', "cv");
+        $video_path = FileManager::getAndUploadFile('/storage/', "video");
 
         $data = [
             "user_id" => $this->cur_user['id'],
@@ -77,20 +78,43 @@ class LamaranController extends Controller
         exit();
     }
 
-    public function changeStatusLamaran()
+    public function changeStatusLamaran($lamaran_id,$status)
     {
-        $id = $_POST["id"];
-        $data = [
-            "status" => $_POST["status"],
-            "reason" => $_POST["status_reason"],
-        ];
-        $condition = "id = :id";
-        $param = ["id" => $id];
-        $this->lamaran->updateLamaran($data, $condition, $param);
+        $this->authorizeRole('company');
+        $company_id = $this->lamaran->getCompanyId($lamaran_id)['company_id'];
+        $this->checkRule($company_id!==(int)$this->cur_user['id']);
+
+        parse_str(file_get_contents("php://input"), $data);
+        $status_reason = $data['status_reason'] ?? null;
+
+        $rowCount = $this->lamaran->changeStatusLamaran($status, $status_reason, $lamaran_id);
+        session_start();
+        if ($rowCount > 0) {
+            $_SESSION['response'] = [
+                "success" => true,
+                "message" => "Lamaran uploaded successfully!"
+            ];
+        }else{
+            $_SESSION['response'] = [
+                "success" => false,
+                "message" => "Something went wrong!"
+            ];
+        }
+    }
+
+    public function approveLamaran($matches){
+        $lamaran_id = $matches[0];
+        $this->changeStatusLamaran($lamaran_id,'accepted');
+    }
+
+    public function rejectLamaran($matches){
+        $lamaran_id = $matches[0];
+        $this->changeStatusLamaran($lamaran_id,'rejected');
     }
 
     public function showFormLamaran($matches)
     {
+        $this->authorizeRole("jobseeker");
         $lowongan_id = $matches[0];
 
         // Cek lowongan id valid
@@ -104,12 +128,12 @@ class LamaranController extends Controller
         if ($lamaran) {
             $lamaran["lamaran_diffTime"] = DateHelper::timeDifference($lamaran['created_at']);
             unset($lamaran['created_at']);
-            
-            $this->view("/jobseeker/AlrApplied",$lamaran);
+
+            $this->view("/jobseeker/AlrApplied", $lamaran);
             return;
         }
 
-        $company_name = $this->user->getUserById($lowongan["company_id"],"nama");
+        $company_name = $this->user->getUserById($lowongan["company_id"], "nama");
 
         $data = [
             "company_name" => $company_name['nama'],
@@ -121,24 +145,26 @@ class LamaranController extends Controller
         $this->view("/jobseeker/FormLamaran", $data);
     }
 
-    public function showRiwayat(){
+    public function showRiwayat()
+    {
+        $this->authorizeRole("jobseeker");
         $lamarans = $this->lamaran->getRiwayatLamaran($this->auth['user']['id']);
-        foreach($lamarans as &$lamaran){
+        foreach ($lamarans as &$lamaran) {
             $lamaran['lamaran_diffTime'] = DateHelper::timeDifference($lamaran['created_at']);
         }
-        $this->view("/jobseeker/RiwayatJobSeeker",["lamarans"=>$lamarans]);
+        $this->view("/jobseeker/RiwayatJobSeeker", ["lamarans" => $lamarans]);
     }
 
-    public function showDetailLamaran($matches): void{
+    public function showDetailLamaran($matches): void
+    {
+        $this->authorizeRole("company");
+
         $lamaran_id = $matches[0];
-        // $company_id = $_COOKIE["user_id"];
-        $data = $this->lamaran->getDetailLamaran( $lamaran_id);
-        if(!$data){
-            header("Location: /not-found");
-            exit();
-        }
-        $this->view("/company/DetailLamaran",$data);
+        $data = $this->lamaran->getDetailLamaran($lamaran_id);
+        $this->checkRule(!$data);
+
+        $this->checkRule($data['company_id'] !== (int)$this->cur_user['id']);
+
+        $this->view("/company/DetailLamaran", $data);
     }
-
-
 }
