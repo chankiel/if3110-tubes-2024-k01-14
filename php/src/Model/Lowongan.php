@@ -312,9 +312,10 @@ class Lowongan
 
         // Data lamaran
         $lamaran_details = $this->db->prepareQuery(
-            "SELECT user_id, nama, status
+            "SELECT lamaran.id as lamaran_id, nama, status
             FROM lamaran JOIN users ON user_id = users.id
-            WHERE lowongan_id=:lowongan_id",
+            WHERE lowongan_id=:lowongan_id
+            ORDER BY lamaran.id",
             ["lowongan_id" => $id]
         );
 

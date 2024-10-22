@@ -82,7 +82,7 @@ unset($_SESSION['response']);
                             <p class="nama"> Name : <?= $application["nama"];?></p>
                             <p class="status">Status : <?= ucfirst($application["status"]);?></p>
                         </div>
-                        <a href="/applications/<?= $id ?>">
+                        <a href="/applications/<?= $application["lamaran_id"] ?>">
                             <button class="general-button">      
                                 View Details
                             </button>
