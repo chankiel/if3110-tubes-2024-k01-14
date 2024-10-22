@@ -45,6 +45,8 @@ class Router
         self::post("/register","UserController@register");
         self::post("/logout","AuthController@logout");
 
+        self::get("/jobs/search", "LowonganController@getOpenLowongan");
+
         self::get("/jobs/add","LowonganController@showTambahLowongan");
         self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
         self::get("/applications/{id}","");

@@ -42,78 +42,175 @@ class Lowongan
         return ($this->db->fetchQuery("SELECT id FROM lowongan WHERE id=:id",["id"=>$id]));
     }
 
-    public function searchFilterSort($posisi, $filter, $sortir)
-    {
-        $sql = "SELECT * FROM lowongan WHERE posisi like '%$posisi%' ";
-        foreach ($filter as $key => $value) {
-            $sql .= "OR $key = :$key";
-        }
+    // public function getAllOpenLowongan($search, $location, $job_type, $sort, $page = 1, $perPage = 10) {
+    //     $location = (array) $location;
+    //     $job_type = (array) $job_type;
+    
+    //     if (count($location) > 0) {
+    //         $location = array_map('trim', explode(',', $location[0]));
+    //         $location = array_filter($location, function($value) {
+    //             return !empty($value);
+    //         });
+    //     } else {
+    //         $location = [];
+    //     }
+    
+    //     if (count($job_type) > 0) {
+    //         $job_type = array_map('trim', explode(',', $job_type[0]));
+    //         $job_type = array_filter($job_type, function($value) {
+    //             return !empty($value);
+    //         });
+    //     } else {
+    //         $job_type = [];
+    //     }
 
-        if ($sortir == "descending") {
-            $sql .= "ORDER BY create_at DESC";
+    //     $query = "SELECT u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
+    //               FROM lowongan l
+    //               JOIN users u ON u.id = l.company_id
+    //               WHERE l.is_open = TRUE";
+
+    //     if(strlen($search) > 0) {
+    //         $query .= " AND (l.posisi ILIKE :search OR u.nama ILIKE :search)";
+    //         $params = [
+    //             'search' => '%' . $search . '%',
+    //         ];
+    //     } else {
+    //         $params = [];
+    //     }
+    
+    //     $query .= ($sort === "terbaru") ? " ORDER BY l.created_at DESC" : " ORDER BY l.created_at ASC";
+    
+    //     $allLowongan = $this->db->prepareQuery($query, $params);
+    
+    //     foreach ($allLowongan as &$lowongan) {
+    //         $lowongan["lowongan_diffTime"] = DateHelper::timeDifference($lowongan["created_at"]); 
+    //     }
+    
+    //     if (count($location) === 0 && count($job_type) === 0) {
+    //         return $allLowongan;
+    //     }else {
+    //         $allLowongan = array_filter($allLowongan, function($job) use ($location, $job_type) {
+    //             $locationMatch = empty($location) || in_array($job["jenis_lokasi"], $location);
+    //             $jobTypeMatch = empty($job_type) || in_array($job["jenis_pekerjaan"], $job_type);
+    //             return $locationMatch && $jobTypeMatch;
+    //         });
+    //     }
+    
+    //     return $allLowongan;
+    // }
+
+    public function getAllOpenLowongan($search, $location, $job_type, $sort, $page, $perPage) {
+        $location = (array) $location;
+        $job_type = (array) $job_type;
+    
+        if (count($location) > 0) {
+            $location = array_map('trim', explode(',', $location[0]));
+            $location = array_filter($location, function($value) {
+                return !empty($value);
+            });
         } else {
-            $sql .= "ORDER BY create_at ASC";
+            $location = [];
         }
-        $result = $this->db->prepareQuery($sql, $filter);
-        return $result;
-    }
-
-    // public function searchPosisi($posisi){
-    //     $sql = "SELECT * FROM lowongan WHERE posisi is like '%:posisi%' ";
-    //     $params = array("posisi"=> $posisi);
-    //     $result = $this->db->prepareQuery($sql, $params);
-    //     return $result;
-    // }
-
-    // public function getAllLowonganByJenisPekerjaan($jenis_pekerjaan){
-    //     $sql = "SELECT * FROM lowongan WHERE jenis_pekerjaan = :jenis_pekerjaan ";
-    //     $params = array("jenis_pekerjaan" => $jenis_pekerjaan);
-    //     $result = $this->db->prepareQuery($sql, $params);
-    //     return $result;
-    // }
-
-    // public function getAllLowonganByJenisLokasi($jenis_lokasi){
-    //     $sql = "SELECT * FROM lowongan WHERE jenis_lokasi = :jenis_lokasi ";
-    //     $params = array("jenis_lokasi" => $jenis_lokasi);
-    //     $result = $this->db->prepareQuery($sql, $params);
-    //     return $result;
-    // }
-
-    public function getAllOpenLowongan(){
+    
+        if (count($job_type) > 0) {
+            $job_type = array_map('trim', explode(',', $job_type[0]));
+            $job_type = array_filter($job_type, function($value) {
+                return !empty($value);
+            });
+        } else {
+            $job_type = [];
+        }
+    
         $query = "SELECT u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
                   FROM lowongan l
                   JOIN users u ON u.id = l.company_id
                   WHERE l.is_open = TRUE";
-
-        $allLowongan = $this->db->prepareQuery($query);
-
-        if (count($allLowongan) == 0) {
-            return[];
+    
+        $params = [];
+        if(strlen($search) > 0) {
+            $query .= " AND (l.posisi ILIKE :search OR u.nama ILIKE :search)";
+            $params['search'] = '%' . $search . '%';
         }
-
+    
+        $query .= ($sort === "terbaru") ? " ORDER BY l.created_at DESC" : " ORDER BY l.created_at ASC";
+    
+        $allLowongan = $this->db->prepareQuery($query, $params);
+    
         foreach ($allLowongan as &$lowongan) {
             $lowongan["lowongan_diffTime"] = DateHelper::timeDifference($lowongan["created_at"]); 
         }
-
-        return $allLowongan;        
+    
+        if (count($location) === 0 && count($job_type) === 0) {
+            return $allLowongan;
+        } else {
+            $allLowongan = array_filter($allLowongan, function($job) use ($location, $job_type) {
+                $locationMatch = empty($location) || in_array($job["jenis_lokasi"], $location);
+                $jobTypeMatch = empty($job_type) || in_array($job["jenis_pekerjaan"], $job_type);
+                return $locationMatch && $jobTypeMatch;
+            });
+    
+            return $allLowongan;
+        }
     }
+    
+    public function getAllLowonganByCompany($user_id, $search, $location, $job_type, $sort, $page = 1, $perPage = 10) {
+        $location = (array) $location;
+        $job_type = (array) $job_type;
+    
+        if (count($location) > 0) {
+            $location = array_map('trim', explode(',', $location[0]));
+            $location = array_filter($location, function($value) {
+                return !empty($value);
+            });
+        } else {
+            $location = [];
+        }
+    
+        if (count($job_type) > 0) {
+            $job_type = array_map('trim', explode(',', $job_type[0]));
+            $job_type = array_filter($job_type, function($value) {
+                return !empty($value);
+            });
+        } else {
+            $job_type = [];
+        }
 
-    public function getAllLowonganByCompany($company_id) {
-        $query = "SELECT u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
+        $query = "SELECT u.id, u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
                   FROM lowongan l
                   JOIN users u ON u.id = l.company_id
-                  WHERE company_id = :company_id";
+                  WHERE (u.id = :user_id)";
 
-        $allCompanyLowongan = $this->db->prepareQuery($query, ["company_id" => $company_id]);
-        if (count($allCompanyLowongan) == 0)  {
-            return [];
+        if(strlen($search) > 0) {
+            $query .= " AND (l.posisi ILIKE :search OR u.nama ILIKE :search)";
+            $params = [
+                'search' => '%' . $search . '%',
+                'user_id' => $user_id
+            ];
+        } else {
+            $params = [
+                'user_id' => $user_id
+            ];
         }
-
-        foreach ($allCompanyLowongan as &$lowongan) {
+    
+        $query .= ($sort === "terbaru") ? " ORDER BY l.created_at DESC" : " ORDER BY l.created_at ASC";
+    
+        $allLowongan = $this->db->prepareQuery($query, $params);
+    
+        foreach ($allLowongan as &$lowongan) {
             $lowongan["lowongan_diffTime"] = DateHelper::timeDifference($lowongan["created_at"]); 
         }
-        
-        return $allCompanyLowongan;
+    
+        if (count($location) === 0 && count($job_type) === 0) {
+            return $allLowongan;
+        }else {
+            $allLowongan = array_filter($allLowongan, function($job) use ($location, $job_type) {
+                $locationMatch = empty($location) || in_array($job["jenis_lokasi"], $location);
+                $jobTypeMatch = empty($job_type) || in_array($job["jenis_pekerjaan"], $job_type);
+                return $locationMatch && $jobTypeMatch;
+            });
+        }
+    
+        return $allLowongan;
     }
 
     public function getDetailLowongan($id, $user_id)
@@ -165,15 +262,4 @@ class Lowongan
 
         return $details;
     }
-
-    // public function sortirLowonganByWaktu($isAsc){
-    //     $sql = "SELECT * FROM lowongan ORDER BY create_at ";
-    //     if ($isAsc) {
-    //         $sql .= "ASC";
-    //     } else {
-    //         $sql .= "DESC";
-    //     }
-    //     $result = $this->db->query($sql);
-    //     return $result;
-    // }
 }

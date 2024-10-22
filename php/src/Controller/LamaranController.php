@@ -153,13 +153,13 @@ class LamaranController extends Controller
         exit();
     }
 
-    private function showDetailLamaran($matches){
-            $lowongan_id = $matches[0];
-            $data = $this->lowongan->getDetailLowongan($lowongan_id);
-            if(!$data){
-                header("Location: /not-found");
-                exit();
-            }
-            $this->view("/jobseeker/DetailLowongan",$data);
-        }
+    // private function showDetailLamaran($matches){
+    //         $lowongan_id = $matches[0];
+    //         $data = $this->lowongan->getDetailLowongan($lowongan_id);
+    //         if(!$data){
+    //             header("Location: /not-found");
+    //             exit();
+    //         }
+    //         $this->view("/jobseeker/DetailLowongan",$data);
+    //     }
 }

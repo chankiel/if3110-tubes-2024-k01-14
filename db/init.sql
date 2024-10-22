@@ -71,7 +71,14 @@ VALUES
         'hashed_password_3',
         'jobseeker',
         'Jane Smith'
-    );
+    ),
+    ('jobseeker3@example.com', 'hashed_password_4', 'jobseeker', 'Alice Johnson'),
+    ('jobseeker4@example.com', 'hashed_password_5', 'jobseeker', 'Bob Brown'),
+    ('jobseeker5@example.com', 'hashed_password_6', 'jobseeker', 'Charlie Davis'),
+    ('jobseeker6@example.com', 'hashed_password_7', 'jobseeker', 'Diana Evans'),
+    ('company2@example.com', 'hashed_password_8', 'company', 'NextGen Solutions'),
+    ('company3@example.com', 'hashed_password_9', 'company', 'Innovate Tech'),
+    ('company4@example.com', 'hashed_password_10', 'company', 'Creative Minds');
 
 INSERT INTO
     companydetail (user_id, lokasi, about)
@@ -85,7 +92,10 @@ VALUES
         2,
         'Bandung, Indonesia',
         'Innovative solutions for modern problems.'
-    );
+    ),
+    (5, 'Medan, Indonesia', 'A startup focused on AI solutions.'),
+    (6, 'Bali, Indonesia', 'Providing tech solutions for businesses.'),
+    (7, 'Jakarta, Indonesia', 'Creative agency offering innovative marketing solutions.');
 
 INSERT INTO
     lowongan (
@@ -121,8 +131,62 @@ VALUES
         'Company Inc.',
         'Product Manager',
         'Manage product development and strategy.',
-        'Contract',
+        'Internship',
         'Hybrid',
+        TRUE
+    ),
+    (
+        5,
+        'NextGen Solutions',
+        'AI Engineer',
+        'Develop AI models and algorithms.',
+        'Full-time',
+        'Remote',
+        TRUE
+    ),
+    (
+        6,
+        'Innovate Tech',
+        'Mobile App Developer',
+        'Create and maintain mobile applications.',
+        'Full-time',
+        'On-site',
+        TRUE
+    ),
+    (
+        7,
+        'Creative Minds',
+        'Social Media Manager',
+        'Manage social media accounts and create content.',
+        'Part-time',
+        'Remote',
+        TRUE
+    ),
+    (
+        5,
+        'NextGen Solutions',
+        'System Analyst',
+        'Analyze and improve business operations.',
+        'Internship',
+        'Hybrid',
+        TRUE
+    ),
+    (
+        1,
+        'NextGen Solutions',
+        'System Analyst',
+        'Analyze and improve business operations.',
+        'Internship',
+        'Hybrid',
+        TRUE
+    ),
+    (
+        6,
+        'Innovate Tech',
+        'Web Designer',
+        'Design the layout of websites and applications.',
+        'Full-time',
+        'On-site',
         TRUE
     );
 
@@ -131,7 +195,11 @@ INSERT INTO
 VALUES
     (1, '/path/to/resume_1.pdf'),
     (1, '/path/to/cover_letter_1.pdf'),
-    (2, '/path/to/resume_2.pdf');
+    (2, '/path/to/resume_2.pdf'),
+    (4, '/path/to/resume_4.pdf'),
+    (4, '/path/to/cover_letter_4.pdf'),
+    (5, '/path/to/resume_5.pdf'),
+    (6, '/path/to/resume_6.pdf');
 
 INSERT INTO
     lamaran (user_id, lowongan_id, status, status_reason, cv_path, video_path)
@@ -139,4 +207,10 @@ VALUES
     (1, 1, 'waiting', NULL, '/storage/cv/lamaran_1.pdf','/storage/cv/lamaran_1.mp4' ),
     (1, 2, 'waiting', NULL , '/storage/cv/lamaran_2.pdf','/storage/cv/lamaran_2.mp4'),
     (3, 1, 'accepted', 'Great fit for the team.', '/storage/cv/lamaran_3.pdf',NULL),
-    (2, 1, 'waiting', NULL, '/storage/cv/lamaran_4.pdf','/storage/cv/lamaran_4.mp4');
+    (2, 1, 'waiting', NULL, '/storage/cv/lamaran_4.pdf','/storage/cv/lamaran_4.mp4'),
+    (1, 3, 'accepted', 'Excellent qualifications for the role.', '/storage/cv/lamaran_5.pdf', NULL),
+    (2, 5, 'waiting', NULL, '/storage/cv/lamaran_6.pdf', '/storage/cv/lamaran_6.mp4'),
+    (3, 4, 'waiting', NULL, '/storage/cv/lamaran_7.pdf', '/storage/cv/lamaran_7.mp4'),
+    (5, 6, 'rejected', 'Lacked specific experience.', '/storage/cv/lamaran_8.pdf', NULL),
+    (6, 8, 'waiting', NULL, '/storage/cv/lamaran_9.pdf', '/storage/cv/lamaran_9.mp4'),
+    (4, 7, 'accepted', 'Strong portfolio.', '/storage/cv/lamaran_10.pdf', NULL);

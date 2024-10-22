@@ -100,33 +100,68 @@ class UserController extends Controller{
     }
 
     public function showLogin(){
-        // $allLowongan = $this->lowonganModell->getAllLowongan();
-        // $this->view("/general/login", allLowoongan);
         $this->view("/general/login");
     }
 
-    public function showHome() {
+    public function showHome(): void {
+        $search = $_GET['search'] ?? '';
+        $location = $_GET['filter'] ?? [];
+        $job_type = $_GET['job-type'] ?? [];
+        $sort = $_GET['sort'] ?? '';
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; 
+        $perPage = 3;
+
+        $jobListHtml = '';
+    
         if(isset($_COOKIE["role"])) {
             $user_id = $_COOKIE["user_id"];
             $role = $_COOKIE["role"];
+    
+            $allLowongan = $this->lowongan->fetchOpenLowongan($user_id, $role, $search, $location, $job_type,$sort, $page, $perPage);
 
-            $allLowongan = $this->lowongan->getOpenLowongan($user_id, $role);
+            $totalJobs = count($allLowongan);
 
-            // var_dump($allLowongan);
+            $totalPages = ceil($totalJobs / $perPage);
+
+            $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
+
+            $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
+
+            $data = [
+                "jobListHtml" => $jobListHtml, 
+                "totalPages" => $totalPages, 
+                "currentPage" => $page
+            ];
+
             if($role === "jobseeker") {
-                $this->view("/jobseeker/home", ["jobs" => $allLowongan]);
+                $this->view("/jobseeker/home", $data);
             } else if($role === "company") {
-                $this->view("/company/home", ["jobs" => $allLowongan]);
+                $this->view("/company/home", $data);
             } else {
                 header("Location: /login");
                 exit();
             }
         } else {
-            $allOpenLowongan = $this->lowongan->getOpenLowongan(null, null);  
-            $this->view("/jobseeker/home", ["jobs" => $allOpenLowongan]);
+            $allLowongan = $this->lowongan->fetchOpenLowongan(null, null, $search, $location, $job_type, $sort, $page, $perPage);  
+
+            $totalJobs = count($allLowongan);
+
+            $totalPages = ceil($totalJobs / $perPage);
+
+            $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
+
+            $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
+
+            $data = [
+                "jobListHtml" => $jobListHtml, 
+                "totalPages" => $totalPages, 
+                "currentPage" => $page
+            ];
+            
+            $this->view("/jobseeker/home", $data);
         }
     }
-
+    
     public function showLogout() {
         $this->userAuth->logout();
     }

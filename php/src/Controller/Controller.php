@@ -7,7 +7,9 @@ class Controller{
 
     public function __construct(){
         $this->auth = AuthController::getCurrentUser();
-        $this->cur_user = $this->auth['user'];
+        if(isset($this->auth["user"])) {
+            $this->cur_user = $this->auth['user'];
+        }
     }
 
     public function model($model){
