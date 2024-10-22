@@ -16,7 +16,7 @@ class Lowongan
 
     public function addLowongan($data)
     {
-        $this->db->insert("lowongan",$data);
+        return $this->db->insert("lowongan",$data);
     }
 
     public function updateLowongan($data, $condition, $params)
@@ -26,6 +26,7 @@ class Lowongan
 
     public function deleteLowongan($condition, $params)
     {
+        $this->deleteAttachments($params['id']);
         return $this->db->delete("lowongan", $condition, $params);
     }
 

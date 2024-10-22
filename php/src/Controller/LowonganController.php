@@ -21,11 +21,13 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
-        $this->view("/company/FormTambahLowongan", []);
+        $this->view("/company/FormTambahLowongan");
     }
 
     public function showDetailJS($matches)
     {
+        $this->authorizeRole("jobseeker");
+
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
         if (!$data) {
@@ -53,6 +55,7 @@ class LowonganController extends Controller
 
     public function showEditLowongan($matches)
     {
+        $this->authorizeRole("company");
         $lowongan_id = $matches[0];
 
         $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
@@ -123,20 +126,22 @@ class LowonganController extends Controller
 
     public function tambahLowongan()
     {
-    
-        $validator = new Validator();
+        $this->authorizeRole("company");
 
-    
+        $validator = new Validator();
         $hasFiles = false;
         $lowonganData = $this->validateDetailsLowongan($validator, $hasFiles, true);
 
         if (!$validator->passes()) {
             $this->handleErrors($validator->errors());
-            header("Location: /");
+            header("Location: /jobs/add");
             exit();
         }
 
-        $lowongan_id =$this->lowongan->addLowongan($lowonganData);
+        $lowonganData['company_id'] = $this->cur_user['id'];
+        $lowonganData['company_name'] = $this->cur_user['email'];
+
+        $lowongan_id = $this->lowongan->addLowongan($lowonganData);
 
         if ($hasFiles) {
             $this->uploadAttachments($lowongan_id);
@@ -149,12 +154,14 @@ class LowonganController extends Controller
         ];
 
         $_SESSION['response'] = $response;
-        header("Location: /jobs/{$lowongan_id}");
+        header("Location: /jobs/$lowongan_id");
         exit();
     }
 
     public function editLowongan($matches)
     {
+        $this->authorizeRole("company");
+
         $lowongan_id = $matches[0];
         $validator = new Validator();
 
@@ -188,15 +195,18 @@ class LowonganController extends Controller
 
     public function deleteLowongan($matches)
     {
+        $this->authorizeRole("company");
+    
         $lowongan_id = $matches[0];
         $lowongan = $this->validateLowongan($lowongan_id,$this->cur_user['id'],true);
+
         $this->lowongan->deleteLowongan("id= :id", ["id" => $lowongan_id]);
         $this->lowongan->deleteAttachments($lowongan_id);
         
         session_start();
         $response =  [
             "success" => true,
-            "message" => "Job updated successfully!"
+            "message" => "Job deleted successfully!"
         ];
 
         $_SESSION['response'] = $response;
@@ -213,6 +223,8 @@ class LowonganController extends Controller
         }
     }
     public function showDetailLowonganCompany($matches){
+        $this->authorizeRole("company");
+        
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDataPelamar($lowongan_id);
         if(!$data){

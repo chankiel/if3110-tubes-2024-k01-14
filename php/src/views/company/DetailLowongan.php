@@ -56,8 +56,11 @@ unset($_SESSION['response']);
             </ul>
             <h1 class="lowongan-heading">Job Description</h1>
             <p><?= $deskripsi ?></p>
+            <form action="/jobs/<?=$id?>/delete" method="POST">
+                <form action="/jobs/<?=$id?>/close" method="POST" class="container-button">
+                <button type="submit" class="general-button">Delete Job</button>
+            </form>
             <form action="/jobs/<?=$id?>/close" method="POST" class="container-button">
-                <button class="general-button">Delete Job</button>
                 <?php if ($is_open) :?>
                 <button name="action" value="close" class="general-button">Close Job</button>
                 <?php else : ?>

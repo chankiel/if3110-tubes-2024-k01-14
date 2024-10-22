@@ -2,11 +2,14 @@
   position: relative;
 }
 
-
 section {
   width: 100%;
   position: relative;
   padding: 5px;
+}
+
+.attachment-img{
+  width: 100px;
 }
 
 section > *{
