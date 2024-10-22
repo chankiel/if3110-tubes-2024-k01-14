@@ -87,8 +87,9 @@ display: block;
 
 .preview-lamaran {
     background: white;
+    border-width: 2px;
     border-style:  solid;
-    border-color: black;
+    border-color: var(--blue);
     padding: 20px 25px 5px;
     margin: 5px 0 15px;
     border-radius: 24px;

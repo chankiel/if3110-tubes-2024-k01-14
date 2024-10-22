@@ -62,6 +62,17 @@ class LowonganController extends Controller
         $this->view("/company/editLowongan", $lowongan);
     }
 
+    public function showDetailLowonganCompany($matches) {
+        $this->authorizeRole("company");
+        $lowongan_id = $matches[0];
+        $data = $this->lowongan->getDataPelamar($lowongan_id);
+        if (!$data) {
+            header("Location: /not-found");
+            exit();
+        }
+        $this->view("/company/DetailLowongan", $data);
+    }
+
     public function validateDetailsLowongan($validator, &$hasFiles, $isAdd)
     {
         $lowonganData = [

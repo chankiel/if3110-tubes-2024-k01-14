@@ -324,7 +324,7 @@ class Lowongan
                 // 'attachments' => $attachments["0"]??null,
                 'company_lokasi' => $company["lokasi"],
                 'company_about' => $company["about"],
-                'lamaran_details' => $lamaran_details
+                'applications' => $lamaran_details
             ]
         );
 
