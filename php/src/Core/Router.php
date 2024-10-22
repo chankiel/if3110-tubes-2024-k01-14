@@ -49,22 +49,26 @@ class Router
 
         self::get("/jobs/add","LowonganController@showTambahLowongan");
         self::get("/jobs/edit/{id}","LowonganController@showEditLowongan");
-        self::get("/applications/{id}","");
-        self::get("/profile/company","");
+        self::get("/jobs/{id}","LowonganController@showDetailLowonganCompany");
+        self::get("/applications/{id}","LamaranController@showDetailLamaran");
+        self::get("/profile/company","UserController@showProfileCompany");
 
         self::post("/jobs","LowonganController@tambahLowongan");
-        self::put("/jobs/{id}","LowonganController@editLowongan");
-        self::put("/applications/{id}/approve","");
-        self::get("/applications/{id}/reject","");
-        self::put("/profile/company","");
+        self::post("/jobs/{id}","LowonganController@editLowongan");
+        self::put("/applications/{id}/approve","LamaranController@approveLamaran");
+        self::put("/applications/{id}/reject","LamaranController@rejectLamaran");
+        self::put("/profile/company","UserController@editCompany");
+        self::post("/jobs/{id}/delete","LowonganController@deleteLowongan");
 
         self::get("/jobs/{id}/details","LowonganController@showDetailJS");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
 
-        self::post("/jobs/{id}/apply","LamaranController@tambahLamaran");
+        self::post( "/jobs/{id}/apply","LamaranController@tambahLamaran");
 
         self::get("/not-found","Controller@showNotFound");
+
+        self::post("/jobs/{id}/close","LowonganController@changeOpenClosed");
     }
 
     public static function dispatch()

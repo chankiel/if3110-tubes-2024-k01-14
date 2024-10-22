@@ -4,6 +4,8 @@ namespace Model;
 
 use Core\DbCon;
 use Helper\DateHelper;
+use Helper\FileManager;
+
 class Lowongan
 {
     private DbCon $db;
@@ -14,13 +16,7 @@ class Lowongan
 
     public function addLowongan($data)
     {
-        $this->db->beginTransaction();
-        $dataLowongan = array_slice($data, 0, 5);
-        $dataAttachment = array_slice($data, 5);
-        $lowonganID = $this->db->insert("lowongan", data: $dataLowongan);
-        // $attachment = array_merge(["id" => $lowonganID], $dataAttachment);
-        // $this->db->insert("attachmentlowongan", $attachment);
-        $this->db->commit();
+        return $this->db->insert("lowongan",$data);
     }
 
     public function updateLowongan($data, $condition, $params)
@@ -30,6 +26,7 @@ class Lowongan
 
     public function deleteLowongan($condition, $params)
     {
+        $this->deleteAttachments($params['id']);
         return $this->db->delete("lowongan", $condition, $params);
     }
 
@@ -256,6 +253,77 @@ class Lowongan
                 'company_lokasi' => $company["lokasi"],
                 'company_about' => $company["about"],
                 "company_name"=>$company_name["nama"],
+                'lamaran_details' => $lamaran_details
+            ]
+        );
+
+        return $details;
+    }
+
+    // public function sortirLowonganByWaktu($isAsc){
+    //     $sql = "SELECT * FROM lowongan ORDER BY create_at ";
+    //     if ($isAsc) {
+    //         $sql .= "ASC";
+    //     } else {
+    //         $sql .= "DESC";
+    //     }
+    //     $result = $this->db->query($sql);
+    //     return $result;
+    // }
+
+    public function addAttachment($file_path,$lowongan_id){
+        $this->db->insert("attachmentlowongan",[
+            "file_path" => $file_path,
+            "lowongan_id" => $lowongan_id,
+        ]);
+    }
+
+    public function deleteAttachments($lowongan_id){
+        $file_paths = $this->db->fetchQuery("SELECT file_path FROM attachmentlowongan WHERE lowongan_id=:id",['id'=>$lowongan_id]);
+        if(!$file_paths){
+            return;
+        }
+        foreach($file_paths as $file_path){
+            FileManager::deleteFile($file_path);
+        }
+        $this->db->delete("attachmentlowongan","lowongan_id=:id",['id'=>$lowongan_id]);
+    }
+
+    public function getDataPelamar($id){
+        // Lowongan Details
+        $lowongan_details = $this->db->findById("lowongan", $id);
+        if(!$lowongan_details){
+            return [];
+        }
+        // $attachments = $this->db->prepareQuery(
+        //     "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
+        //     ["lowongan_id" => $id]
+        // );
+
+        $lowongan_details["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_details["created_at"]); 
+
+        unset($lowongan_details["created_at"]);
+        unset($lowongan_details["updated_at"]);
+
+
+        // Company Details
+        $company = $this->db->fetchQuery("SELECT lokasi,about FROM companydetail WHERE user_id=:company_id",
+        ["company_id"=>$lowongan_details['company_id']]);
+
+        // Data lamaran
+        $lamaran_details = $this->db->prepareQuery(
+            "SELECT user_id, nama, status
+            FROM lamaran JOIN users ON user_id = users.id
+            WHERE lowongan_id=:lowongan_id",
+            ["lowongan_id" => $id]
+        );
+
+        $details = array_merge(
+            $lowongan_details,
+            [
+                // 'attachments' => $attachments["0"]??null,
+                'company_lokasi' => $company["lokasi"],
+                'company_about' => $company["about"],
                 'lamaran_details' => $lamaran_details
             ]
         );

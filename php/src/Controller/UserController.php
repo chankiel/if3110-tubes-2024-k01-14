@@ -1,24 +1,29 @@
 <?php
+
 namespace Controller;
 
+use Helper\DataFormatter;
+use Helper\Validator;
 use Model\User;
 
-class UserController extends Controller{
-    private $userModel;
+class UserController extends Controller
+{
+    private $user;
     private $userAuth;
     private $lowongan;
     public function __construct() {
         parent::__construct();
-        $this->userModel = new User();
+        $this->user = new User();
         $this->userAuth = new AuthController();
         $this->lowongan = new LowonganController();
     }
 
-    public function register() {
+    public function register()
+    {
         $role = $_POST["role"];
         $data = [];
 
-        if ($this->userModel->userExists($_POST["email"]) || $this->userModel->userExists($_POST["email_company"])) {
+        if ($this->user->userExists($_POST["email"]) || $this->user->userExists($_POST["email_company"])) {
             setcookie("error_message", "Email is already registered.", time() + 3600, "/");
             header('Location: /register');
             exit();
@@ -42,60 +47,72 @@ class UserController extends Controller{
             ];
         }
 
-        $this->userModel->addUser($data);
+        $this->user->addUser($data);
 
         header("Location: /login");
         exit();
     }
 
-    public function editUser($id, $data) {
-        if (isset($data['email'])) {
-            $this->userModel->editEmail($id, $data['email']);
-        }
-
-        if (isset($data['nama'])) {
-            $this->userModel->editName($id, $data['nama']);
-        }
-
-        if (isset($data['password'])) {
-            $this->userModel->editPassword($id, $data['password']);
-        }
-
-        if (isset($data['lokasi'])) {
-            $this->userModel->editLocation($id, $data['lokasi']);
-        }
-
-        if (isset($data['about'])) {
-            $this->userModel->editAbout($id, $data['about']);
-        }
-
-        return [
-            "success" => true
+    public function editCompany()
+    {
+        parse_str(file_get_contents("php://input"), $data);
+        $userData = [
+            'nama' => $data['nama'] ?? null,
+            'lokasi' => $data['lokasi'] ?? null,
+            'about' => $data['about'] ?? null,
         ];
+
+        $validator = new Validator();
+        $validator->required("nama", $userData['nama'], 'Company\'s name')
+            ->required("lokasi", $userData['lokasi'], 'Company\'s location ')
+            ->required("about", $userData['about'], 'Company\'s about ');
+
+        $validator->string("nama", $userData['nama'], 'Company\'s name')
+            ->string("lokasi", $userData['lokasi'], 'Company\'s location ')
+            ->string("about", $userData['about'], 'Company\'s about ');
+
+        if (!$validator->passes()) {
+            return $this->handleErrors($validator->errors());
+        }
+
+        $this->user->editName($this->cur_user['id'], $userData['nama']);
+        $this->user->editLocation($this->cur_user['id'], $userData['lokasi']);
+        $this->user->editAbout($this->cur_user['id'], $userData['about']);
+
+        session_start();
+        $response =  [
+            "success" => true,
+            "message" => "Company's Profile updated successfully!"
+        ];
+        $_SESSION['response'] = $response;
+        return $response;
     }
 
-    public function deleteUser($id) {
-        if ($this->userModel->deleteUser($id)) {
+    public function deleteUser($id)
+    {
+        if ($this->user->deleteUser($id)) {
             return [
-                "success" => true, 
+                "success" => true,
                 "message" => "User deleted successfully."
             ];
         }
         return [
-            "success" => false, 
+            "success" => false,
             "message" => "User could not be deleted."
         ];
     }
 
-    public function getAllUsers() {
-        $users = $this->userModel->getAllUsers();
+    public function getAllUsers()
+    {
+        $users = $this->user->getAllUsers();
         return [
-            "success" => true, 
+            "success" => true,
             "data" => $users
         ];
     }
 
-    public function showRegister(){
+    public function showRegister()
+    {
         $this->view("/general/register");
     }
 
@@ -161,8 +178,18 @@ class UserController extends Controller{
             $this->view("/jobseeker/home", $data);
         }
     }
-    
-    public function showLogout() {
+
+    public function showLogout()
+    {
         $this->userAuth->logout();
+    }
+
+    public function showProfileCompany()
+    {
+        if ($this->cur_user['role'] == "jobseeker") {
+            return $this->view('/general/not-found');
+        }
+        $company_details = $this->user->getCompanyDetails($this->cur_user['id']);
+        $this->view("/company/ProfileCompany", $company_details);
     }
 }

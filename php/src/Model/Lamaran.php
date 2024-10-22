@@ -55,4 +55,41 @@ class Lamaran
         $params = ['user_id' => $user_id, 'lowongan_id' => $lowongan_id];
         return $this->db->fetchQuery($sql, $params);
     }
+
+    public function getDetailAllLamaran($user_id){
+        $sql = "SELECT nama, email, cv_path, video_path, status, status_reason FROM users JOIN lamaran ON user_id = users.id WHERE user_id = :user_id";
+        $params = ['user_id'=>$user_id];
+        return $this->db->fetchQuery($sql, $params);
+    }
+
+    public function getCompanyId($lamaran_id){
+        $sql = "SELECT lo.company_id FROM  lowongan lo JOIN lamaran lm ON lm.lowongan_id = lo.id WHERE lm.id= :lamaran_id";
+        $params = ['lamaran_id'=>$lamaran_id];
+        return $this->db->fetchQuery($sql, $params);
+    }
+
+    public function getDetailLamaran($id)
+    {
+        // Lamaran Details
+        $lamaran_details = $this->db->findById("lamaran", $id);
+        if(!$lamaran_details){
+            return [];
+        }
+
+        $lowongan_details = $this->db->findById("lowongan",$lamaran_details['lowongan_id'],"company_id");
+
+        // User Details
+        $user_details = $this->db->fetchQuery("SELECT nama, email FROM users WHERE id=:user_id",
+        params: ["user_id"=>$lamaran_details['user_id']]);
+
+        $details = array_merge(
+            $user_details, $lamaran_details, $lowongan_details
+        );
+
+        return $details;
+    }
+
+    public function changeStatusLamaran($status, $status_reason,$lamaran_id){
+        return $this->db->update("lamaran",['status'=>$status,'status_reason'=>$status_reason],"id=:id",['id'=>$lamaran_id]);
+    }
 }

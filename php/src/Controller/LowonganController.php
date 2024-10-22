@@ -1,134 +1,217 @@
 <?php
+
 namespace Controller;
+
 use Model\Lowongan;
 use Model\User;
 use Helper\Validator;
 use Helper\FileManager;
 
-class LowonganController extends Controller {
+class LowonganController extends Controller
+{
     private Lowongan $lowongan;
     private User $user;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->lowongan  = new Lowongan();
         $this->user = new User();
-    }    
-
-    public function showTambahLowongan(){
-        $this->view("/company/FormTambahLowongan",[]);
     }
 
-    public function showDetailJS($matches){
+    public function showTambahLowongan()
+    {
+        $this->view("/company/FormTambahLowongan");
+    }
+
+    public function showDetailJS($matches)
+    {
+        $this->authorizeRole("jobseeker");
+
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id,$this->cur_user['id']);
-        if(!$data){
+        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
+        if (!$data) {
             header("Location: /not-found");
             exit();
         }
-        $this->view("/jobseeker/DetailLowongan",$data);
+        $this->view("/jobseeker/DetailLowongan", $data);
     }
 
-    public function showEditLowongan($matches){
-        $lowongan_id = $matches[0];
-
-        // Cek lowongan id valid
+    public function validateLowongan($lowongan_id, $user_id, $isCud)
+    {
         $lowongan = $this->lowongan->getLowonganById($lowongan_id);
         if (!$lowongan) {
             header("Location: /not-found");
+            exit();
         }
 
-        $data = [
-            "lowongan_id" => $lowongan_id,
-        ];
+        if ($isCud && $lowongan['company_id'] !== (int)$user_id) {
+            header("Location: /not-found");
+            exit();
+        }
 
-        $this->view("/company/editLowongan", $data);
+        return $lowongan;
     }
 
-    public function tambahLowongan(){
+    public function showEditLowongan($matches)
+    {
+        $this->authorizeRole("company");
+        $lowongan_id = $matches[0];
+
+        $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
+        $this->view("/company/editLowongan", $lowongan);
+    }
+
+    public function validateDetailsLowongan($validator, &$hasFiles, $isAdd)
+    {
+        $lowonganData = [
+            "posisi" => $_POST['posisi'] ?? null,
+            "deskripsi" => $_POST['deskripsi'] ?? null,
+            "jenis_pekerjaan" => $_POST['jenis_pekerjaan'] ?? null,
+            "jenis_lokasi" => $_POST['jenis_lokasi'] ?? null,
+        ];
+
+        $validator->required("posisi", $lowonganData['posisi'], 'Position')
+            ->required("deskripsi", $lowonganData['deskripsi'], 'Job\'s description');
+        if ($isAdd) {
+            $validator->required("jenis_pekerjaan", $lowonganData['jenis_pekerjaan'], 'Job\'s type')
+                ->required("jenis_lokasi", $lowonganData['jenis_lokasi'], 'Location\'s type');
+        }
+
+        $validator->string("posisi", $lowonganData['posisi'], 'Position')
+            ->string("deskripsi", $lowonganData['deskripsi'], 'Job\'s description');
+        if (!empty($lowonganData['jenis_pekerjaan'])) {
+            $validator->enum("jenis_pekerjaan", $lowonganData['jenis_pekerjaan'], ['Full-time', 'Part-time', 'Internship'], 'Job\'s type');
+        }
+        if (!empty($lowonganData['jenis_lokasi'])) {
+            $validator->enum("jenis_lokasi", $lowonganData['jenis_lokasi'], ['Remote', 'On-site', 'Hybrid'], 'Location\'s type');
+        }
+
+        $allowedMimeTypes = ['image/jpeg', 'image/png'];
+        $allowedExtensions = ['jpeg', 'png', 'jpg'];
+        foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+            $fileName = $_FILES['files']['name'][$key];
+            $fileTmpName = $_FILES['files']['tmp_name'][$key];
+
+            if ($_FILES['files']['error'][$key] === UPLOAD_ERR_NO_FILE || empty($fileTmpName)) {
+                continue;
+            }
+            $hasFiles = true;
+
+            $validator->fileExtension('files', $fileName, $allowedExtensions, "File $fileName");
+            $validator->fileType('files', $fileTmpName, $allowedMimeTypes, "File $fileName");
+        }
+        $lowonganData = array_filter($lowonganData, function ($value) {
+            return !is_null($value);
+        });
+        return $lowonganData;
+    }
+
+    public function uploadAttachments($lowongan_id)
+    {
+        foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
+            $fileTmpName = $_FILES['files']['tmp_name'][$key];
+            $fileName = $_FILES['files']['name'][$key];
+
+            if ($_FILES['files']['error'][$key] === UPLOAD_ERR_NO_FILE || empty($fileTmpName)) {
+                continue;
+            }
+            $fileUrl = FileManager::uploadFile('/public/', 'attachments', $fileTmpName, $fileName);
+
+            if ($fileUrl) {
+                $this->lowongan->addAttachment($fileUrl, $lowongan_id);
+            }
+        }
+    }
+
+    public function tambahLowongan()
+    {
+        $this->authorizeRole("company");
+
         $validator = new Validator();
-        $target_url = "/";
+        $hasFiles = false;
+        $lowonganData = $this->validateDetailsLowongan($validator, $hasFiles, true);
 
-        $company_id =  $_COOKIE["user_id"];
-
-        $posisi = $_POST["posisi"];
-        $validator->string("posisi",$posisi,"Posisi");
-        if(!$validator->passes()){
-            return $validator->errors();
+        if (!$validator->passes()) {
+            $this->handleErrors($validator->errors());
+            header("Location: /jobs/add");
+            exit();
         }
 
-        $deskripsi = $_POST["deskripsi"];
-        $validator->string("deskripsi",$deskripsi,"Deskripsi");
-        if(!$validator->passes()){
-            return $validator->errors();
+        $lowonganData['company_id'] = $this->cur_user['id'];
+        $lowonganData['company_name'] = $this->cur_user['email'];
+
+        $lowongan_id = $this->lowongan->addLowongan($lowonganData);
+
+        if ($hasFiles) {
+            $this->uploadAttachments($lowongan_id);
         }
 
-        $jenis_pekerjaan =$_POST["jenis_pekerjaan"];
-        $jenis_lokasi = $_POST["jenis_lokasi"];
-        // // validasi belum
-        // $image_path = FileManager::uploadFile("cv");
-
-        $dataLowongan = [
-            "company_id" => $company_id,
-            "posisi" => $posisi,
-            "deskripsi" => $deskripsi,
-            "jenis_pekerjaan" =>$jenis_pekerjaan ,
-            "jenis_lokasi"=> $jenis_lokasi,
-            // "file_path"=> $image_path??"",
+        session_start();
+        $response =  [
+            "success" => true,
+            "message" => "Job updated successfully!"
         ];
-        
-                
-        $this->lowongan->addLowongan($dataLowongan);
-        
-        header("Location: $target_url");
+
+        $_SESSION['response'] = $response;
+        header("Location: /jobs/$lowongan_id");
+        exit();
     }
 
-    public function editLowongan($lowongan_id){
+    public function editLowongan($matches)
+    {
+        $this->authorizeRole("company");
+
+        $lowongan_id = $matches[0];
         $validator = new Validator();
-        $target_url = "/";
-        
-        $company_id =  $_COOKIE["user_id"];
 
-        $posisi = $_POST["posisi"];
-        $validator->string("posisi",$posisi,"Posisi");
-        if(!$validator->passes()){
-            return $validator->errors();
+        $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
+        $hasFiles = false;
+        $lowonganData = $this->validateDetailsLowongan($validator, $hasFiles, false);
+
+        if (!$validator->passes()) {
+            $this->handleErrors($validator->errors());
+            header("Location: /jobs/edit/{$lowongan_id}");
+            exit();
         }
 
-        $deskripsi = $_POST["deskripsi"];
-        $validator->string("deskripsi",$deskripsi,"Deskripsi");
-        if(!$validator->passes()){
-            return $validator->errors();
+        $this->lowongan->updateLowongan($lowonganData, "id=:id", ['id' => $lowongan_id]);
+
+        if ($hasFiles) {
+            $this->lowongan->deleteAttachments($lowongan_id);
+            $this->uploadAttachments($lowongan_id);
         }
 
-        $jenis_pekerjaan =$_POST["jenis_pekerjaan"];
-        $jenis_lokasi = $_POST["jenis_lokasi"];
-
-        // // validasi belum
-        // $image_path = FileManager::uploadFile("cv");
-
-        $dataLowongan = [
-            "company_id" => $company_id,
-            "posisi" => $posisi,
-            "deskripsi" => $deskripsi,
-            "jenis_pekerjaan" =>$jenis_pekerjaan ,
-            "jenis_lokasi"=> $jenis_lokasi,
-            "file_path"=> $image_path??""
+        session_start();
+        $response =  [
+            "success" => true,
+            "message" => "Job updated successfully!"
         ];
 
-        $condition = "id= :id";
-        $params = ["id" => $lowongan_id];
-
-        $this->lowongan->updateLowongan($dataLowongan, $condition, $params);
-
-        
-        header("Location: $target_url");
+        $_SESSION['response'] = $response;
+        header("Location: /jobs/edit/{$lowongan_id}");
+        exit();
     }
 
-    public function deleteLowongan($lowongan_id){
-        $condition = "id= :id";
-        $params = ["id" => $lowongan_id];
-        $this->lowongan->deleteLowongan( $condition, $params);
+    public function deleteLowongan($matches)
+    {
+        $this->authorizeRole("company");
+    
+        $lowongan_id = $matches[0];
+        $lowongan = $this->validateLowongan($lowongan_id,$this->cur_user['id'],true);
+
+        $this->lowongan->deleteLowongan("id= :id", ["id" => $lowongan_id]);
+        $this->lowongan->deleteAttachments($lowongan_id);
+        
+        session_start();
+        $response =  [
+            "success" => true,
+            "message" => "Job deleted successfully!"
+        ];
+
+        $_SESSION['response'] = $response;
+        header("Location: /");
+        exit();
     }
 
     public function fetchOpenLowongan($user_id, $role, $search, $location, $job_type, $sort, $page, $perPage) {
