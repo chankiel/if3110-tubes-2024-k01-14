@@ -4,6 +4,8 @@ namespace Model;
 
 use Core\DbCon;
 use Helper\DateHelper;
+use Helper\FileManager;
+
 class Lowongan
 {
     private DbCon $db;
@@ -14,13 +16,7 @@ class Lowongan
 
     public function addLowongan($data)
     {
-        $this->db->beginTransaction();
-        $dataLowongan = array_slice($data, 0, 5);
-        $dataAttachment = array_slice($data, 5);
-        $lowonganID = $this->db->insert("lowongan", data: $dataLowongan);
-        // $attachment = array_merge(["id" => $lowonganID], $dataAttachment);
-        // $this->db->insert("attachmentlowongan", $attachment);
-        $this->db->commit();
+        $this->db->insert("lowongan",$data);
     }
 
     public function updateLowongan($data, $condition, $params)
@@ -176,4 +172,22 @@ class Lowongan
     //     $result = $this->db->query($sql);
     //     return $result;
     // }
+
+    public function addAttachment($file_path,$lowongan_id){
+        $this->db->insert("attachmentlowongan",[
+            "file_path" => $file_path,
+            "lowongan_id" => $lowongan_id,
+        ]);
+    }
+
+    public function deleteAttachments($lowongan_id){
+        $file_paths = $this->db->fetchQuery("SELECT file_path FROM attachmentlowongan WHERE lowongan_id=:id",['id'=>$lowongan_id]);
+        if(!$file_paths){
+            return;
+        }
+        foreach($file_paths as $file_path){
+            FileManager::deleteFile($file_path);
+        }
+        $this->db->delete("attachmentlowongan","lowongan_id=:id",['id'=>$lowongan_id]);
+    }
 }
