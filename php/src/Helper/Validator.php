@@ -85,6 +85,14 @@ class Validator
         return $this;
     }
 
+    public function enum($field, $value, $allowedValues, $field_name = null)
+    {
+        if (!in_array($value, $allowedValues)) {
+            $this->errors[$field] = ($field_name ?? $field) . " must be one of the following values: " . implode(", ", $allowedValues);
+        }
+        return $this;
+    }
+
     public function errors()
     {
         return $this->errors;
