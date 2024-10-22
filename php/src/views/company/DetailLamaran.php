@@ -52,22 +52,42 @@ unset($_SESSION['response']);
                 <?php endif; ?>
             </div>
         </div>
-            <div class="applied-details">
-                <div class="applied-status">
-                    <h2 class="applied-detail-heading">Status:
-                        <span class="status 
-                        <?php
-                        if ($status == "accepted") {
-                            echo "accepted";
-                        } else if ($status == "rejected") {
-                            echo "rejected";
-                        } else {
-                            echo "waiting";
-                        }
-                        ?>">
-                            <?= ucfirst($status) ?></span>
-                    </h2>
-                    <p><?= $status_reason ?></p>
+        <div class="applied-details">
+            <div class="applied-status">
+                <h2 class="applied-detail-heading">Status:
+                    <span class="status 
+                    <?php
+                    if ($status == "accepted") {
+                        echo "accepted";
+                    } else if ($status == "rejected") {
+                        echo "rejected";
+                    } else {
+                        echo "waiting";
+                    }
+                    ?>">
+                        <?= ucfirst($status) ?></span>
+                </h2>
+                <p><?= $status_reason ?></p>
+            </div>
+        </div>
+
+        <?php if ($status == 'waiting'): ?>
+        <div class="approval-section">
+            <h2>Company Actions</h2>
+            <form action="/applications/<?= $lowongan_id ?>/approve" method="post">
+                <input type="hidden" name="app_id" value="<?php echo htmlspecialchars($app_id); ?>">
+                <div class="action-buttons">
+                    <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
+                    <button type="submit" name="action" value="reject" class="reject-btn">Reject</button>
+                </div>
+                <div class="rich-text-editor">
+                    <h3>Reason/Follow-up</h3>
+                    <textarea name="follow_up" rows="6" placeholder="Enter reason or follow-up here..." ></textarea>
+                </div>
+            </form>
+        </div>
+        <?php endif; ?>
+
         <?php if($response):?>
             <?php if ($response['success']): ?>
                 <?php modal("success",$response['message']); ?>

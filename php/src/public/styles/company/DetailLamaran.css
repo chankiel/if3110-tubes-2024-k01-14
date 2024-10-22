@@ -186,3 +186,44 @@ section > *{
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.approve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.rich-text-editor textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea:focus {
+    border-color: #0073b1;
+    outline: none;
+}
+
+button:hover {
+    opacity: 0.9;
+}

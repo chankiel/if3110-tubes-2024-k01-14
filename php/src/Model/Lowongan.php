@@ -190,4 +190,46 @@ class Lowongan
         }
         $this->db->delete("attachmentlowongan","lowongan_id=:id",['id'=>$lowongan_id]);
     }
+
+    public function getDataPelamar($id){
+        // Lowongan Details
+        $lowongan_details = $this->db->findById("lowongan", $id);
+        if(!$lowongan_details){
+            return [];
+        }
+        // $attachments = $this->db->prepareQuery(
+        //     "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
+        //     ["lowongan_id" => $id]
+        // );
+
+        $lowongan_details["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_details["created_at"]); 
+
+        unset($lowongan_details["created_at"]);
+        unset($lowongan_details["updated_at"]);
+
+
+        // Company Details
+        $company = $this->db->fetchQuery("SELECT lokasi,about FROM companydetail WHERE user_id=:company_id",
+        ["company_id"=>$lowongan_details['company_id']]);
+
+        // Data lamaran
+        $lamaran_details = $this->db->prepareQuery(
+            "SELECT nama, status
+            FROM lamaran JOIN users ON user_id = users.id
+            WHERE lowongan_id=:lowongan_id",
+            ["lowongan_id" => $id]
+        );
+
+        $details = array_merge(
+            $lowongan_details,
+            [
+                // 'attachments' => $attachments["0"]??null,
+                'company_lokasi' => $company["lokasi"],
+                'company_about' => $company["about"],
+                'lamaran_details' => $lamaran_details
+            ]
+        );
+
+        return $details;
+    }
 }
