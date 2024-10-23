@@ -26,7 +26,6 @@ class LowonganController extends Controller
 
     public function showDetailJS($matches)
     {
-        $this->authorizeRole("jobseeker");
 
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
