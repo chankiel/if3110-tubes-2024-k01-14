@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="/public/styles/style.css">
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
+    <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/jobseeker/RiwayatJobSeeker.css">
 
 </head>
@@ -15,11 +16,12 @@
 <body>
     <?php include(dirname(__DIR__) . '/../components/template/navbar.php') ?>
     <main>
+        <?php include(dirname(__DIR__) . '/../components/template/sidebar.php') ?>
         <section>
             <ul>
                 <?php foreach ($lamarans as $lamaran): ?>
                     <li class="lamaran-item">
-                        <a class="lamaran-link" href="/jobs/<?=$lamaran["lowongan_id"]?>/details">
+                        <a class="lamaran-link" href="/jobs/<?= $lamaran["lowongan_id"] ?>/details">
                             <div class="top-container">
                                 <h1 class="role">
                                     <?= $lamaran['posisi'] ?>
@@ -33,13 +35,14 @@
                                 <span class="material-symbols-outlined">
                                     work
                                 </span>
-                                <?= $lamaran['jenis_pekerjaan'] ?>- <?= $lamaran['jenis_lokasi'] ?>
+                                <?= $lamaran['jenis_pekerjaan'] ?> - <?= $lamaran['jenis_lokasi'] ?>
                             </p>
-                            <p class="date-container">Uploaded <span class="date-upload"><?= $lamaran['lamaran_diffTime']?></span> ago</p>
+                            
+                            <p class="date-container">Applied <span class="date-upload"><?= $lamaran['lamaran_diffTime'] ?></span> ago</p>
                         </a>
                     </li>
-                    <?php endforeach; ?>
-                
+                <?php endforeach; ?>
+
             </ul>
         </section>
     </main>
