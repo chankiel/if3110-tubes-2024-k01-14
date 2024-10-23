@@ -56,7 +56,11 @@ class Controller
 
     public function authorizeRole($role)
     {
-        if (!isset($this->cur_user['role']) || $this->cur_user['role'] !== $role) {
+        if(!isset($this->cur_user['role'])){
+            header("Location: /login");
+            exit();
+        }
+        if ($this->cur_user['role'] !== $role) {
             header("Location: /not-found");
             exit();
         }
