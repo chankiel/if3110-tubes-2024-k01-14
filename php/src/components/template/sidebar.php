@@ -3,11 +3,21 @@
 
         <div class="img-container">
             <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
-            <img src="/public/images/perry-casino.jpg" alt="profile-picture" class="img-logo">
+            <?php if (isset($user)): ?>
+                <img src="/public/images/perry-casino.jpg" alt="profile-picture" class="img-logo">
+            <?php else: ?>
+                <img src="/public/images/question-mark.jpg" alt="profile-picture" class="img-logo">
+            <?php endif; ?>
         </div>
         <div class="profile-container">
-            <h1><?= $user['nama'] ?></h1>
-            <h2><?= $user['email'] ?></h2>
+            <?php if (isset($user)): ?>
+
+                <h1><?= $user['nama'] ?></h1>
+                <h2><?= $user['email'] ?></h2>
+            <?php else: ?>
+                <h1>Guest</h1>
+            <?php endif; ?>
+
         </div>
     </div>
     <div class="part-container role-explanation">
