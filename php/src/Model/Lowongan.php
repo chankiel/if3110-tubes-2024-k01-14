@@ -183,10 +183,11 @@ class Lowongan
         if(!$lowongan_details){
             return [];
         }
-        // $attachments = $this->db->prepareQuery(
-        //     "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
-        //     ["lowongan_id" => $id]
-        // );
+
+        $attachments = $this->db->prepareQuery(
+            "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
+            ["lowongan_id" => $id]
+        );
 
         $lowongan_details["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_details["created_at"]); 
 
@@ -210,7 +211,7 @@ class Lowongan
         $details = array_merge(
             $lowongan_details,
             [
-                // 'attachments' => $attachments["0"]??null,
+                'attachments' => $attachments["0"]??null,
                 'company_lokasi' => $company["lokasi"],
                 'company_about' => $company["about"],
                 'applications' => $lamaran_details
