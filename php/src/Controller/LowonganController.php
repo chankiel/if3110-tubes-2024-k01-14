@@ -19,14 +19,14 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
-        $this->view("/company/FormTambahLowongan");
+        $this->view("/company/TambahLowongan");
     }
 
     public function showDetailJS($matches)
     {
 
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']??-1);
         if (!$data) {
             header("Location: /not-found");
             exit();

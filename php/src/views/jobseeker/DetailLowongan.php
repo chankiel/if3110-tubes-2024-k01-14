@@ -37,7 +37,12 @@ unset($_SESSION['response']);
                     <!-- <button id="back-btn" class="material-symbols-outlined">
                         arrow_back
                     </button> -->
-                    <p><?= $company_name ?></p>
+                    <div class="company-container">
+                        <span class="material-symbols-outlined">
+                            apartment
+                        </span>
+                        <p><?= $company_name ?></p>
+                    </div>
                     <h1 class="position-heading">
                         <?= $posisi ?>
                     </h1>
@@ -63,9 +68,15 @@ unset($_SESSION['response']);
                         <p><?= $jenis_lokasi ?></p>
                     </li>
                     <?php if (!$lamaran_details): ?>
-                        <a class="general-btn lamar-btn" href="/jobs/<?= $id ?>/apply">
-                            Lamar
-                        </a>
+                        <?php if (!isset($user)): ?>
+                            <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php else: ?>
+                            <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php endif; ?>
                 </ul>
             <?php else: ?>
                 <button class="general-btn applied-btn">
@@ -125,27 +136,27 @@ unset($_SESSION['response']);
                 <p><?= $deskripsi ?></p>
             </div>
             <?php if ($attachments): ?>
-            <?php if ($attachments): ?>
-                <div>
+                <?php if ($attachments): ?>
+                    <div>
                         <h1 class="lowongan-heading">Attachments</h1>
                         <div class="attachments-container">
-                            <?php foreach  ($attachments as $attachment): ?>
+                            <?php foreach ($attachments as $attachment): ?>
                                 <a href="<?= $attachment ?>" target="_blank">
                                     <img src="<?= $attachment  ?>" alt="attachment-img" class="attachment-img">
                                 </a>
                             <?php endforeach; ?>
                         </div>
-                </div>
-            <?php endif; ?>
-            </section>
+                    </div>
+                <?php endif; ?>
+        </section>
+    <?php endif; ?>
+    <?php if ($response):  ?>
+        <?php if ($response['success']): ?>
+            <?php modal("success", $response['message']); ?>
+        <?php elseif (!$response['success']): ?>
+            <?php modal("error", $response['message'], $response["errors"]); ?>
         <?php endif; ?>
-        <?php if  ($response):  ?>
-            <?php if ($response['success']): ?>
-                <?php modal("success", $response['message']); ?>
-            <?php elseif (!$response['success']): ?>
-                <?php modal("error", $response['message'], $response["errors"]); ?>
-            <?php endif; ?>
-        <?php endif; ?>
+    <?php endif; ?>
     </main>
 </body>
 

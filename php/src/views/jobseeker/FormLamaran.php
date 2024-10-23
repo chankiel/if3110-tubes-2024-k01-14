@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="/public/styles/style.css">
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
+    <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/jobseeker/FormLamaran.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -16,6 +17,9 @@
 <body>
     <?php include(dirname(__DIR__) . '/../components/template/navbar.php') ?>
     <main>
+        <?php
+        include(dirname(__DIR__) . '/../components/template/sidebar.php');
+        ?>
         <section class="edit-container">
             <div class="heading-container">
                 <button id="back-btn" class="material-symbols-outlined hidden">
@@ -25,10 +29,23 @@
                     Application Form
                 </h1>
             </div>
-            <h2 class="h2-lamaran">for <?= $posisi ?> Position at <?= $company_name ?></h2>
-            <p class="job-desc ">Thank you for your interest in joining our team.
+            <h2 class="h2-lamaran"><?= $posisi ?> Position at <?= $company_name ?></h2>
+            <div class="job-detail">
+                        <span class="material-symbols-outlined">
+                            work
+                        </span>
+                        <p><?= $jenis_pekerjaan ?></p>
+</div>
+                    <div class="job-detail">
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
+                        <p><?= $jenis_lokasi ?></p>
+</div>
+            <p class="job-desc ">
                 Please ensure all mandatory fields are completed accurately to avoid delays in processing your application.</p>
-            <form action="/jobs/<?=$lowongan_id?>/apply" method="POST" class="apply-form" enctype="multipart/form-data">
+            
+            <form action="/jobs/<?= $lowongan_id ?>/apply" method="POST" class="apply-form" enctype="multipart/form-data">
                 <div class="input-area ">
                     <label for="cv"><em>Curriculum Vitae</em> (CV)*</label>
                     <input type="file" id="cv" name="cv" accept=".pdf,.docx">

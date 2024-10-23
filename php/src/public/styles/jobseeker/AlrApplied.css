@@ -1,14 +1,19 @@
 main {
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 section {
-  width: 100%;
   position: relative;
-  padding: 5px;
+  padding: 20px 5px;
+  border-radius: 20px;
+}
+
+.diffTime{
+  font-weight: 600;
+  font-size: 20px;
 }
 
 section > * {
@@ -73,12 +78,9 @@ h2, .attachments-container{
 }
 
 @media (min-width: 768px) {
-  section > :not(.back-btn) {
-    width: 75%;
-  }
 
   .desc {
-    font-size: 35px;
+    font-size: 50px;
   }
 
   .back-btn {
@@ -90,9 +92,7 @@ h2, .attachments-container{
 }
 
 @media (min-width: 1280px) {
-    section > :not(.back-btn) {
-    width: 60%;
-  }
+
 }
 
 @media (min-width: 1536px) {

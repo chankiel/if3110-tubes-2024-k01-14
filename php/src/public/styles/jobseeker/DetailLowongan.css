@@ -7,6 +7,12 @@
   line-height: 10px;
 }
 
+.company-container{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 section {
   position: relative;
   padding: 20px 10px;
@@ -68,6 +74,7 @@ section > *{
   font-size: 23px;
   font-weight: 550;
   margin-top: 25px;
+  margin-bottom: 15px;
 }
 
 .applied-btn {
@@ -75,6 +82,7 @@ section > *{
   color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
   padding: 8px 15px;
 }

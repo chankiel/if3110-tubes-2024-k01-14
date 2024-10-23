@@ -1,24 +1,32 @@
-.lamaran-link {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  width: 90%;
-  padding: 10px 0;
+section {
+  background-color: var(--subtleyellow);
 }
 
 .lamaran-item {
-  border-bottom: 1px solid black;
+  background-color: white;
   padding: 20px;
-  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  transition: box-shadow 0.3s ease;
+}
+
+.lamaran-item:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .top-container {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
 }
 
 .role {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 500;
 }
 
 .details {
@@ -31,6 +39,7 @@
 
 .company {
   font-size: 15px;
+  margin-bottom: 5px;
 }
 
 .date-container {
@@ -45,15 +54,12 @@
 .status {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  align-items: center;
   padding: 5px 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  border-radius: 20px;
+  border-radius: 30px;
   font-weight: bolder;
   color: white;
-  font-size: 10px;
+  font-size: 15px;
 }
 
 .accepted {
@@ -72,21 +78,17 @@
 }
 
 @media (min-width: 768px) {
-  .lamaran-link {
-    width: 85%;
-  }
-
   .role {
-    font-size: 64px;
-    line-height: 1;
+    font-size: 40px;
+    line-height: 1.1;
   }
 
   .company {
-    font-size: 40px;
+    font-size: 17px;
   }
 
   .details {
-    font-size: 20px;
+    font-size: 15px;
   }
 
   .date-container {
@@ -94,7 +96,7 @@
   }
 
   .status {
-    font-size: 20px;
+    font-size: 15px;
     padding: 8px 15px;
   }
 }

@@ -1,0 +1,125 @@
+section {
+  position: relative;
+  padding: 20px 10px;
+  border-radius: 10px;
+}
+
+section > *, .form-lowongan > h1{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-lowongan > h1{
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  position: relative;
+}
+
+.input-area:not(#div-attachments) input,
+.input-area select {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+.normal-state:not(#div-attachments) input,.normal-state select {
+  border: 1px solid black;
+}
+
+.error-state:not(#div-attachments) input , .error-state select{
+  border: 3px solid red;
+}
+
+.error-details {
+  color: red;
+  font-size: 15px;
+}
+
+#deskripsi{
+  display: none;
+}
+
+#quil-deskripsi{
+  height: 25vh;
+}
+
+.input-area label{
+  font-size: 15px;
+  margin-bottom: 3px;
+  color: var(--gray);
+}
+
+.submit-btn {
+  display: block;
+  background-color: var(--blue);
+  width: 100%;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 20px;
+  color: white;
+}
+
+.submit-btn:hover {
+  background-color: var(--darkblue);
+}
+
+#image-preview{
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.img-upload{
+  max-width: 100px;
+}
+
+@media (min-width: 640px) {
+  .form-lowongan > h1{
+    font-size: 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .input-area label {
+    font-size: 18px;
+  }
+
+  .input-area:not(#div-attachments) input {
+    height: 40px;
+    font-size: 18px;
+    border-radius: 11px;
+  }
+
+  .required-ctt {
+    font-size: medium;
+  }
+
+  .form-lowongan > h1{
+    font-size: 30px;
+  }
+
+  .img-upload{
+    max-width: 200px;
+  }
+}
+
+/* @media (min-width: 1024px) {
+} */
+
+@media (min-width: 1024px) {
+
+
+}
+
+@media (min-width: 1536px) {
+
+}
