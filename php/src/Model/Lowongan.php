@@ -128,17 +128,21 @@ class Lowongan
         $company_name = $this->db->fetchQuery("SELECT nama FROM users WHERE id=:company_id",
         ["company_id"=>$lowongan_details['company_id']]);
 
-        // Data lamaran
-        $lamaran_details = $this->db->fetchQuery(
-            "SELECT cv_path, video_path, status, status_reason, created_at 
-            FROM lamaran 
-            WHERE lowongan_id=:lowongan_id AND user_id=:user_id",
-            ["lowongan_id" => $id, 'user_id' => $user_id]
-        );
+        $lamaran_details = null;
 
-        if($lamaran_details){
-            $lamaran_details["lamaran_diffTime"] = DateHelper::timeDifference($lamaran_details["created_at"]); 
-            unset($lowongan_details["created_at"]);
+        // Data lamaran
+        if($user_id!=-1){
+            $lamaran_details = $this->db->fetchQuery(
+                "SELECT cv_path, video_path, status, status_reason, created_at 
+                FROM lamaran 
+                WHERE lowongan_id=:lowongan_id AND user_id=:user_id",
+                ["lowongan_id" => $id, 'user_id' => $user_id]
+            );
+            
+            if($lamaran_details){
+                $lamaran_details["lamaran_diffTime"] = DateHelper::timeDifference($lamaran_details["created_at"]); 
+                unset($lowongan_details["created_at"]);
+            }
         }
 
         $details = array_merge(

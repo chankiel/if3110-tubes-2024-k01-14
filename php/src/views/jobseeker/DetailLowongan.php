@@ -68,9 +68,15 @@ unset($_SESSION['response']);
                         <p><?= $jenis_lokasi ?></p>
                     </li>
                     <?php if (!$lamaran_details): ?>
-                        <a class="general-btn lamar-btn" href="/jobs/<?= $id ?>/apply">
-                            Lamar
-                        </a>
+                        <?php if (!isset($user)): ?>
+                            <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php else: ?>
+                            <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php endif; ?>
                 </ul>
             <?php else: ?>
                 <button class="general-btn applied-btn">

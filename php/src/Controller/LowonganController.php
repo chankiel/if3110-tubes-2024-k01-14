@@ -26,7 +26,7 @@ class LowonganController extends Controller
     {
 
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']??-1);
         if (!$data) {
             header("Location: /not-found");
             exit();
