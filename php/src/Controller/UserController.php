@@ -130,7 +130,6 @@ class UserController extends Controller
 
             $allLowongan = $this->lowongan->getOpenLowongan($user_id, $role);
 
-            // var_dump($allLowongan);
             if($role === "jobseeker") {
                 $this->view("/jobseeker/home", ["jobs" => $allLowongan]);
             } else if($role === "company") {
@@ -152,9 +151,7 @@ class UserController extends Controller
 
     public function showProfileCompany()
     {
-        if ($this->cur_user['role'] == "jobseeker") {
-            return $this->view('/general/not-found');
-        }
+        $this->authorizeRole("company");
         $company_details = $this->user->getCompanyDetails($this->cur_user['id']);
         $this->view("/company/ProfileCompany", $company_details);
     }
