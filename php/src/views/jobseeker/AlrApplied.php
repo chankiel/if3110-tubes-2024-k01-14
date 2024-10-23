@@ -17,10 +17,10 @@
     <main>
         <section>
             <h1 class="desc">
-                Anda sudah mendaftar untuk lowongan ini
+                You already applied for this job..
             </h1>
             <h2>
-                Didaftar <?= $lamaran_diffTime ?>
+                Applied <span class="diffTime"><?= $lamaran_diffTime ?></span> ago
             </h2>
             <div class="attachments-container">
                 <h3>

@@ -1,39 +1,38 @@
-main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+main{
+  min-height: 0;
 }
 
 section {
-  width: 100%;
+  border-radius: 10px;
   position: relative;
-  padding: 5px;
+  padding: 40px;
 }
 
-section > *{
+section > * {
   margin-left: auto;
   margin-right: auto;
 }
 
 .heading-container {
   position: relative;
-  margin-right: auto;
 }
 
 #back-btn {
   font-size: xx-large;
   width: auto;
   background-color: white;
+  position: absolute;
+  top: 6px;
+  left: -40px;
 }
 
-#back-btn:hover{
-    background-color: var(--subtleblue);
+#back-btn:hover {
+  background-color: var(--subtleblue);
 }
 
 .h1-lamaran {
   font-size: xx-large;
-  font-weight: 500;
+  font-weight: 650;
   line-height: 40px;
   margin: 10px 0;
 }
@@ -96,22 +95,21 @@ label {
 }
 
 .job-desc {
-  margin-top: 5px;
-  font-size: small;
+  margin-top: 10px;
+  font-size: 17px;
 }
 
-.hidden {
-  display: none;
+.job-detail{
+  display: flex;
+  gap: 5px;
+  margin-top: 7px;
+  color: var(--gray);
 }
 
 @media (min-width: 640px) {
 }
 
 @media (min-width: 768px) {
-  section > * {
-    width: 75%;
-  }
-
   .job-desc {
     font-size: medium;
   }
@@ -128,32 +126,32 @@ label {
     font-size: 20px;
     border-radius: 30px;
   }
-
-  #back-btn{
-    position: absolute;
-    top: 25%;
-    left: -10%;
-  }
 }
 
 @media (min-width: 1024px) {
-  
   .h1-lamaran {
     font-size: 64px;
     line-height: 50px;
     width: 100%;
   }
 
+  section {
+    padding: 60px;
+  }
+
   .h2-lamaran {
-    font-size: 48px;
+    font-size: 40px;
     line-height: normal;
+  }
+
+  #back-btn {
+    top: 10px;
+    left: -45px;
+    font-size: 40px;
   }
 }
 
 @media (min-width: 1280px) {
-  .edit-container > * {
-    width: 60%;
-  }
 }
 
 @media (min-width: 1536px) {

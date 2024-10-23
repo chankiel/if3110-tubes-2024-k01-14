@@ -139,6 +139,8 @@ class LamaranController extends Controller
             "company_name" => $company_name['nama'],
             "posisi" => $lowongan["posisi"],
             "user_id" => $this->cur_user['id'],
+            "jenis_pekerjaan" => $lowongan['jenis_pekerjaan'],
+            "jenis_lokasi" => $lowongan['jenis_lokasi'],
             "lowongan_id" => $lowongan_id,
         ];
 
