@@ -6,33 +6,32 @@ class Router
 {
     private static $routes = [];
 
-    public static function get($uri, $callback, $middleware = null)
+    public static function get($uri, $callback)
     {
-        self::addRoute('GET', $uri, $callback, $middleware);
+        self::addRoute('GET', $uri, $callback);
     }
 
-    public static function post($uri, $callback, $middleware = null)
+    public static function post($uri, $callback)
     {
-        self::addRoute('POST', $uri, $callback, $middleware);
+        self::addRoute('POST', $uri, $callback);
     }
 
-    public static function put($uri, $callback, $middleware = null)
+    public static function put($uri, $callback)
     {
-        self::addRoute('PUT', $uri, $callback, $middleware);
+        self::addRoute('PUT', $uri, $callback);
     }
 
-    public static function delete($uri, $callback, $middleware = null)
+    public static function delete($uri, $callback)
     {
-        self::addRoute('DELETE', $uri, $callback, $middleware);
+        self::addRoute('DELETE', $uri, $callback);
     }
 
-    private static function addRoute($method, $uri, $callback, $middleware)
+    private static function addRoute($method, $uri, $callback)
     {
         self::$routes[] = [
             'method' => $method,
             'uri' => trim($uri, '/'),
             'callback' => $callback,
-            'middleware' => $middleware,
         ];
     }
 
