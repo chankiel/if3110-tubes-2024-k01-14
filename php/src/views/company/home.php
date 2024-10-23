@@ -11,7 +11,7 @@
 </head>
 <body>
     
-    <?php include(dirname(__DIR__) . '/../components/template/navbar.php') ?>
+    <?php include dirname(__DIR__) . '/../components/template/navbar.php' ?>
 
     <section>
         <div class="container">
@@ -52,10 +52,7 @@
             </div>
 
             <div class="main-content">
-                <button class="add-job">
-                    <i class="fa-solid fa-plus"></i>
-                    Add job
-                </button>
+                <?php include dirname(__DIR__) . '/../components/template/addJob.php' ?>
 
                 <div class="show-jobs">
                     <div class="job-list">

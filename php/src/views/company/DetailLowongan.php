@@ -82,11 +82,11 @@ unset($_SESSION['response']);
                             <p class="nama"> Name : <?= $application["nama"];?></p>
                             <p class="status">Status : <?= ucfirst($application["status"]);?></p>
                         </div>
-                        <form action="/applications/<?= $application["user_id"] ?>" method="GET">
-                            <button type="submit" class="general-button">
+                        <a href="/applications/<?= $application["lamaran_id"] ?>">
+                            <button class="general-button">      
                                 View Details
                             </button>
-                        </form>
+                        </a>
                     </div>
                 <?php endforeach; endif;?>
             </div>
