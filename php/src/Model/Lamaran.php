@@ -92,4 +92,17 @@ class Lamaran
     public function changeStatusLamaran($status, $status_reason,$lamaran_id){
         return $this->db->update("lamaran",['status'=>$status,'status_reason'=>$status_reason],"id=:id",['id'=>$lamaran_id]);
     }
+
+    public function getDataExportLamaran($lowongan_id) {
+        $sql = "SELECT u.nama as Nama_pelamar, lo.posisi as Posisi, l.created_at as Tanggal_melamar, l.cv_path as url_cv, l.video_path as url_vdeio, l.status as Status_lamaran
+                FROM lamaran l
+                JOIN users u ON l.user_id = u.id
+                JOIN lowongan lo ON lo.id = l.lowongan_id
+                WHERE l.lowongan_id = :lowongan_id";
+        $params = ["lowongan_id"=>$lowongan_id];
+
+        $dataLamaran = $this->db->prepareQuery($sql, $params);
+
+        return $dataLamaran;
+    }
 }
