@@ -2,7 +2,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #f4f2ee;
 }
 
 section {
@@ -85,13 +84,13 @@ section > * {
   border: 3px solid red;
 }
 
-.error-state p {
+.error-details {
   color: red;
   font-size: 15px;
 }
 
-#quill-editor {
-  height: 100px;
+#input-about {
+  height: 25vh;
   overflow: auto;
 }
 
@@ -152,12 +151,6 @@ section > * {
   .required-ctt {
     font-size: medium;
   }
-
-  /* #back-btn {
-    position: absolute;
-    top: 25%;
-    left: -10%;
-  } */
 }
 
 /* @media (min-width: 1024px) {

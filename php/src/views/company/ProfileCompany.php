@@ -37,21 +37,21 @@ unset($_SESSION['response']);
                 <div class="input-area normal-state" id="input-nama">
                     <label for="nama">Nama*</label>
                     <input type="text" id="nama" name="nama" value="<?= $company_name['nama'] ?>">
-                    <p class="error-details hidden err-nama">Nama tidak boleh kosong!</p>
+                    <p class="error-details hidden err-nama">Name cant't be empty!</p>
                 </div>
                 <div class="input-area normal-state" id="input-lokasi">
                     <label for="lokasi">Lokasi*</label>
                     <input type="text" id="lokasi" name="lokasi" value="<?= $lokasi ?>">
-                    <p class="error-details hidden err-lokasi">Lokasi tidak boleh kosong!</p>
+                    <p class="error-details hidden err-lokasi">Location can't be empty!</p>
                 </div>
-                <div class="quil-container" id="input-about">
-                    <label for="quill-editor">About Company</label>
-                    <div id="quill-editor">
+                <div class="quil-container normal-state">
+                    <label for="quill-editor">About Company*</label>
+                    <div id="input-about">
                         <?= $about ?>
                     </div>
                     <textarea name="about" id="hiddenArea"></textarea>
                 </div>
-                <p class="error-details hidden err-about">About Company tidak boleh kosong!</p>
+                <p class="error-details hidden err-about">About Company can't be empty!</p>
                 <p class="required-ctt">*required</p>
                 <button type="submit" class="submit-btn">Simpan</button>
             </form>
@@ -66,6 +66,7 @@ unset($_SESSION['response']);
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-<script src="../public/scripts/ProfileCompany.js"></script>
+<script src="../public/scripts/company/ProfileCompany.js"></script>
+<script src="../public/scripts/template/modal.js"></script>
 
 </html>
