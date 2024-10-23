@@ -12,28 +12,38 @@ const errLokasi = document.querySelector(".err-lokasi");
 const errAbout = document.querySelector(".err-about");
 
 const backBtn = document.getElementById("back-btn");
-const quill = new Quill('#quill-editor', {
+const quill = new Quill('#input-about', {
     theme: 'snow'
 });
+
+function isHtmlStringEmpty(htmlString) {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlString;
+    const textOnly = tempDiv.textContent || tempDiv.innerText || "";  
+    return textOnly.trim() === "";
+  }
 
 profileForm.addEventListener("submit",function(e){
     e.preventDefault();
     inputAbout.value = quill.root.innerHTML
+    let isError = false;
+    console.log(inputAbout.value);
     if(inputNama.value === "" ){
         errNama.classList.remove("hidden");
         divNama.classList.add("error-state");
-        return;
+        isError = true;
     }
     if(inputLokasi.value === ""){
         errLokasi.classList.remove("hidden");
         divLokasi.classList.add("error-state");
-        return;
+        isError = true;
     }
-    if(inputAbout.value === ""){
+    if(isHtmlStringEmpty(inputAbout.value)){
         errAbout.classList.remove("hidden");
         divAbout.classList.add("error-state");
-        return;
+        isError = true;
     }
+    if(isError) return;
 
     const xhr = new XMLHttpRequest();
     const formData = new FormData(this);
@@ -78,20 +88,3 @@ inputAbout.addEventListener("change", function(e){
         divAbout.classList.remove("error-state");
     }
 })
-
-const modal = document.getElementById("modal");
-const modalOkBtn = document.getElementById("modalOkBtn");
-
-function hideModal() {
-  modal.classList.remove("modal-active");
-  modal.classList.add("hidden");
-
-}
-
-if (modalOkBtn) {
-  modalOkBtn.addEventListener("click", hideModal);
-}
-
-if (modal) {
-  modal.classList.add("modal-active");
-}
