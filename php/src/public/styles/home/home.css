@@ -44,18 +44,17 @@ a {
     margin-left: 10px;
     font-weight: bold;
 }
-
+/* 
 .container {
     padding: 20px 6%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-}
+    justify-content: center;
+} */
 
 .left-sidebar {
    /* flex-basis: 25%;  */
    margin-top: 5px; 
-   width: 20%;
 }
 
 .sidebar-profile-box {
@@ -90,8 +89,8 @@ a {
 }
 
 .main-content {
-    /* flex-basis: 73%; */
-    width: 75%;
+    width: 100%;
+    max-width: 900px;
 }
 
 .job {
@@ -147,8 +146,10 @@ a {
     padding: 20px 6%;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-around;
+    justify-content: center;
     margin: 0 auto;
+    gap: 15px;
+
 }
 
 .box > * {
