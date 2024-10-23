@@ -66,6 +66,7 @@ unset($_SESSION['response']);
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<script src="../public/scripts/general/form.js"></script>
 <script src="../public/scripts/company/ProfileCompany.js"></script>
 <script src="../public/scripts/template/modal.js"></script>
 
