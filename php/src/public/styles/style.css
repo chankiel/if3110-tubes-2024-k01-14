@@ -76,6 +76,9 @@ html,
 main {
   min-height: calc(100vh - 200px);
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 body {
@@ -87,9 +90,10 @@ body {
 }
 
 section {
+  width: 100%;
+  max-width: 900px;
   background-color: white;
 }
-
 
 /*
 1. Add the correct height in Firefox.

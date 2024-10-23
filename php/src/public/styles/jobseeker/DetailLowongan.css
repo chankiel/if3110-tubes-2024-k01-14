@@ -2,10 +2,15 @@
   position: relative;
 }
 
+.heading-container p{
+  font-size: 20px;
+  line-height: 10px;
+}
+
 section {
-  width: 100%;
   position: relative;
-  padding: 5px;
+  padding: 20px 10px;
+  border-radius: 10px;
 }
 
 .attachment-img{
@@ -13,18 +18,9 @@ section {
 }
 
 section > *{
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
-}
-
-#back-btn {
-  font-size: xx-large;
-  width: auto;
-  background-color: white;
-}
-
-#back-btn:hover {
-  background-color: var(--subtleblue);
 }
 
 .position-heading {
@@ -48,18 +44,19 @@ section > *{
 }
 
 .general-btn {
-  margin-top: 10px;
+  margin-top: 15px;
   border-radius: 70px;
   font-weight: 700;
   width: 100%;
   display: block;
+  font-size: 20px;
 }
 
 .lamar-btn {
   border: 2px solid var(--blue);
   background-color: var(--blue);
   color: white;
-  padding: 5px 15px;
+  padding: 8px 15px;
   text-align: center;
 }
 
@@ -70,7 +67,7 @@ section > *{
 .lowongan-heading {
   font-size: 23px;
   font-weight: 550;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .applied-btn {
@@ -141,28 +138,25 @@ section > *{
   text-decoration: underline;
 }
 
+.attachments-img{
+  height: 100%;
+}
+
+.attachments-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.attachments-container a{
+  max-width: 200px;
+}
+
 @media (min-width: 640px) {
 
 }
 
 @media (min-width: 768px) {
-    section > * {
-    width: 75%;
-  }
 
-  .general-btn{
-    width: 30%;
-  }
-
-  .position-heading{
-    font-size: 64px;
-  }
-
-  #back-btn {
-    position: absolute;
-    top: 25%;
-    left: -10%;
-  }
 
   .small-details{
     font-size: medium;
@@ -173,9 +167,7 @@ section > *{
 }
 
 @media (min-width: 1280px) {
-    section > * {
-    width: 60%;
-  }
+
 }
 
 @media (min-width: 1536px) {

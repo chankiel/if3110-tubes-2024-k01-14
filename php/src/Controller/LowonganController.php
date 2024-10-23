@@ -24,7 +24,6 @@ class LowonganController extends Controller
 
     public function showDetailJS($matches)
     {
-        $this->authorizeRole("jobseeker");
 
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']);
@@ -58,6 +57,17 @@ class LowonganController extends Controller
 
         $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
         $this->view("/company/editLowongan", $lowongan);
+    }
+
+    public function showDetailLowonganCompany($matches) {
+        $this->authorizeRole("company");
+        $lowongan_id = $matches[0];
+        $data = $this->lowongan->getDataPelamar($lowongan_id);
+        if (!$data) {
+            header("Location: /not-found");
+            exit();
+        }
+        $this->view("/company/DetailLowongan", $data);
     }
 
     public function validateDetailsLowongan($validator, &$hasFiles, $isAdd)
@@ -237,6 +247,26 @@ class LowonganController extends Controller
         echo $jobListHtml;
         exit;
         // return $jobListHtml;
+    }
+
+
+    public function changeOpenClosed($matches){
+        $is_open = $_POST["action"];
+        $lowongan_id = $matches[0];
+        if ($is_open === "close") {
+            $status = false;
+        } else {
+            $status = true;
+        }
+        $this->lowongan->updateLowongan(['is_open'=>$status], "id=:id", ['id' => $lowongan_id]);
+        session_start();
+        
+        $response =  [
+            "success" => true,
+            "message" => "status change succesfully!"
+        ];
+        $_SESSION['response'] = $response;
+        header("Location: /jobs/$lowongan_id");
     }
 
     public function fetchOpenLowongan($search, $location, $job_type, $sort) 

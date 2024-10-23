@@ -1,0 +1,95 @@
+aside {
+  width: 250px;
+  align-self: flex-start;
+  display: none;
+  position: sticky;
+  top: 90px;
+}
+
+.part-container {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.bg-image {
+  width: 100%;
+  height: auto;
+}
+
+.img-container {
+  position: relative;
+  height: 60px;
+}
+
+.bg-image {
+  height: 100%;
+  width: 100%;
+}
+
+.img-logo {
+  border: 3px solid white;
+  height: 80px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: -80%;
+  left: 20px;
+}
+
+.profile-container {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.profile-container h1 {
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.profile-container p {
+  font-size: 20px;
+  margin-top: 5px;
+  font-weight: 400;
+}
+
+.role-explanation {
+  padding: 20px;
+}
+
+.role-explanation h1 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.role-explanation p {
+  font-size: 17px;
+}
+
+.role-explanation ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.role-explanation li {
+  font-size: 15px;
+}
+
+@media (min-width: 640px) {
+}
+
+@media (min-width: 768px) {
+  aside {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1280px) {
+}
+
+@media (min-width: 1536px) {
+}
