@@ -32,9 +32,11 @@ unset($_SESSION['response']);
         include(dirname(__DIR__) . '/../components/template/sidebar.php');
         ?>
         <section>
-            <div class="heading-container">
-                <div class="company-container">
-                    <span class="material-symbols-outlined">
+            <div class="bubble-container">
+
+                <div class="heading-container">
+                    <div class="company-container">
+                        <span class="material-symbols-outlined">
                         apartment
                     </span>
                     <p><?= $company_name ?></p>
@@ -91,22 +93,35 @@ unset($_SESSION['response']);
                         <?php endforeach; ?>
                     </div>
                 </div>
-            <?php endif; ?>
-                            
+            <?php endif; ?>                     
+        </div>
+        <div class="bubble-container">
             <div class="list-application">
-            <?php if (empty($applications)): ?>
-            <div class="no-application">
+                <?php if (empty($applications)): ?>
+                    <div class="no-application">
                 <h2 class="no-application">No application available</h2>
             </div>
             <?php else: ?>
-                <h1 class="lowongan-heading">List Application</h1>
+                <h1 class="application-heading">List Application</h1>
                 <?php foreach ($applications as $application):?>
                     <div class="preview-lamaran">
                         <div class="nama-status">
                             <p class="nama"> Name : <?= $application["nama"];?></p>
-                            <p class="status">Status : <?= ucfirst($application["status"]);?></p>
+                            <p>Status :
+                            <span class="status 
+                                <?php
+                                if ($application["status"] == "accepted") {
+                                    echo "accepted";
+                                } else if ($application["status"] == "rejected") {
+                                    echo "rejected";
+                                } else {
+                                    echo "waiting";
+                                }
+                                ?>">
+                                    <?= ucfirst($application["status"]);?></p>
+                            </span>    
                         </div>
-                        <a href="/applications/<?= $application["lamaran_id"] ?>">
+                        <a href="/applications/<?= $application["lamaran_id"] ?>" class="button-container">
                             <button class="general-button">      
                                 View Details
                             </button>
@@ -114,6 +129,7 @@ unset($_SESSION['response']);
                     </div>
                 <?php endforeach; endif;?>
             </div>
+        </div>
             
         </section>
         <?php if ($response): ?>
