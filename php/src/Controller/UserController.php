@@ -10,7 +10,7 @@ class UserController extends Controller
     private $user;
     private $userAuth;
     private $lowongan;
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
         $this->user = new User();
@@ -23,8 +23,11 @@ class UserController extends Controller
         $role = $_POST["role"];
         $data = [];
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if ($this->user->userExists($_POST["email"]) || $this->user->userExists($_POST["email_company"])) {
-            setcookie("error_message", "Email is already registered.", time() + 3600, "/");
+            $_SESSION["error_message"] = "Email is already registered.";
             header('Location: /register');
             exit();
         }
@@ -79,7 +82,10 @@ class UserController extends Controller
         $this->user->editLocation($this->cur_user['id'], $userData['lokasi']);
         $this->user->editAbout($this->cur_user['id'], $userData['about']);
 
-        session_start();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $response =  [
             "success" => true,
             "message" => "Company's Profile updated successfully!"
@@ -127,13 +133,13 @@ class UserController extends Controller
         $location = $_GET['filter'] ?? [];
         $job_type = $_GET['job-type'] ?? [];
         $sort = $_GET['sort'] ?? '';
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; 
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 3;
 
         $jobListHtml = '';
 
-        $allLowongan = $this->lowongan->fetchOpenLowongan($search, $location, $job_type,$sort, $page, $perPage);
-        
+        $allLowongan = $this->lowongan->fetchOpenLowongan($search, $location, $job_type, $sort, $page, $perPage);
+
         $totalJobs = count($allLowongan);
         $totalPages = ceil($totalJobs / $perPage);
         $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
@@ -141,8 +147,8 @@ class UserController extends Controller
         $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
 
         $data = [
-            "jobListHtml" => $jobListHtml, 
-            "totalPages" => $totalPages, 
+            "jobListHtml" => $jobListHtml,
+            "totalPages" => $totalPages,
             "currentPage" => $page
         ];
 

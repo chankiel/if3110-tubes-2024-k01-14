@@ -1,7 +1,11 @@
 <?php
-if(isset($_COOKIE["error_message"])) {
-    $errorMessage = htmlentities($_COOKIE["error_message"]);
-    setcookie("error_message", "", time() - 3600, "/");
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION["error_message"])) {
+    $errorMessage = htmlentities($_SESSION["error_message"]);
+    unset($_SESSION['error_message']);
 } else {
     $errorMessage = "";
 }
@@ -9,12 +13,14 @@ if(isset($_COOKIE["error_message"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="..\..\public\styles\general\register-login.css">
     <title>Sign Up</title>
 </head>
+
 <body>
     <header>
         <div class="header-subtitle">
@@ -86,4 +92,5 @@ if(isset($_COOKIE["error_message"])) {
 
     <script src="../../public/scripts/general/register.js"></script>
 </body>
+
 </html>

@@ -26,7 +26,7 @@ class LowonganController extends Controller
     {
 
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id']??-1);
+        $data = $this->lowongan->getDetailLowongan($lowongan_id, $this->cur_user['id'] ?? -1);
         if (!$data) {
             header("Location: /not-found");
             exit();
@@ -59,7 +59,8 @@ class LowonganController extends Controller
         $this->view("/company/editLowongan", $lowongan);
     }
 
-    public function showDetailLowonganCompany($matches) {
+    public function showDetailLowonganCompany($matches)
+    {
         $this->authorizeRole("company");
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDataPelamar($lowongan_id);
@@ -155,7 +156,10 @@ class LowonganController extends Controller
             $this->uploadAttachments($lowongan_id);
         }
 
-        session_start();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $response =  [
             "success" => true,
             "message" => "Job updated successfully!"
@@ -190,7 +194,10 @@ class LowonganController extends Controller
             $this->uploadAttachments($lowongan_id);
         }
 
-        session_start();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $response =  [
             "success" => true,
             "message" => "Job updated successfully!"
@@ -204,14 +211,17 @@ class LowonganController extends Controller
     public function deleteLowongan($matches)
     {
         $this->authorizeRole("company");
-    
+
         $lowongan_id = $matches[0];
-        $lowongan = $this->validateLowongan($lowongan_id,$this->cur_user['id'],true);
+        $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
 
         $this->lowongan->deleteLowongan("id= :id", ["id" => $lowongan_id]);
         $this->lowongan->deleteAttachments($lowongan_id);
-        
-        session_start();
+
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $response =  [
             "success" => true,
             "message" => "Job deleted successfully!"
@@ -220,20 +230,24 @@ class LowonganController extends Controller
         $_SESSION['response'] = $response;
         header("Location: /");
         exit();
-    }  
+    }
 
     public function getOpenLowongan()
     {
-        $user_id = $_COOKIE['user_id'] ?? null;
-        $role = $_COOKIE['user_role'] ?? null;
-        
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $user_id = $_SESSION['user_id'] ?? null;
+        $role = $_SESSION['user_role'] ?? null;
+
         $search = $_GET['search'] ?? '';
         $location = isset($_GET['filter']) ? implode(',', $_GET['filter']) : '';
         $job_type = isset($_GET['job-type']) ? implode(',', $_GET['job-type']) : '';
         $sort = $_GET['sort'] ?? '';
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 3;
-    
+
         $allLowongan = $this->fetchOpenLowongan($search, $location, $job_type, $sort);
 
         $totalJobs = count($allLowongan);
@@ -242,7 +256,7 @@ class LowonganController extends Controller
 
         $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
 
-        $jobListHtml= $this->renderJobAndPagination($jobs, $page, $totalPages);
+        $jobListHtml = $this->renderJobAndPagination($jobs, $page, $totalPages);
 
         echo $jobListHtml;
         exit;
@@ -250,7 +264,8 @@ class LowonganController extends Controller
     }
 
 
-    public function changeOpenClosed($matches){
+    public function changeOpenClosed($matches)
+    {
         $is_open = $_POST["action"];
         $lowongan_id = $matches[0];
         if ($is_open === "close") {
@@ -258,9 +273,12 @@ class LowonganController extends Controller
         } else {
             $status = true;
         }
-        $this->lowongan->updateLowongan(['is_open'=>$status], "id=:id", ['id' => $lowongan_id]);
-        session_start();
-        
+        $this->lowongan->updateLowongan(['is_open' => $status], "id=:id", ['id' => $lowongan_id]);
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $response =  [
             "success" => true,
             "message" => "status change succesfully!"
@@ -269,19 +287,18 @@ class LowonganController extends Controller
         header("Location: /jobs/$lowongan_id");
     }
 
-    public function fetchOpenLowongan($search, $location, $job_type, $sort) 
+    public function fetchOpenLowongan($search, $location, $job_type, $sort)
     {
         return $this->lowongan->getAllOpenLowongan($search, $location, $job_type, $sort);
-    }  
+    }
 
-    public function renderJobAndPagination($jobs, $currentPage, $totalPages) 
+    public function renderJobAndPagination($jobs, $currentPage, $totalPages)
     {
         $html = '<div class="job-list">';
-        
         if (empty($jobs)) {
             return $html .= '<div class="no-jobs"><h2>No job listings available</h2></div></div>';
         } else {
-            if(isset($_COOKIE["role"]) && $_COOKIE["role"] === "company") {
+            if (isset($_SESSION["role"]) && $_SESSION["role"] === "company") {
                 foreach ($jobs as $job) {
                     $html .= "<div class='job'>
                                 <div class='job-author'>
@@ -290,10 +307,10 @@ class LowonganController extends Controller
                                         <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
                                     </div>
                                     <div class='delete-job'>
-                                        <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."' title='Edit Job'>
+                                        <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "' title='Edit Job'>
                                             <i class='far fa-edit'></i>
                                         </a>
-                                        <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/delete' title='Delete Job'>
+                                        <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "/delete' title='Delete Job'>
                                             <i class='fa-solid fa-trash'></i>
                                         </a>
                                     </div>
@@ -313,7 +330,7 @@ class LowonganController extends Controller
                                     </div>
                                 </div>
                                 <div class='job-details'>
-                                    <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/details'>More details</a>
+                                    <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "/details'>More details</a>
                                 </div>
                             </div>";
                 }
@@ -341,28 +358,27 @@ class LowonganController extends Controller
                                     </div>
                                 </div>
                                 <div class='job-details'>
-                                    <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/details'>More details</a>
+                                    <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "/details'>More details</a>
                                 </div>
                             </div>";
                 }
             }
-            
         }
         $html .= '</div>';
-    
+
         if (!empty($jobs)) {
             $html .= '<div class="pagination"><ul>';
-        
+
             if ($currentPage > 1) {
                 $html .= '<li class="page-item previous-page"><a class="page-link" onclick="fetchJobs(' . ($currentPage - 1) . ')">« Prev</a></li>';
             } else {
                 $html .= '<li class="page-item previous-page disabled"><a class="page-link" href="javascript:void(0)">« Prev</a></li>';
             }
-        
+
             $range = 2;
             $startPage = max(1, $currentPage - $range);
             $endPage = min($totalPages, $currentPage + $range);
-        
+
             for ($i = 1; $i <= $totalPages; $i++) {
                 if ($i < $startPage || $i > $endPage) {
                     if ($i == 1 || $i == $totalPages) {
@@ -376,13 +392,13 @@ class LowonganController extends Controller
                     $html .= '<li class="page-item ' . $activeClass . '"><a class="page-link" onclick="fetchJobs(' . $i . ')">' . $i . '</a></li>';
                 }
             }
-    
+
             if ($currentPage < $totalPages) {
                 $html .= '<li class="page-item next-page"><a class="page-link" onclick="fetchJobs(' . ($currentPage + 1) . ')">Next »</a></li>';
             } else {
                 $html .= '<li class="page-item next-page disabled"><a class="page-link" href="javascript:void(0)">Next »</a></li>';
             }
-        
+
             $html .= '</ul></div>';
         }
         return $html;

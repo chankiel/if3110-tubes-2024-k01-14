@@ -22,7 +22,7 @@
                 <?php include dirname(__DIR__) . '/../components/home/filterSort.php' ?>
             </aside>
             <div class="main-content">
-                <?php if (isset($_COOKIE["role"]) && $_COOKIE["role"] === "company"): ?>
+                <?php if (isset($_SESSION["role"]) && $_SESSION["role"] === "company"): ?>
                     <?php include dirname(__DIR__) . '/../components/home/addJob.php'; ?>
                 <?php endif; ?>
 

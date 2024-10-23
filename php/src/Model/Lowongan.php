@@ -64,14 +64,14 @@ class Lowongan
 
         $query = "";
         $params = [];
-        
-        if(isset($_COOKIE["role"]) && $_COOKIE["role"] === "company") {
+
+        if(isset($_SESSION["role"]) && $_SESSION["role"] === "company") {
             $query = "SELECT u.id as userid, l.id as lowonganid, l.company_name, u.nama, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
                             FROM lowongan l
                             JOIN users u ON u.id = l.company_id
                             WHERE (u.id = :user_id)";
 
-            $params['user_id'] = $_COOKIE["user_id"];
+            $params['user_id'] = $_SESSION["user_id"];
         } else {
             $query = "SELECT u.nama, l.id as lowonganid, l.company_name, l.posisi, l.jenis_pekerjaan, l.jenis_lokasi, l.created_at
                             FROM lowongan l

@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $response = isset($_SESSION['response']) ? $_SESSION['response'] : null;
 
@@ -18,6 +21,7 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/style.css">
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/modal.css">
+    <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/template/toast.css">
     <link rel="stylesheet" href="/public/styles/company/DetailLowonganCompany.css">
     <!-- <link rel="stylesheet" href="/public/styles/jobseeker/DetailLowongan.css"> -->

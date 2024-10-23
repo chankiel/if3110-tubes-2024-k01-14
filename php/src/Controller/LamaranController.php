@@ -68,7 +68,10 @@ class LamaranController extends Controller
 
         $this->lamaran->addLamaran($data);
 
-        session_start();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION['response'] = [
             "success" => true,
             "message" => "Lamaran uploaded successfully!"
@@ -78,23 +81,26 @@ class LamaranController extends Controller
         exit();
     }
 
-    public function changeStatusLamaran($lamaran_id,$status)
+    public function changeStatusLamaran($lamaran_id, $status)
     {
         $this->authorizeRole('company');
         $company_id = $this->lamaran->getCompanyId($lamaran_id)['company_id'];
-        $this->checkRule($company_id!==(int)$this->cur_user['id']);
+        $this->checkRule($company_id !== (int)$this->cur_user['id']);
 
         parse_str(file_get_contents("php://input"), $data);
         $status_reason = $data['status_reason'] ?? null;
 
         $rowCount = $this->lamaran->changeStatusLamaran($status, $status_reason, $lamaran_id);
-        session_start();
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if ($rowCount > 0) {
             $_SESSION['response'] = [
                 "success" => true,
                 "message" => "Lamaran uploaded successfully!"
             ];
-        }else{
+        } else {
             $_SESSION['response'] = [
                 "success" => false,
                 "message" => "Something went wrong!"
@@ -102,14 +108,16 @@ class LamaranController extends Controller
         }
     }
 
-    public function approveLamaran($matches){
+    public function approveLamaran($matches)
+    {
         $lamaran_id = $matches[0];
-        $this->changeStatusLamaran($lamaran_id,'accepted');
+        $this->changeStatusLamaran($lamaran_id, 'accepted');
     }
 
-    public function rejectLamaran($matches){
+    public function rejectLamaran($matches)
+    {
         $lamaran_id = $matches[0];
-        $this->changeStatusLamaran($lamaran_id,'rejected');
+        $this->changeStatusLamaran($lamaran_id, 'rejected');
     }
 
     public function showFormLamaran($matches)
