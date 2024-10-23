@@ -42,7 +42,7 @@ CREATE TABLE
         lowongan_id INT REFERENCES lowongan (id) ON DELETE CASCADE,
         cv_path TEXT DEFAULT NULL,
         video_path TEXT DEFAULT NULL,
-        status VARCHAR(50) CHECK (status IN ('accepted', 'rejected', 'waiting')),
+        status VARCHAR(50) CHECK (status IN ('accepted', 'rejected', 'waiting')) DEFAULT 'waiting',
         status_reason TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
