@@ -2,7 +2,6 @@
 
 namespace Controller;
 
-use Helper\DataFormatter;
 use Helper\Validator;
 use Model\User;
 
@@ -11,7 +10,8 @@ class UserController extends Controller
     private $user;
     private $userAuth;
     private $lowongan;
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
         $this->user = new User();
         $this->userAuth = new AuthController();
@@ -116,11 +116,13 @@ class UserController extends Controller
         $this->view("/general/register");
     }
 
-    public function showLogin(){
+    public function showLogin()
+    {
         $this->view("/general/login");
     }
 
-    public function showHome(): void {
+    public function showHome()
+    {
         $search = $_GET['search'] ?? '';
         $location = $_GET['filter'] ?? [];
         $job_type = $_GET['job-type'] ?? [];
@@ -129,54 +131,22 @@ class UserController extends Controller
         $perPage = 3;
 
         $jobListHtml = '';
-    
-        if(isset($_COOKIE["role"])) {
-            $user_id = $_COOKIE["user_id"];
-            $role = $_COOKIE["role"];
-    
-            $allLowongan = $this->lowongan->fetchOpenLowongan($user_id, $role, $search, $location, $job_type,$sort, $page, $perPage);
 
-            $totalJobs = count($allLowongan);
+        $allLowongan = $this->lowongan->fetchOpenLowongan($search, $location, $job_type,$sort, $page, $perPage);
+        
+        $totalJobs = count($allLowongan);
+        $totalPages = ceil($totalJobs / $perPage);
+        $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
 
-            $totalPages = ceil($totalJobs / $perPage);
+        $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
 
-            $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
+        $data = [
+            "jobListHtml" => $jobListHtml, 
+            "totalPages" => $totalPages, 
+            "currentPage" => $page
+        ];
 
-            $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
-
-            $data = [
-                "jobListHtml" => $jobListHtml, 
-                "totalPages" => $totalPages, 
-                "currentPage" => $page
-            ];
-
-            if($role === "jobseeker") {
-                $this->view("/jobseeker/home", $data);
-            } else if($role === "company") {
-                $this->view("/company/home", $data);
-            } else {
-                header("Location: /login");
-                exit();
-            }
-        } else {
-            $allLowongan = $this->lowongan->fetchOpenLowongan(null, null, $search, $location, $job_type, $sort, $page, $perPage);  
-
-            $totalJobs = count($allLowongan);
-
-            $totalPages = ceil($totalJobs / $perPage);
-
-            $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
-
-            $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
-
-            $data = [
-                "jobListHtml" => $jobListHtml, 
-                "totalPages" => $totalPages, 
-                "currentPage" => $page
-            ];
-            
-            $this->view("/jobseeker/home", $data);
-        }
+        $this->view("general/home", $data);
     }
 
     public function showLogout()

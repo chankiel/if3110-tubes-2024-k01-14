@@ -125,19 +125,21 @@ unset($_SESSION['response']);
                 <p><?= $deskripsi ?></p>
             </div>
             <?php if ($attachments): ?>
+            <?php if ($attachments): ?>
                 <div>
-                    <h1 class="lowongan-heading">Attachments</h1>
-                    <div class="attachments-container">
-                        <?php foreach ($attachments as $attachment): ?>
-                            <a href="<?= $attachment ?>" target="_blank">
-                                <img src="<?= $attachment ?>" alt="attachment-img" class="attachment-img">
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
+                        <h1 class="lowongan-heading">Attachments</h1>
+                        <div class="attachments-container">
+                            <?php foreach  ($attachments as $attachment): ?>
+                                <a href="<?= $attachment ?>" target="_blank">
+                                    <img src="<?= $attachment  ?>" alt="attachment-img" class="attachment-img">
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
                 </div>
             <?php endif; ?>
-        </section>
-        <?php if ($response): ?>
+            </section>
+        <?php endif; ?>
+        <?php if  ($response):  ?>
             <?php if ($response['success']): ?>
                 <?php modal("success", $response['message']); ?>
             <?php elseif (!$response['success']): ?>

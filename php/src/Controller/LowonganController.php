@@ -10,13 +10,11 @@ use Helper\FileManager;
 class LowonganController extends Controller
 {
     private Lowongan $lowongan;
-    private User $user;
 
     public function __construct()
     {
         parent::__construct();
         $this->lowongan  = new Lowongan();
-        $this->user = new User();
     }
 
     public function showTambahLowongan()
@@ -222,17 +220,10 @@ class LowonganController extends Controller
         $_SESSION['response'] = $response;
         header("Location: /");
         exit();
-    }
+    }  
 
-    public function fetchOpenLowongan($user_id, $role, $search, $location, $job_type, $sort, $page, $perPage) {
-        if ($role === "company") {
-            return $this->lowongan->getAllLowonganByCompany($user_id, $search, $location, $job_type, $sort, $page, $perPage);
-        } else {
-            return $this->lowongan->getAllOpenLowongan($search, $location, $job_type, $sort, $page, $perPage);
-        }
-    }    
-
-    public function getOpenLowongan() {
+    public function getOpenLowongan()
+    {
         $user_id = $_COOKIE['user_id'] ?? null;
         $role = $_COOKIE['user_role'] ?? null;
         
@@ -243,7 +234,7 @@ class LowonganController extends Controller
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 3;
     
-        $allLowongan = $this->fetchOpenLowongan($user_id, $role, $search, $location, $job_type, $sort, $page, $perPage);
+        $allLowongan = $this->fetchOpenLowongan($search, $location, $job_type, $sort);
 
         $totalJobs = count($allLowongan);
 
@@ -278,39 +269,84 @@ class LowonganController extends Controller
         header("Location: /jobs/$lowongan_id");
     }
 
-    public function renderJobAndPagination($jobs, $currentPage, $totalPages): string {
+    public function fetchOpenLowongan($search, $location, $job_type, $sort) 
+    {
+        return $this->lowongan->getAllOpenLowongan($search, $location, $job_type, $sort);
+    }  
+
+    public function renderJobAndPagination($jobs, $currentPage, $totalPages) 
+    {
         $html = '<div class="job-list">';
         
         if (empty($jobs)) {
             return $html .= '<div class="no-jobs"><h2>No job listings available</h2></div></div>';
         } else {
-            foreach ($jobs as $job) {
-                $html .= "<div class='job'>
-                            <div class='job-author'>
-                                <div class='author'>
-                                    <h1>" . htmlspecialchars($job['posisi']) . "</h1>
-                                    <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
-                                </div>
-                            </div>
-                            <div class='job-info'>
-                                <div class='job-type-location'>
-                                    <h2>
-                                        <strong>
-                                            <a href='#' title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
-                                        </strong>
-                                    </h2>
-                                    <div class='job-location'>
-                                        <i class='fa-solid fa-location-dot'></i>
-                                        <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
+            if(isset($_COOKIE["role"]) && $_COOKIE["role"] === "company") {
+                foreach ($jobs as $job) {
+                    $html .= "<div class='job'>
+                                <div class='job-author'>
+                                    <div class='author'>
+                                        <h1>" . htmlspecialchars($job['posisi']) . "</h1>
+                                        <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
                                     </div>
-                                    <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
+                                    <div class='delete-job'>
+                                        <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."' title='Edit Job'>
+                                            <i class='far fa-edit'></i>
+                                        </a>
+                                        <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/delete' title='Delete Job'>
+                                            <i class='fa-solid fa-trash'></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='job-details'>
-                                <a href='#'>More details</a>
-                            </div>
-                        </div>";
+                                <div class='job-info'>
+                                    <div class='job-type-location'>
+                                        <h2>
+                                            <strong>
+                                                <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
+                                            </strong>
+                                        </h2>
+                                        <div class='job-location'>
+                                            <i class='fa-solid fa-location-dot'></i>
+                                            <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
+                                        </div> 
+                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
+                                    </div>
+                                </div>
+                                <div class='job-details'>
+                                    <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/details'>More details</a>
+                                </div>
+                            </div>";
+                }
+            } else {
+                foreach ($jobs as $job) {
+                    $html .= "<div class='job'>
+                                <div class='job-author'>
+                                    <div class='author'>
+                                        <h1>" . htmlspecialchars($job['posisi']) . "</h1>
+                                        <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
+                                    </div>
+                                </div>
+                                <div class='job-info'>
+                                    <div class='job-type-location'>
+                                        <h2>
+                                            <strong>
+                                                <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
+                                            </strong>
+                                        </h2>
+                                        <div class='job-location'>
+                                            <i class='fa-solid fa-location-dot'></i>
+                                            <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
+                                        </div>
+                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
+                                    </div>
+                                </div>
+                                <div class='job-details'>
+                                    <a href='/jobs/". htmlspecialchars($job['lowonganid']) ."/details'>More details</a>
+                                </div>
+                            </div>";
+                }
             }
+            
         }
         $html .= '</div>';
     
@@ -340,8 +376,7 @@ class LowonganController extends Controller
                     $html .= '<li class="page-item ' . $activeClass . '"><a class="page-link" onclick="fetchJobs(' . $i . ')">' . $i . '</a></li>';
                 }
             }
-        
-            // Next Page link
+    
             if ($currentPage < $totalPages) {
                 $html .= '<li class="page-item next-page"><a class="page-link" onclick="fetchJobs(' . ($currentPage + 1) . ')">Next »</a></li>';
             } else {
@@ -350,156 +385,6 @@ class LowonganController extends Controller
         
             $html .= '</ul></div>';
         }
-    
         return $html;
     }
-    
-    
-
-    // public function renderJobAndPagination($jobs, $currentPage, $totalPages): string {
-    //     $html = '<div class="job-list">';
-        
-    //     if (empty($jobs)) {
-    //         return $html .= '<div class="no-jobs"><h2>No job listings available</h2></div><div>';
-    //     } else {
-    //         foreach ($jobs as $job) {
-    //             $posisi = htmlspecialchars($job['posisi'] ?? 'N/A');
-    //             $jenisPekerjaan = htmlspecialchars($job['jenis_pekerjaan'] ?? 'N/A');
-    //             $nama = htmlspecialchars($job['nama'] ?? 'Unknown');
-    //             $jenisLokasi = htmlspecialchars($job['jenis_lokasi'] ?? 'Unknown Location');
-    //             $lowonganDiffTime = htmlspecialchars($job['lowongan_diffTime'] ?? 'Unknown Time');
-                
-    //             $html .= "<div class='job'>
-    //                         <div class='job-author'>
-    //                             <div class='author'>
-    //                                 <h1>{$posisi}</h1>
-    //                                 <p>{$jenisPekerjaan}</p>
-    //                             </div>
-    //                         </div>
-    //                         <div class='job-info'>
-    //                             <div class='job-type-location'>
-    //                                 <h2>
-    //                                     <strong>
-    //                                         <a href='#' title='View Author Profile' class='company-name'>{$nama}</a>
-    //                                     </strong>
-    //                                 </h2>
-    //                                 <div class='job-location'>
-    //                                     <i class='fa-solid fa-location-dot'></i>
-    //                                     <p>{$jenisLokasi}</p>
-    //                                 </div>
-    //                                 <small>{$lowonganDiffTime}</small>
-    //                             </div>
-    //                         </div>
-    //                         <div class='job-details'>
-    //                             <a href='#'>More details</a>
-    //                         </div>
-    //                     </div>";
-    //         }
-    //     }
-    //     $html .= '</div>';
-
-    //     if(empty($jobs)) {
-    //         $html .= '
-    //             <div class="pagination">
-    //                 <li class="page-item previous-page"><a class="page-link" href="javascript:void(0)">Prev</a></li>
-    //                 <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-    //                 <li class="page-item next-page"><a class="page-link" href="javascript:void(0)">Next</a></li>
-    //             </div>';
-    //     }
-    
-    //     $html .= '<div class="pagination">';
-        
-    //     $html .= '</div>'; // Close pagination div
-    //     return $html;
-    // }
-
-    // Function to render jobs and pagination
-    
-    // public function renderJobHtml($job): string {
-    //     return "<div class='job'>
-    //                 <div class='job-author'>
-    //                     <div class='author'>
-    //                         <h1>" . htmlspecialchars($job['posisi']) . "</h1>
-    //                         <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class='job-info'>
-    //                     <div class='job-type-location'>
-    //                         <h2>
-    //                             <strong>
-    //                                 <a href='#' title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
-    //                             </strong>
-    //                         </h2>
-    //                         <div class='job-location'>
-    //                             <i class='fa-solid fa-location-dot'></i>
-    //                             <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
-    //                         </div>
-    //                         <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
-    //                     </div>
-    //                 </div>
-    //                 <div class='job-details'>
-    //                     <a href='#'>More details</a>
-    //                 </div>
-    //             </div>";
-    // }
-
-    // public function renderJobHtml($job): string {
-    //     $posisi = htmlspecialchars($job['posisi'] ?? 'N/A');
-    //     $jenisPekerjaan = htmlspecialchars($job['jenis_pekerjaan'] ?? 'N/A');
-    //     $nama = htmlspecialchars($job['nama'] ?? 'Unknown');
-    //     $jenisLokasi = htmlspecialchars($job['jenis_lokasi'] ?? 'Unknown Location');
-    //     $lowonganDiffTime = htmlspecialchars($job['lowongan_diffTime'] ?? 'Unknown Time');
-    
-    //     return "<div class='job'>
-    //                 <div class='job-author'>
-    //                     <div class='author'>
-    //                         <h1>{$posisi}</h1>
-    //                         <p>{$jenisPekerjaan}</p>
-    //                     </div>
-    //                 </div>
-    //                 <div class='job-info'>
-    //                     <div class='job-type-location'>
-    //                         <h2>
-    //                             <strong>
-    //                                 <a href='#' title='View Author Profile' class='company-name'>{$nama}</a>
-    //                             </strong>
-    //                         </h2>
-    //                         <div class='job-location'>
-    //                             <i class='fa-solid fa-location-dot'></i>
-    //                             <p>{$jenisLokasi}</p>
-    //                         </div>
-    //                         <small>{$lowonganDiffTime}</small>
-    //                     </div>
-    //                 </div>
-    //                 <div class='job-details'>
-    //                     <a href='#'>More details</a>
-    //                 </div>
-    //             </div>";
-    // }
-    
-    // public function renderPagination($currentPage, $totalPages): string {
-    //     $html = '<div class="pagination">';
-        
-    //     // Previous Page link
-    //     if ($currentPage > 1) {
-    //         $html .= '<a href="?page=' . ($currentPage - 1) . '" class="prev">« Prev</a>';
-    //     }
-    
-    //     // Display page numbers
-    //     for ($i = 1; $i <= $totalPages; $i++) {
-    //         if ($i == $currentPage) {
-    //             $html .= '<span class="current">' . $i . '</span>'; // Current page indicator
-    //         } else {
-    //             $html .= '<a href="?page=' . $i . '">' . $i . '</a>'; // Page link
-    //         }
-    //     }
-    
-    //     // Next Page link
-    //     if ($currentPage < $totalPages) {
-    //         $html .= '<a href="?page=' . ($currentPage + 1) . '" class="next">Next »</a>';
-    //     }
-    
-    //     $html .= '</div>';
-    //     return $html;
-    // }
 }
