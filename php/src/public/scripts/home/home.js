@@ -67,3 +67,7 @@ $(document).ready(function() {
     jobTypeCheckboxes.forEach(checkbox => checkbox.addEventListener("change", debouncedFetchJobs));
     sortRadios.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
 });
+
+document.querySelector('.add-job').addEventListener('click', function() {
+    window.location.href = '/jobs/add';
+});

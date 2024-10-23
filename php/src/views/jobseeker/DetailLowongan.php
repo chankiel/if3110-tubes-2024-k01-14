@@ -119,21 +119,23 @@ unset($_SESSION['response']);
             <h1 class="lowongan-heading">Tentang Pekerjaan Ini</h1>
             <p><?= $deskripsi ?></p>
         </section>
-        <section>
-            <h1 class="lowongan-heading">Attachments</h1>
-            <div class="attachments-container">
-                <?php foreach($attachments as $attachment): ?>
-                    <a href="<?= $attachment ?>" target="_blank">
-                        <img src="<?= $attachment?>" alt="attachment-img" class="attachment-img">
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        </section>
-        <?php if($response):?>
+        <?php if ($attachments): ?>
+            <section>
+                <h1 class="lowongan-heading">Attachments</h1>
+                <div class="attachments-container">
+                    <?php foreach ($attachments as $attachment): ?>
+                        <a href="<?= $attachment ?>" target="_blank">
+                            <img src="<?= $attachment ?>" alt="attachment-img" class="attachment-img">
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+        <?php endif; ?>
+        <?php if ($response): ?>
             <?php if ($response['success']): ?>
-                <?php modal("success",$response['message']); ?>
-            <?php elseif(!$response['success']): ?>
-                <?php modal("error",$response['message'],$response["errors"]); ?>
+                <?php modal("success", $response['message']); ?>
+            <?php elseif (!$response['success']): ?>
+                <?php modal("error", $response['message'], $response["errors"]); ?>
             <?php endif; ?>
         <?php endif; ?>
     </main>
