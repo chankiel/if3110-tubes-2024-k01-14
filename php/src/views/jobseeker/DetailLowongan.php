@@ -18,7 +18,8 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/style.css">
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/modal.css">
-    <link rel="stylesheet" href="/public/styles/company/DetailLowongan.css">
+    <link rel="stylesheet" href="/public/styles/template/sidebar.css">
+    <link rel="stylesheet" href="/public/styles/jobseeker/DetailLowongan.css">
 </head>
 
 <body>
@@ -27,113 +28,120 @@ unset($_SESSION['response']);
     include(dirname(__DIR__) . '/../components/template/modal.php')
     ?>
     <main>
+        <?php
+        include(dirname(__DIR__) . '/../components/template/sidebar.php');
+        ?>
         <section>
-            <div class="heading-container">
-                <!-- <button id="back-btn" class="material-symbols-outlined">
-                    arrow_back
-                </button> -->
-                <p><?= $company_name ?></p>
-                <h1 class="position-heading">
-                    <?= $posisi ?>
-                </h1>
-            </div>
-            <p class="small-details"><?= $company_lokasi ?> · Diposting <?= $lowongan_diffTime ?></p>
-            <ul class="lowongan-details details-format">
-                <li>
-                    <span class="material-symbols-outlined">
-                        person
-                    </span>
-                    <p><?= $posisi ?></p>
-                </li>
-                <li>
-                    <span class="material-symbols-outlined">
-                        work
-                    </span>
-                    <p><?= $jenis_pekerjaan ?></p>
-                </li>
-                <li>
-                    <span class="material-symbols-outlined">
-                        location_on
-                    </span>
-                    <p><?= $jenis_lokasi ?></p>
-                </li>
-                <?php if (!$lamaran_details): ?>
-                    <a class="general-btn lamar-btn" href="/jobs/<?= $id ?>/apply">
-                        Lamar
-                    </a>
-            </ul>
-        <?php else: ?>
-            <button class="general-btn applied-btn">
-                <span class="material-symbols-outlined">
-                    check
-                </span>
-                <p>
-                    Applied
-                </p>
-            </button>
-            <div class="applied-details">
-                <div class="applied-status">
-                    <h2 class="applied-detail-heading">Status:
-                        <span class="status 
-                        <?php
-                        if ($lamaran_details["status"] == "accepted") {
-                            echo "accepted";
-                        } else if ($lamaran_details["status"] == "rejected") {
-                            echo "rejected";
-                        } else {
-                            echo "waiting";
-                        }
-                        ?>">
-                            <?= ucfirst($lamaran_details["status"]) ?></span>
-                    </h2>
-                    <p><?= $lamaran_details["status_reason"] ?></p>
-                    <h2 class="applied-detail-heading">Attachments:</h2>
-                    <ul class="details-format attachment-list">
-                        <li>
-                            <a href="<?= $lamaran_details["cv_path"] ?>" target="_blank">
-                                <span class="material-symbols-outlined">
-                                    description
-                                </span>
-                                <p><?= basename($lamaran_details["cv_path"]) ?></p>
-                            </a>
-                        </li>
-                        <?php if ($lamaran_details["video_path"]): ?>
-                            <li>
-                                <span class="material-symbols-outlined">
-                                    videocam
-                                </span>
-                                <p><?= basename($lamaran_details["video_path"]) ?></p>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+            <div>
+                <div class="heading-container">
+                    <!-- <button id="back-btn" class="material-symbols-outlined">
+                        arrow_back
+                    </button> -->
+                    <p><?= $company_name ?></p>
+                    <h1 class="position-heading">
+                        <?= $posisi ?>
+                    </h1>
                 </div>
+                <p class="small-details"><?= $company_lokasi ?> · Posted <?= $lowongan_diffTime ?> ago</p>
+                <ul class="lowongan-details details-format">
+                    <li>
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <p><?= $posisi ?></p>
+                    </li>
+                    <li>
+                        <span class="material-symbols-outlined">
+                            work
+                        </span>
+                        <p><?= $jenis_pekerjaan ?></p>
+                    </li>
+                    <li>
+                        <span class="material-symbols-outlined">
+                            location_on
+                        </span>
+                        <p><?= $jenis_lokasi ?></p>
+                    </li>
+                    <?php if (!$lamaran_details): ?>
+                        <a class="general-btn lamar-btn" href="/jobs/<?= $id ?>/apply">
+                            Lamar
+                        </a>
+                </ul>
+            <?php else: ?>
+                <button class="general-btn applied-btn">
+                    <span class="material-symbols-outlined">
+                        check
+                    </span>
+                    <p>
+                        Applied
+                    </p>
+                </button>
+                <div class="applied-details">
+                    <div class="applied-status">
+                        <h2 class="applied-detail-heading">Status:
+                            <span class="status 
+                            <?php
+                            if ($lamaran_details["status"] == "accepted") {
+                                echo "accepted";
+                            } else if ($lamaran_details["status"] == "rejected") {
+                                echo "rejected";
+                            } else {
+                                echo "waiting";
+                            }
+                            ?>">
+                                <?= ucfirst($lamaran_details["status"]) ?></span>
+                        </h2>
+                        <p><?= $lamaran_details["status_reason"] ?></p>
+                        <h2 class="applied-detail-heading">Attachments:</h2>
+                        <ul class="details-format attachment-list">
+                            <li>
+                                <a href="<?= $lamaran_details["cv_path"] ?>" target="_blank">
+                                    <span class="material-symbols-outlined">
+                                        description
+                                    </span>
+                                    <p><?= basename($lamaran_details["cv_path"]) ?></p>
+                                </a>
+                            </li>
+                            <?php if ($lamaran_details["video_path"]): ?>
+                                <li>
+                                    <span class="material-symbols-outlined">
+                                        videocam
+                                    </span>
+                                    <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
             </div>
-        <?php endif; ?>
-        </section>
-        <section>
-            <h1 class="lowongan-heading">Tentang <?= $company_name ?></h1>
-            <p><?= $company_about ?>
-            </p>
-        </section>
-        <section>
-            <h1 class="lowongan-heading">Tentang Pekerjaan Ini</h1>
-            <p><?= $deskripsi ?></p>
-        </section>
-        <section>
-            <h1 class="lowongan-heading">Attachments</h1>
-            <div class="attachments-container">
-                <?php foreach($attachments as $attachment): ?>
-                    <a href="<?= $attachment ?>" target="_blank">
-                        <img src="<?= $attachment?>" alt="attachment-img" class="attachment-img">
-                    </a>
-                <?php endforeach; ?>
+            <div>
+                <h1 class="lowongan-heading">About Company <?= $company_name ?></h1>
+                <p><?= $company_about ?>
+                </p>
             </div>
+            <div>
+                <h1 class="lowongan-heading">About This Job</h1>
+                <p><?= $deskripsi ?></p>
+            </div>
+            <?php if ($attachments): ?>
+                <div>
+                    <h1 class="lowongan-heading">Attachments</h1>
+                    <div class="attachments-container">
+                        <?php foreach ($attachments as $attachment): ?>
+                            <a href="<?= $attachment ?>" target="_blank">
+                                <img src="<?= $attachment ?>" alt="attachment-img" class="attachment-img">
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </section>
-        <?php if($response):?>
+        <?php if ($response): ?>
             <?php if ($response['success']): ?>
-                <?php modal("success",$response['message']); ?>
-            <?php elseif(!$response['success']): ?>
-                <?php modal("error",$response['message'],$response["errors"]); ?>
+                <?php modal("success", $response['message']); ?>
+            <?php elseif (!$response['success']): ?>
+                <?php modal("error", $response['message'], $response["errors"]); ?>
             <?php endif; ?>
         <?php endif; ?>
     </main>
