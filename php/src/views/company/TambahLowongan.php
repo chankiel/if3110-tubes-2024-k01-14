@@ -33,19 +33,18 @@ unset($_SESSION['response']);
         <?php
         include(dirname(__DIR__) . '/../components/template/sidebar.php');
         ?>
-        <section class="form-lowongan" data-mode='edit'>
-            <h1>Edit Your Job to Match Your Needs</h1>
-            <form action="/jobs/<?= $id ?>" method="POST" enctype="multipart/form-data" id="form-lowongan">
+        <section class="form-lowongan" data-mode='tambah'>
+            <h1>Add New Job for Your Company</h1>
+            <form action="/jobs" method="POST" enctype="multipart/form-data" id="form-lowongan">
                 <div class="input-area normal-state" id="div-posisi">
 
                     <label for="posisi">Position*</label>
-                    <input type="text" name="posisi" id="posisi" value="<?= $posisi ?>">
+                    <input type="text" name="posisi" id="posisi">
                     <p class="error-details hidden hidden err-posisi">Position cant't be empty!</p>
                 </div>
                 <div class="input-area normal-state" id="div-deskripsi">
                     <label for="deskripsi">Job Description*</label>
                     <div id="quil-deskripsi">
-                    <?= $deskripsi ?>
                     </div>
                     <textarea name="deskripsi" id="deskripsi"></textarea>
                     <p class="error-details hidden hidden err-deskripsi">Job Description cant't be empty!</p>
@@ -54,7 +53,7 @@ unset($_SESSION['response']);
                 <div class="input-area normal-state" id="div-pekerjaan">
                     <label for="jenis_pekerjaan">Job Type*</label>
                     <select id="jenis_pekerjaan" name="jenis_pekerjaan">
-                        <option selected disabled><?= $jenis_pekerjaan ?></option>
+                        <option selected disabled></option>
                         <option value="Full-time">Full-time</option>
                         <option value="Part-time">Part-time</option>
                         <option value="Internship">Internship</option>
@@ -65,7 +64,7 @@ unset($_SESSION['response']);
                 <div class="input-area normal-state" id="div-lokasi">
                     <label for="jenis_lokasi">Location Type*</label>
                     <select id="jenis_lokasi" name="jenis_lokasi">
-                        <option selected disabled><?= $jenis_lokasi ?></option>
+                        <option selected disabled></option>
                         <option value="On-site">On-site</option>
                         <option value="Hybrid">Hybrid</option>
                         <option value="Remote">Remote</option>

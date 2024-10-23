@@ -21,7 +21,7 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
-        $this->view("/company/FormTambahLowongan");
+        $this->view("/company/TambahLowongan");
     }
 
     public function showDetailJS($matches)
