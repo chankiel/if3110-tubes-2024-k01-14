@@ -36,7 +36,7 @@ class Lowongan
     }
 
     public function existsLowongan($id){
-        return ($this->db->fetchQuery("SELECT id FROM lowongan WHERE id=:id",["id"=>$id]));
+        return $this->db->fetchQuery("SELECT id FROM lowongan WHERE id=:id",["id"=>$id]);
     }
 
     public function getAllOpenLowongan($search, $location, $job_type, $sort) 

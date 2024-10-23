@@ -167,4 +167,33 @@ class LamaranController extends Controller
 
         $this->view("/company/DetailLamaran", $data);
     }
+
+    public function getExportLamaran($matches) 
+    {
+        $lowongan_id = $matches[0];
+
+        $dataLamaran = $this->lamaran->getDataExportLamaran($lowongan_id);
+
+        $csvFile = "storage/daftar_pelamar_" . $lowongan_id . "_" . date('Ymd') . ".csv";
+
+        if ($fileHandle = fopen($csvFile, 'w')) {
+            fputcsv($fileHandle, array_keys($dataLamaran[0]));
+
+            foreach ($dataLamaran as $row) {
+                fputcsv($fileHandle, $row);
+            }
+
+            fclose($fileHandle);
+
+            $_COOKIE['response'] = [
+                "success" => true,
+                "message" => "Successfully exported!"
+            ];
+        } else {
+            $_COOKIE['response'] = [
+                "success" => false,
+                "message" => "Failed to export!"
+            ];
+        }
+    }
 }
