@@ -62,5 +62,6 @@
     </main>
 </body>
 <script src="/public/scripts/jobseeker/FormLamaran.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
 
 </html>

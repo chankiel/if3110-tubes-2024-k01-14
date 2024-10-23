@@ -47,5 +47,6 @@
         </section>
     </main>
 </body>
+<script src="/public/scripts/template/navbar.js"></script>
 
 </html>

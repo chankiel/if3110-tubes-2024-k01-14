@@ -100,5 +100,6 @@ unset($_SESSION['response']);
 <script src="/public/scripts/template/modal.js"></script>
 <script src="/public/scripts/general/form.js"></script>
 <script src="/public/scripts/company/FormLowongan.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
 
 </html>
