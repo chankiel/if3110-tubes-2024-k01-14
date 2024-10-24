@@ -101,6 +101,24 @@ section {
   }
 }
 
+.empty-desc{
+  background-color: white;
+  height: 100%;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
+  padding: 20px;
+}
+
+.history{
+  font-size: 20px;
+  font-weight: 500;
+}
+
 @media (min-width: 1024px) {
   .lamaran-link {
     width: 80%;
