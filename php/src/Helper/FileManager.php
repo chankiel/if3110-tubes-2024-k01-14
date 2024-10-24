@@ -4,29 +4,29 @@ namespace Helper;
 
 class FileManager
 {
-    public static function getAndUploadFile($dir,$type)
+    public static function getAndUploadFile($dir, $type, $new_filename)
     {
         $upload_dir = dirname(__DIR__) . $dir . $type;
 
-        if(!isset($_FILES[$type])){
+        if (!isset($_FILES[$type])) {
             return null;
         }
 
         if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0755, true); 
+            mkdir($upload_dir, 0755, true);
         }
 
         $file = $_FILES[$type]['tmp_name'];
-        $filename = basename($_FILES[$type]['name']);
-        $target = $upload_dir . '/' . $filename;
+        $file_extension = pathinfo($_FILES[$type]['name'], PATHINFO_EXTENSION);
+        $target = $upload_dir . '/' . $new_filename . '.' . $file_extension;
 
         if (!empty($file)) {
             if (move_uploaded_file($file, $target)) {
-                return $dir.$type.'/'.$filename;
+                return $dir . $type . '/' . $new_filename . '.' . $file_extension;
             } else {
                 return null;
             }
-        }else{
+        } else {
             return null;
         }
     }
