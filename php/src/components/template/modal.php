@@ -1,25 +1,45 @@
 <?php
 
-function modal($class,$msg,$errors=[])
+function modal($type, $header, $msg, $action, $confirmButton, $TA_name = null, $TA_id = null)
 {
-    $html = <<<"EOT"
-        <div id="modal" class="$class">
-            <div class="modal-content">
-                <h2>Application Submitted</h2>
-                <p>{$msg}!</p>
-    
-    EOT;
-
-    if (!empty($errors)) {
-        $html .= "<ul class='error-list'>";
-        foreach ($errors as $error) {
-            $html .= "<li>$error</li>";
-        }
-        $html .= "</ul>";
+    $icon = "";
+    if ($type === "delete") {
+        $icon = 
+        '<div class="material-symbols-outlined modal-icon ' . $type . '-icon">
+            delete
+        </div>';
+    }else if($type === "approve"){
+        $icon = 
+        '<div class="material-symbols-outlined modal-icon ' . $type . '-icon">
+            check
+        </div>';
+    }else if($type === "reject"){
+        $icon = 
+        '<div class="material-symbols-outlined modal-icon ' . $type . '-icon">
+            close
+        </div>';
     }
 
-    $html .= <<<"EOT"
-                <button id="modalOkBtn">OK</button>
+    $textarea = "";
+    if ($TA_name !== null) {
+        $textarea = <<<"TA"
+            <textarea name="$TA_name" id="$TA_id"></textarea>
+        TA;
+    }
+
+    $html = <<<"EOT"
+        <div id="$type-modal" class="hidden modal">
+            <div class="modal-content">
+                $icon
+                <h2>$header</h2>
+                <p>{$msg}</p>
+                <div class="modal-btn-container">
+                    <button class="cancel-btn modalCancelBtn" data-modal="$type-modal">Cancel</button>
+                    <form action="$action" method="POST" class="$type-form">
+                        <button type="submit" class="$type-modal-btn confirm-btn">$confirmButton</button>
+                        $textarea
+                    </form>
+                </div>
             </div>
         </div>
     EOT;
