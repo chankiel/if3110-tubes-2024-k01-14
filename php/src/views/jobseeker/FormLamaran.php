@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/jobseeker/FormLamaran.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 
 <body>
@@ -31,20 +29,19 @@
             </div>
             <h2 class="h2-lamaran"><?= $posisi ?> Position at <?= $company_name ?></h2>
             <div class="job-detail">
-                        <span class="material-symbols-outlined">
-                            work
-                        </span>
-                        <p><?= $jenis_pekerjaan ?></p>
-</div>
-                    <div class="job-detail">
-                        <span class="material-symbols-outlined">
-                            location_on
-                        </span>
-                        <p><?= $jenis_lokasi ?></p>
-</div>
+                <span class="material-symbols-outlined">
+                    work
+                </span>
+                <p><?= $jenis_pekerjaan ?></p>
+            </div>
+            <div class="job-detail">
+                <span class="material-symbols-outlined">
+                    location_on
+                </span>
+                <p><?= $jenis_lokasi ?></p>
+            </div>
             <p class="job-desc ">
                 Please ensure all mandatory fields are completed accurately to avoid delays in processing your application.</p>
-            
             <form action="/jobs/<?= $lowongan_id ?>/apply" method="POST" class="apply-form" enctype="multipart/form-data">
                 <div class="input-area ">
                     <label for="cv"><em>Curriculum Vitae</em> (CV)*</label>
@@ -53,7 +50,7 @@
                 </div>
                 <div class="input-area">
                     <label for="video">Video Perkenalan</label>
-                    <input type="file" id="video" name="video_path" accept=".mp4">
+                    <input type="file" id="video" name="video" accept=".mp4">
                 </div>
                 <p class="required-ctt">*required</p>
                 <button type="submit" class="submit-btn">Submit</button>
