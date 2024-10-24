@@ -2,17 +2,15 @@
 
 namespace Controller;
 
-use Model\Lowongan;
-use Model\User;
 use Helper\Validator;
 use Helper\FileManager;
 
 class LowonganController extends Controller
 {
+
     public function __construct()
     {
         parent::__construct();
-        $this->lowongan  = new Lowongan();
     }
 
     public function showTambahLowongan()
@@ -274,7 +272,7 @@ class LowonganController extends Controller
         }
         $this->lowongan->updateLowongan(['is_open' => $status], "id=:id", ['id' => $lowongan_id]);
 
-        if (session_status() === PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 

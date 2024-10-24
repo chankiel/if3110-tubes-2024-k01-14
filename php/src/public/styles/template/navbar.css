@@ -20,7 +20,7 @@ header {
   position: sticky;
   top: 0;
   height: 60px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   color: var(--dark-gray);
   margin-bottom: 10px;
   z-index: 20;
@@ -175,7 +175,7 @@ header {
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  z-index: 90;
+  z-index: 100;
   width: 300px;
   padding: 10px;
 }
