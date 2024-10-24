@@ -153,7 +153,7 @@ class LowonganController extends Controller
         }
 
         $lowonganData['company_id'] = $this->cur_user['id'];
-        $lowonganData['company_name'] = $this->cur_user['email'];
+        $lowonganData['company_name'] = $this->cur_user['nama'];
 
         $lowongan_id = $this->lowongan->addLowongan($lowonganData);
 
