@@ -122,4 +122,8 @@ class AuthController extends Controller
         }
         return $_SESSION['user_id'];
     }
+
+    public function checkPasswordConfirmation() {
+        
+    }
 }

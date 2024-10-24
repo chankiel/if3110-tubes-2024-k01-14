@@ -41,6 +41,7 @@ class Router
         self::get("/register", "UserController@showRegister");
 
         self::post("/login","AuthController@login");
+        self::post("/checkPasswordConfirmation","AuthController@login");
         self::post("/register","UserController@register");
         self::post("/logout","AuthController@logout");
 
