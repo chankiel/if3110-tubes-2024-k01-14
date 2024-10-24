@@ -74,7 +74,7 @@ class LamaranController extends Controller
         }
         $_SESSION['response'] = [
             "success" => true,
-            "message" => "Lamaran uploaded successfully!"
+            "message" => "Application uploaded successfully!"
         ];
 
         header("Location: $target_url");
@@ -98,12 +98,12 @@ class LamaranController extends Controller
         if ($rowCount > 0) {
             $_SESSION['response'] = [
                 "success" => true,
-                "message" => "Lamaran uploaded successfully!"
+                "message" => "Application's Status updated to $status_reason!"
             ];
         } else {
             $_SESSION['response'] = [
                 "success" => false,
-                "message" => "Something went wrong!"
+                "message" => "Failed to update Application's Status!"
             ];
         }
     }
@@ -185,6 +185,10 @@ class LamaranController extends Controller
         $dataLamaran = $this->lamaran->getDataExportLamaran($lowongan_id);
 
         $csvFile = "storage/daftar_pelamar_" . $lowongan_id . "_" . date('Ymd') . ".csv";
+        
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if ($fileHandle = fopen($csvFile, 'w')) {
             fputcsv($fileHandle, array_keys($dataLamaran[0]));
@@ -195,12 +199,12 @@ class LamaranController extends Controller
 
             fclose($fileHandle);
 
-            $_COOKIE['response'] = [
+            $_SESSION['response'] = [
                 "success" => true,
                 "message" => "Successfully exported!"
             ];
         } else {
-            $_COOKIE['response'] = [
+            $_SESSION['response'] = [
                 "success" => false,
                 "message" => "Failed to export!"
             ];
