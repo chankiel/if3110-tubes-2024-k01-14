@@ -1,6 +1,5 @@
 <aside>
     <div class="part-container">
-
         <div class="img-container">
             <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
             <?php if (isset($user)): ?>
@@ -21,8 +20,22 @@
         </div>
     </div>
     <div class="part-container role-explanation">
-        <h1>Welcome to LinkInPurry!</h1>
-        <img src="/public/images/linkedin.png" alt="profile-picture">
-        <p><span class="linkinpurry">LinkinPurry </span>is a professional networking platform designed to help individuals connect, grow, and succeed in their careers. Whether you're a <span class="role-inex">Jobseeker</span> looking for opportunities or a <span class="role-inex">Company</span> searching for talent, Linkin Purry brings people together through meaningful connections. </p>
-    </div>
+        <h1 class="title-recent-applicants">Recent Applicants</h1>
+        <ul class="recent-pelamar">
+        <?php foreach($recentApplicants as $recentApplicant) { ?>
+            <li class="data-recent-pelamar">
+                <a href="/applications/<?php echo htmlspecialchars($recentApplicant['idlamaran']) ?>">
+                    <div class="applicant-info">
+                        <h3><strong><?php echo htmlspecialchars($recentApplicant['nama']) ?></strong></h3>
+                        <p><?php echo htmlspecialchars($recentApplicant['posisi'])?></p>
+                        <small><?php echo htmlspecialchars($recentApplicant['lowongan_diffTime'])?> ago</small>
+                    </div>
+                    <span class="material-symbols-outlined" data-icon="arrow">
+                        arrow_circle_right
+                    </span>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+</div>
 </aside>
