@@ -5,8 +5,6 @@
         </a>
         <nav class="navbar ">
             <ul class="navbar-list ">
-
-                <!-- Jika authed -->
                 <?php if ($success): ?>
                     <li class="icon">
                         <a href="/">
@@ -27,7 +25,7 @@
                         </li>
                         <?php endif; ?>
                         <li class="icon" id="iconTrigger">
-                            <img src="/public/images/linkedin.png" alt="logo">
+                            <img src="/public/images/perry-casino.jpg" alt="logo">
                             <p class="name-link">Me <span class="material-symbols-outlined arrow-down">
                                     arrow_drop_down
                                 </span> </p>
