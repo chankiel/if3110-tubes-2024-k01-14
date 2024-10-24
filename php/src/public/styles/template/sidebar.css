@@ -144,6 +144,69 @@ aside {
   color: #007BFF;
 }
 
+.recom-heading{
+  font-size: 20px;
+  padding-left: 25px;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+.list-rec-jobs{
+  list-style-type: none;
+  margin-top: 10px;
+  /* margin-left: 20px; */
+  color :black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-rec-jobs:hover{
+  color: gray;
+}
+
+.rec-posisi{
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.rec-jenis-pekerjaan{
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.rec-company-name{
+  font-size: 14px;
+}
+
+.rec-jenis-lokasi{
+  font-size: 15px;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.rec-button{
+  margin-top: 30px;
+  color:var(--blue);
+}
+
+.rec-list-container{
+  padding-left: 5px;
+}
+
+.see-button {
+  color: blue;
+  size: 30px;
+  margin-right: 10px;
+}
+
 @media (min-width: 640px) {
 }
 

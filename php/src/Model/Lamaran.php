@@ -133,4 +133,5 @@ class Lamaran
 
         return $dataRecentApplicants;
     }
+    
 }

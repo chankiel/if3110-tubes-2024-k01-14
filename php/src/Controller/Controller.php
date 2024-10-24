@@ -36,19 +36,16 @@ class Controller
         
         extract($this->auth);
 
-        
-        $recommendation = $this->lowongan->getJobsRecommendation($this->cur_user["id"]);
-        $recommendations = ['recommendations'=> $recommendation];
-        // var_dump($recommendations);
-        // exit;
-        extract($recommendations);
-
-        if($this->cur_user["role"] === "company") {
-            // for each reactApplicants as 
+        if(isset($this->cur_user) && $this->cur_user["role"] === "company") {
             $dataRecenApplicant = ["recentApplicants"=>$this->lamaran->getRecentApplicant($this->cur_user["id"])];
+            extract($dataRecenApplicant);
+        } else {
+            $user_id = isset($this->cur_user) ? $this->cur_user["id"] :-1;
+            $recommendation = $this->lowongan->getJobsRecommendation($user_id);
+            $recommendations = ['recommendations'=> $recommendation];
+            extract($recommendations);
         }
 
-        extract($dataRecenApplicant);
 
         require_once __DIR__ . '/../views/' . $view . '.php';
     }

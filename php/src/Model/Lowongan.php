@@ -84,7 +84,7 @@ class Lowongan
             $params['search'] = '%' . $search . '%';
         }
     
-        $query .= ($sort === "terbaru") ? " ORDER BY l.created_at ASC" : " ORDER BY l.created_at DESC";
+        $query .= ($sort === "terlama") ? " ORDER BY l.created_at ASC" : " ORDER BY l.created_at DESC";
     
         $allLowongan = $this->db->prepareQuery($query, $params);
     
@@ -228,11 +228,11 @@ class Lowongan
         FROM lowongan JOIN lamaran ON lowongan.id = lowongan_id 
         WHERE is_open = TRUE 
         AND lowongan.created_at >= NOW() - INTERVAL '7 days' 
-        AND lamaran.id <> :lamaran_id
+        AND lamaran.user_id <> :user_id
         GROUP BY lowongan.id, company_name, posisi, jenis_pekerjaan, jenis_lokasi
         ORDER BY COUNT(lamaran.id) DESC, lowongan.created_at DESC 
         LIMIT 5";
-        $param = ["lamaran_id"=> $cur_user];
+        $param = ["user_id"=> $cur_user];
         return $this->db->prepareQuery($query, $param);
     }
 }
