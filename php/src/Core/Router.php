@@ -41,7 +41,6 @@ class Router
         self::get("/register", "UserController@showRegister");
 
         self::post("/login","AuthController@login");
-        self::post("/checkPasswordConfirmation","AuthController@login");
         self::post("/register","UserController@register");
         self::post("/logout","AuthController@logout");
 
@@ -59,11 +58,11 @@ class Router
         self::put("/applications/{id}/reject","LamaranController@rejectLamaran");
         self::put("/profile/company","UserController@editCompany");
         self::post("/jobs/{id}/delete","LowonganController@deleteLowongan");
+        self::get("/applications/{id}","LamaranController@getExportLamaran");
 
         self::get("/jobs/{id}/details","LowonganController@showDetailLowonganJobseeker");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
-        self::get("/applications/{id}","LamaranController@getExportLamaran");
 
         self::post( "/jobs/{id}/apply","LamaranController@tambahLamaran");
 
