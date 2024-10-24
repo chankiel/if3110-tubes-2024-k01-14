@@ -73,17 +73,22 @@ unset($_SESSION['response']);
                         <p><?= $jenis_lokasi ?></p>
                     </li>
                     <?php if (!$lamaran_details): ?>
-                        <?php if (!isset($user)): ?>
-                            <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
-                                Lamar
-                            </a>
+                    <?php if ($is_open): ?>
+                            <?php if (!isset($user)): ?>
+                                <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
+                                    Lamar
+                                </a>
+                            <?php else: ?>
+                                <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
+                                    Lamar
+                                </a>
+                            <?php endif; ?>
                         <?php else: ?>
-                            <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
-                                Lamar
-                            </a>
+                            <button class="general-btn closed-btn" disabled>Closed</button>
                         <?php endif; ?>
+                    <?php endif; ?>
                 </ul>
-            <?php else: ?>
+            <?php if ($lamaran_details): ?>
                 <button class="general-btn applied-btn">
                     <span class="material-symbols-outlined">
                         check
@@ -120,10 +125,12 @@ unset($_SESSION['response']);
                             </li>
                             <?php if ($lamaran_details["video_path"]): ?>
                                 <li>
-                                    <span class="material-symbols-outlined">
-                                        videocam
-                                    </span>
-                                    <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                    <a href="<?= $lamaran_details["video_path"] ?>" target="_blank">
+                                        <span class="material-symbols-outlined">
+                                            videocam
+                                        </span>
+                                        <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                    </a>
                                 </li>
                             <?php endif; ?>
                         </ul>

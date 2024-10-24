@@ -2,6 +2,10 @@ section {
   background-color: var(--subtleyellow);
 }
 
+main{
+  min-height: 0;
+}
+
 .lamaran-item {
   background-color: white;
   padding: 20px;
@@ -99,6 +103,24 @@ section {
     font-size: 15px;
     padding: 8px 15px;
   }
+}
+
+.empty-desc{
+  background-color: white;
+  height: 100%;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 700;
+  padding: 20px;
+}
+
+.history{
+  font-size: 20px;
+  font-weight: 500;
 }
 
 @media (min-width: 1024px) {

@@ -19,10 +19,11 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
+        $this->authorizeRole('company');
         $this->view("/company/TambahLowongan");
     }
 
-    public function showDetailJS($matches)
+    public function showDetailLowonganJobSeeker($matches)
     {
 
         $lowongan_id = $matches[0];
@@ -63,7 +64,11 @@ class LowonganController extends Controller
     {
         $this->authorizeRole("company");
         $lowongan_id = $matches[0];
-        $data = $this->lowongan->getDataPelamar($lowongan_id);
+        $data = $this->lowongan->getDataLowonganCompany($lowongan_id);
+        if($data['company_id']!== (int)$this->cur_user['id']){
+            header("Location: /not-found");
+            exit();
+        }
         if (!$data) {
             header("Location: /not-found");
             exit();
@@ -148,7 +153,7 @@ class LowonganController extends Controller
         }
 
         $lowonganData['company_id'] = $this->cur_user['id'];
-        $lowonganData['company_name'] = $this->cur_user['email'];
+        $lowonganData['company_name'] = $this->cur_user['nama'];
 
         $lowongan_id = $this->lowongan->addLowongan($lowonganData);
 

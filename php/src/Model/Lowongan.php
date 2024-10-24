@@ -177,7 +177,7 @@ class Lowongan
         $this->db->delete("attachmentlowongan","lowongan_id=:id",['id'=>$lowongan_id]);
     }
 
-    public function getDataPelamar($id){
+    public function getDataLowonganCompany($id){
         // Lowongan Details
         $lowongan_details = $this->db->findById("lowongan", $id);
         if(!$lowongan_details){

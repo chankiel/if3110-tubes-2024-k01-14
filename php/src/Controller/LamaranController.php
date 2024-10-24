@@ -54,8 +54,8 @@ class LamaranController extends Controller
             return $this->handleErrors($validator->errors(), $target_url);
         }
 
-        $cv_path = FileManager::getAndUploadFile('/storage/', "cv");
-        $video_path = FileManager::getAndUploadFile('/storage/', "video");
+        $cv_path = FileManager::getAndUploadFile('/storage/', "cv","cv-$lowongan_id-{$this->cur_user['id']}");
+        $video_path = FileManager::getAndUploadFile('/storage/', "video","video-$lowongan_id-{$this->cur_user['id']}");
 
         $data = [
             "user_id" => $this->cur_user['id'],

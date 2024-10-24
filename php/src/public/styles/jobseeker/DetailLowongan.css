@@ -66,6 +66,15 @@ section > *{
   text-align: center;
 }
 
+.closed-btn {
+  border: 2px solid var(--blue);
+  background-color: var(--gray);
+  opacity: 0.8;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+}
+
 .lamar-btn:hover {
   background-color: var(--darkblue);
 }
