@@ -12,7 +12,7 @@ function toast($class, $msg, $errors = [])
             $icon
             <div class="toast-content">
                 <h1>{$status}</h1>
-                <p>{$msg}!</p>
+                <p>{$msg}</p>
     EOT;
 
     if (!empty($errors)) {
