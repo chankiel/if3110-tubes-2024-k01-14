@@ -93,6 +93,13 @@ class Lamaran
         return $this->db->update("lamaran",['status'=>$status,'status_reason'=>$status_reason],"id=:id",['id'=>$lamaran_id]);
     }
 
+    public function authorizeFile($file_path,$user_id){
+        $sql = 'SELECT la.id FROM lamaran la JOIN lowongan lo ON la.lowongan_id = lo.id 
+        WHERE (la.cv_path = :file_path OR la.video_path = :file_path) AND (la.user_id = :user_id OR  lo.company_id =:user_id)';
+        $params = ['file_path'=>$file_path,'user_id'=>$user_id];
+        return $this->db->fetchQuery($sql,$params);
+    }
+
     public function getDataExportLamaran($lowongan_id) {
         $sql = "SELECT u.nama as Nama_pelamar, lo.posisi as Posisi, l.created_at as Tanggal_melamar, l.cv_path as url_cv, l.video_path as url_vdeio, l.status as Status_lamaran
                 FROM lamaran l
