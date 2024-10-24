@@ -24,19 +24,19 @@ a {
     background-color: white;
     width: 100%;
     border-radius: 10px;
-    display: flex;
+    display: flex !important;
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: 25px;
+    padding-left: 12px;
     margin-bottom: 10px;
     font-size: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-box i {
+.material-symbols-outlined[data-icon="search"] {
     width: 14px;
-    padding-left: 5px;
+    margin-left: 0;
 }
 
 .search-box input {
@@ -46,16 +46,9 @@ a {
     border: 0;
     outline: 0;
     font-size: 16px;
-    margin-left: 10px;
+    margin-left: 5px;
     font-weight: bold;
 }
-/* 
-.container {
-    padding: 20px 6%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-} */
 
 button.logout-btn {
     cursor: pointer;
@@ -66,8 +59,12 @@ button.logout-btn {
     font-weight:500;
 }
 
-.left-sidebar {
-   /* flex-basis: 25%;  */
+.search-filter-left-sidebar {
+    display: none !important;
+}
+
+.ssearch-filter-right-sidebar {
+   display: flex !important;
    margin-top: 5px; 
 }
 
@@ -114,7 +111,7 @@ button.logout-btn {
     border-radius: 24px;
 }
 
-.job-author {
+.job-edit-delete {
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
@@ -133,6 +130,19 @@ button.logout-btn {
     margin-bottom: 5px;
 }
 
+.job-company {
+    display: flex;
+    margin-top: 2px;
+    font-size: 17px;
+}
+
+.company-name {
+    display: flex;
+    position: relative;
+    top: -5px;
+    gap: 5px;
+}
+
 .job-location {
     display: flex;
     margin-top: 5px;
@@ -140,6 +150,17 @@ button.logout-btn {
 
 .job-location p {
     margin-left: 5px;
+    margin-top: 2px;
+}
+
+.lowongan-difftime {
+    display: flex;
+    margin-top: 5px;
+}
+
+.lowongan-difftime small {
+    margin-left: 5px;
+    margin-top: 2px;
 }
 
 .job-details {
@@ -154,7 +175,6 @@ button.logout-btn {
     display: inline-block;
     margin: 10px 0;
 }
-
 
 .container {
     padding: 20px 6%;
@@ -275,7 +295,7 @@ button.logout-btn {
     opacity: 1;
 }
 
-.author {
+.position {
     flex-grow: 1;
 }
 
@@ -286,10 +306,6 @@ button.logout-btn {
     margin-top: 5px;
     gap: 20px;
 }
-
-/* .fa-trash {
-    color: red;
-} */
 
 .filter-sort {
     background-color: white;
@@ -390,7 +406,7 @@ input[type="radio"]:checked + span {
 
 .add-job {
     width: 100%;
-    margin-top: 5px;
+    margin-top: 2px;
     margin-bottom: 10px;
     padding: 15px;
     background-color: rgb(10, 102, 194);
@@ -400,6 +416,10 @@ input[type="radio"]:checked + span {
     font-size: 1em;
     cursor: pointer;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .add-job:hover {
@@ -480,8 +500,8 @@ input[type="radio"]:checked + span {
     color: #0A66C2;
 }
 
-.fa-filter {
-    display: none !important;
+.material-symbols-outlined[data-icon="filter"] {
+    margin-right: 15px;
 }
 
 
@@ -493,6 +513,36 @@ input[type="radio"]:checked + span {
     .search-box {
         font-size: 16px;
         padding: 2px;
+    }
+
+    .search-box {
+        background-color: white;
+        width: 100%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 12px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .material-symbols-outlined[data-icon="search"] {
+        width: 14px;
+        margin-left: 0;
+    }
+    
+    .search-box input {
+        width: 100%;
+        background: transparent;
+        padding: 10px;
+        border: 0;
+        outline: 0;
+        font-size: 16px;
+        margin-left: 5px;
+        font-weight: bold;
     }
 
     .filter-sort {
@@ -507,14 +557,43 @@ input[type="radio"]:checked + span {
         padding: 15px 20px;
         margin: 10px 0;
     }
+    
+    .job-company {
+        display: flex;
+        margin-top: 2px;
+        font-size: 17px;
+    }
+
+    .company-name {
+        display: flex;
+        position: relative;
+        top: -5px;
+        gap: 5px;
+    }
+
+    .job-location {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .job-location p {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+
+    .lowongan-difftime {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .lowongan-difftime small {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
 
     .job-info {
         flex-direction: column;
         align-items: flex-start;
-    }
-
-    .job-location {
-        margin-top: 10px;
     }
 
     .sort {
@@ -524,6 +603,7 @@ input[type="radio"]:checked + span {
     .add-job {
         font-size: 0.9em;
         padding: 12px;
+        margin-top: 10px;
     }
 
     .pagination {
@@ -540,7 +620,7 @@ input[type="radio"]:checked + span {
 
     .filter-location label, 
     .filter-jenis label {
-        font-size: 14px; /* Adjust if labels are too large */
+        font-size: 14px;
     }
 
     .logout button {
@@ -566,13 +646,16 @@ input[type="radio"]:checked + span {
 
     }
 
-    .left-sidebar {
+    .search-filter-right-sidebar {
         width: 100%;
+        display: none !important;
     }
 
-    .fa-filter {
+    .search-filter-left-sidebar {
         display: block !important;
-        padding-right: 30px;
+        width: 100%;
+        flex-direction: column;
+        z-index: 100;
     }
 
     .main-content {
@@ -592,12 +675,84 @@ input[type="radio"]:checked + span {
     .filter-jenis label {
         font-size: 14px;
     }
+
+    .add-job {
+        font-size: 0.9em;
+        padding: 12px;
+        margin-top: 5px;
+    }
     
     .job {
         padding: 12px;
     }
+
+    .job-company {
+        display: flex;
+        margin-top: 2px;
+        font-size: 17px;
+    }
     
-    .job-author h1 {
+    .company-name {
+        display: flex;
+        position: relative;
+        top: -5px;
+        gap: 5px;
+    }
+    
+    .job-location {
+        display: flex;
+        margin-top: 5px;
+    }
+    
+    .job-location p {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+    
+    .lowongan-difftime {
+        display: flex;
+        margin-top: 5px;
+    }
+    
+    .lowongan-difftime small {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+    
+    .job-company {
+        display: flex;
+        margin-top: 2px;
+        font-size: 17px;
+    }
+
+    .company-name {
+        display: flex;
+        position: relative;
+        top: -5px;
+        gap: 5px;
+    }
+
+    .job-location {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .job-location p {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+
+    .lowongan-difftime {
+        display: flex;
+        margin-top: 5px;
+    }
+
+    .lowongan-difftime small {
+        margin-left: 5px;
+        margin-top: 2px;
+    }
+    
+    .job-edit-delete h1 {
         font-size: 24px;
     }
 
@@ -671,8 +826,6 @@ input[type="radio"]:checked + span {
     }
 }
 
-@media (min-width: 401px) {
-    .fa-filter {
-        display: none; /* Keep it hidden */
-    }
+#home-icon,#history-icon{
+    font-size: xx-large;
 }

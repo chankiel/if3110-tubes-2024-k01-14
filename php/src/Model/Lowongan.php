@@ -84,7 +84,7 @@ class Lowongan
             $params['search'] = '%' . $search . '%';
         }
     
-        $query .= ($sort === "terbaru") ? " ORDER BY l.created_at DESC" : " ORDER BY l.created_at ASC";
+        $query .= ($sort === "terbaru") ? " ORDER BY l.created_at ASC" : " ORDER BY l.created_at DESC";
     
         $allLowongan = $this->db->prepareQuery($query, $params);
     

@@ -10,7 +10,7 @@
                 <?php if ($success): ?>
                     <li class="icon">
                         <a href="/">
-                        <span class="material-symbols-outlined navbar-icon">
+                        <span class="material-symbols-outlined navbar-icon iconn" id="home-icon">
                             home
                         </span>
                         <p>Home</p>
@@ -19,7 +19,7 @@
                     <?php if ($user['role'] == "jobseeker"): ?>
                         <li class="icon">
                             <a href="/applications">
-                            <span class="material-symbols-outlined navbar-icon">
+                            <span class="material-symbols-outlined navbar-icon" id="history-icon">
                                 history
                             </span>
                             <p>History</p>

@@ -297,13 +297,13 @@ class LowonganController extends Controller
             if (isset($_SESSION["role"]) && $_SESSION["role"] === "company") {
                 foreach ($jobs as $job) {
                     $html .= "<div class='job'>
-                                <div class='job-author'>
-                                    <div class='author'>
+                                <div class='job-edit-delete'>
+                                    <div class='position'>
                                         <h1>" . htmlspecialchars($job['posisi']) . "</h1>
                                         <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
                                     </div>
                                     <div class='delete-job'>
-                                        <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "' title='Edit Job'>
+                                        <a href='/jobs/edit/" . htmlspecialchars($job['lowonganid']) . "' title='Edit Job'>
                                             <span class='material-symbols-outlined'>
                                                 edit
                                             </span>
@@ -317,24 +317,30 @@ class LowonganController extends Controller
                                 </div>
                                 <div class='job-info'>
                                     <div class='job-type-location'>
-                                        <h2>
-                                            <strong>
-                                            <span class='material-symbols-outlined'>
-                                                apartment
-                                            </span>
-                                                <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
-                                            </strong>
-                                        </h2>
+                                        <div class='job-company'>
+                                            <h2>
+                                                <a href='/profile/company' title='View Company Profile' class='company-link'>
+                                                    <strong class='company-name'>
+                                                        <span class='material-symbols-outlined'>
+                                                            apartment
+                                                        </span>" 
+                                                        . htmlspecialchars($job['nama']) . "
+                                                    </strong>
+                                                </a>
+                                            </h2>
+                                        </div>
                                         <div class='job-location'>
                                             <span class='material-symbols-outlined'>
                                                 location_on
                                             </span>
                                             <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
                                         </div> 
-                                        <span class='material-symbols-outlined'>
-                                            schedule
-                                        </span>
-                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
+                                        <div class='lowongan-difftime'>
+                                            <span class='material-symbols-outlined'>
+                                                schedule
+                                            </span>
+                                            <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class='job-details'>
@@ -345,33 +351,37 @@ class LowonganController extends Controller
             } else {
                 foreach ($jobs as $job) {
                     $html .= "<div class='job'>
-                                <div class='job-author'>
-                                    <div class='author'>
+                                <div class='job-edit-delete'>
+                                    <div class='position'>
                                         <h1>" . htmlspecialchars($job['posisi']) . "</h1>
                                         <p>" . htmlspecialchars($job['jenis_pekerjaan']) . "</p>
                                     </div>
                                 </div>
                                 <div class='job-info'>
                                     <div class='job-type-location'>
-                                        <h2>
-                                            <strong>
-                                            <span class='material-symbols-outlined'>
-                                                apartment
-                                            </span>
-                                                <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
-                                            </strong>
-                                        </h2>
+                                        <div class='job-company'>
+                                            <h2>
+                                                <strong class='company-name'>
+                                                    <span class='material-symbols-outlined'>
+                                                        apartment
+                                                    </span>" 
+                                                    . htmlspecialchars($job['nama']) . "
+                                                </strong>
+                                                </a>
+                                            </h2>
+                                        </div>
                                         <div class='job-location'>
-                                        <span class='material-symbols-outlined'>
+                                            <span class='material-symbols-outlined'>
                                                 location_on
                                             </span>
-                                            <i class='fa-solid fa-location-dot'></i>
                                             <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
                                         </div>
-                                        <span class='material-symbols-outlined'>
-                                            schedule
-                                        </span>
-                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
+                                        <div class='lowongan-difftime'>
+                                            <span class='material-symbols-outlined'>
+                                                schedule
+                                            </span>
+                                            <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class='job-details'>
@@ -379,7 +389,7 @@ class LowonganController extends Controller
                                 </div>
                             </div>";
                 }
-            }
+            } 
         }
         $html .= '</div>';
 
