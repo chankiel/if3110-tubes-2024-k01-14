@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="../../public/styles/template/sidebar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Home</title>
 </head>

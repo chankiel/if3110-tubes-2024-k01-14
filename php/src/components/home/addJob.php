@@ -1,4 +1,6 @@
 <button class="add-job">
-    <i class="fa-solid fa-plus"></i>
+    <span class="material-symbols-outlined">
+        add
+    </span>
     Add job
 </button>

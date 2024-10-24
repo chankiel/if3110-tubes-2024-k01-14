@@ -308,29 +308,41 @@ class LowonganController extends Controller
                                     </div>
                                     <div class='delete-job'>
                                         <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "' title='Edit Job'>
-                                            <i class='far fa-edit'></i>
+                                            <span class='material-symbols-outlined'>
+                                                edit
+                                            </span>
                                         </a>
-                                        <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "/delete' title='Delete Job'>
-                                            <i class='fa-solid fa-trash'></i>
-                                        </a>
+                                        
+                                            <span class='material-symbols-outlined' style='color: red;'>
+                                                delete
+                                            </span>
+                                        
                                     </div>
                                 </div>
                                 <div class='job-info'>
                                     <div class='job-type-location'>
                                         <h2>
                                             <strong>
+                                            <span class='material-symbols-outlined'>
+                                                apartment
+                                            </span>
                                                 <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
                                             </strong>
                                         </h2>
                                         <div class='job-location'>
-                                            <i class='fa-solid fa-location-dot'></i>
+                                            <span class='material-symbols-outlined'>
+                                                location_on
+                                            </span>
                                             <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
                                         </div> 
-                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
+                                        <span class='material-symbols-outlined'>
+                                            schedule
+                                        </span>
+                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
                                     </div>
                                 </div>
                                 <div class='job-details'>
-                                    <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "/details'>More details</a>
+                                    <a href='/jobs/" . htmlspecialchars($job['lowonganid']) . "'>More details</a>
                                 </div>
                             </div>";
                 }
@@ -347,14 +359,23 @@ class LowonganController extends Controller
                                     <div class='job-type-location'>
                                         <h2>
                                             <strong>
+                                            <span class='material-symbols-outlined'>
+                                                apartment
+                                            </span>
                                                 <a title='View Author Profile' class='company-name'>" . htmlspecialchars($job['nama']) . "</a>
                                             </strong>
                                         </h2>
                                         <div class='job-location'>
+                                        <span class='material-symbols-outlined'>
+                                                location_on
+                                            </span>
                                             <i class='fa-solid fa-location-dot'></i>
                                             <p>" . htmlspecialchars($job['jenis_lokasi']) . "</p>
                                         </div>
-                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . "</small>
+                                        <span class='material-symbols-outlined'>
+                                            schedule
+                                        </span>
+                                        <small>" . htmlspecialchars($job['lowongan_diffTime']) . " ago</small>
                                     </div>
                                 </div>
                                 <div class='job-details'>
