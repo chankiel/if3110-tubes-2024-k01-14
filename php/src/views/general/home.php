@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Show Jobseeker home page">
+    <meta name="description" content="Show home page">
+    <!-- <link rel="stylesheet" href="/public/styles/style.css"> -->
     <link rel="stylesheet" href="../../public/styles/home/home.css">
     <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">

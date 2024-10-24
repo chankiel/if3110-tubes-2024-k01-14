@@ -1,8 +1,8 @@
-<?
-
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 if (isset($_SESSION["error_message"])) {
     $errorMessage = htmlentities($_SESSION["error_message"]);
     unset($_SESSION['error_message']);
@@ -13,14 +13,14 @@ if (isset($_SESSION["error_message"])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Show login page">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="..\..\public\styles\general\register-login.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <title>Sign In</title>
 </head>
-
 <body>
     <header>
         <div class="header-subtitle">
@@ -36,24 +36,12 @@ if (isset($_SESSION["error_message"])) {
                     <?= $errorMessage ?>
                 </div>
             <?php endif; ?>
-            <form action="/login" method="POST">
-                <label for="email">Email</label>
-                <input type="email" name="email" required>
-
-                <label for="password">Password</label>
-                <input type="password" name="password" required>
-
-                <button type="submit">Sign In</button>
-
-                <div class="redirect-register-login">
-                    <p>New to LinkedIn? <a href="/register">Join now</a></p>
-                </div>
-            </form>
+            
+            <?php include dirname(__DIR__) . '/../components/login/loginForm.php' ?>
         </div>
     </section>
 
     <footer>
     </footer>
 </body>
-
 </html>

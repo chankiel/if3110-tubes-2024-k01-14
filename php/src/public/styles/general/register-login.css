@@ -57,12 +57,12 @@ select {
 
 input:focus,
 select:focus {
-    border-color: #0077cc;
+    border-color: #0A66C2;
     box-shadow: 0 0 5px rgba(0, 119, 204, 0.5);
 }
 
 button {
-    background: rgb(10, 102, 194); 
+    background: #0A66C2; 
     color: #fff;
     border: none;
     border-radius: 24px;
@@ -75,7 +75,7 @@ button {
 }
 
 button:hover {
-    background: #005fa3;
+    background: #0A66C2;
 }
 
 .redirect-register-login {
@@ -84,7 +84,7 @@ button:hover {
 }
 
 .redirect-register-login a {
-    color: #0077cc;
+    color: #0A66C2;
     text-decoration: none;
 }
 
