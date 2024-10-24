@@ -2,6 +2,10 @@ section {
   background-color: var(--subtleyellow);
 }
 
+main{
+  min-height: 0;
+}
+
 .lamaran-item {
   background-color: white;
   padding: 20px;
