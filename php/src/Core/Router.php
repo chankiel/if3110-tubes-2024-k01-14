@@ -60,7 +60,7 @@ class Router
         self::put("/profile/company","UserController@editCompany");
         self::post("/jobs/{id}/delete","LowonganController@deleteLowongan");
 
-        self::get("/jobs/{id}/details","LowonganController@showDetailJS");
+        self::get("/jobs/{id}/details","LowonganController@showDetailLowonganJobseeker");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
         self::get("/applications","LamaranController@showRiwayat");
         self::get("/applications/{id}","LamaranController@getExportLamaran");
