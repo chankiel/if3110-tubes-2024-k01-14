@@ -6,6 +6,6 @@ window.onload = function () {
 
         setTimeout(function () {
             toast.classList.remove('show');
-        }, 5000);
+        }, 4000);
     }
 };
