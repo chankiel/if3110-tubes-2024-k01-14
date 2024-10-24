@@ -125,10 +125,12 @@ unset($_SESSION['response']);
                             </li>
                             <?php if ($lamaran_details["video_path"]): ?>
                                 <li>
-                                    <span class="material-symbols-outlined">
-                                        videocam
-                                    </span>
-                                    <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                    <a href="<?= $lamaran_details["video_path"] ?>" target="_blank">
+                                        <span class="material-symbols-outlined">
+                                            videocam
+                                        </span>
+                                        <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                    </a>
                                 </li>
                             <?php endif; ?>
                         </ul>

@@ -10,7 +10,7 @@
                 <?php if ($success): ?>
                     <li class="icon">
                         <a href="/">
-                        <span class="material-symbols-outlined navbar-icon">
+                        <span class="material-symbols-outlined navbar-icon iconn" id="home-icon">
                             home
                         </span>
                         <p>Home</p>
@@ -19,13 +19,13 @@
                     <?php if ($user['role'] == "jobseeker"): ?>
                         <li class="icon">
                             <a href="/applications">
-                            <span class="material-symbols-outlined navbar-icon">
+                            <span class="material-symbols-outlined navbar-icon" id="history-icon">
                                 history
                             </span>
                             <p>History</p>
                             </a>
                         </li>
-                    <?php else: ?>
+                        <?php endif; ?>
                         <li class="icon" id="iconTrigger">
                             <img src="/public/images/linkedin.png" alt="logo">
                             <p class="name-link">Me <span class="material-symbols-outlined arrow-down">
@@ -47,7 +47,6 @@
                                 </form>
                             </div>
                         </li>
-                    <?php endif; ?>
                     <!-- Jika belum authed -->
                 <?php else: ?>
                     <li><a href="/login" class="nav-btn login-btn">Login</a></li>

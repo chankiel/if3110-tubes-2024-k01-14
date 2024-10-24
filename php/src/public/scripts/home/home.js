@@ -5,12 +5,15 @@ function fetchJobs(page = 1) {
     const sortRadios = document.querySelectorAll('input[name="job_sort"]');
 
     const searchQuery = searchInput.value;
+
     const locationQuery = Array.from(filterCheckboxes)
         .filter(checkbox => checkbox.checked)
         .map(checkbox => checkbox.value);
+
     const jobTypeQuery = Array.from(jobTypeCheckboxes)
         .filter(checkbox => checkbox.checked)
         .map(checkbox => checkbox.value);
+
     const sortQuery = Array.from(sortRadios)
         .find(radio => radio.checked)?.value || '';
 
@@ -40,9 +43,12 @@ function fetchJobs(page = 1) {
     xhr.send();
 }
 
-$(document).ready(function() {
-    $(".toggle-filter").on("click", function() {
-        $(".filter-sort").toggle();
+document.addEventListener("DOMContentLoaded", function() {
+    const toggleFilterButton = document.querySelector(".toggle-filter");
+    const filterSortElement = document.querySelector(".filter-sort");
+    
+    toggleFilterButton.addEventListener("click", function() {
+        filterSortElement.style.display = (filterSortElement.style.display === "none" || filterSortElement.style.display === "") ? "block" : "none";
     });
 
     function debounce(func, delay) {
@@ -57,14 +63,63 @@ $(document).ready(function() {
         fetchJobs(1);
     }, 300);
 
-    const searchInput = document.getElementById("job-search");
-    const filterCheckboxes = document.querySelectorAll('input[name="filter[]"]');
-    const jobTypeCheckboxes = document.querySelectorAll('input[name="job-type[]"]');
+    const searchInputs = document.querySelectorAll(".job-search");
+    const filterCheckboxesLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="filter[]"]');
+    const filterCheckboxesRight = document.querySelectorAll('.search-filter-right-sidebar input[name="filter[]"]');
+    const jobTypeCheckboxesLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="job-type[]"]');
+    const jobTypeCheckboxesRight = document.querySelectorAll('.search-filter-right-sidebar input[name="job-type[]"]');
     const sortRadios = document.querySelectorAll('input[name="job_sort"]');
 
-    searchInput.addEventListener("input", debouncedFetchJobs);
-    filterCheckboxes.forEach(checkbox => checkbox.addEventListener("change", debouncedFetchJobs));
-    jobTypeCheckboxes.forEach(checkbox => checkbox.addEventListener("change", debouncedFetchJobs));
+    function syncCheckboxes(sourceCheckbox, checkboxesToSync) {
+        checkboxesToSync.forEach(checkbox => {
+            if (checkbox.value === sourceCheckbox.value) {
+                checkbox.checked = sourceCheckbox.checked;
+            }
+        });
+    }
+
+    function syncInputs(sourceInput, inputToSync) {
+            inputToSync.value = sourceInput.value;
+    }
+
+    filterCheckboxesLeft.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            syncCheckboxes(this, filterCheckboxesRight);
+            debouncedFetchJobs();
+        });
+    });
+
+    filterCheckboxesRight.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            syncCheckboxes(this, filterCheckboxesLeft);
+            debouncedFetchJobs();
+        });
+    });
+
+    jobTypeCheckboxesLeft.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            syncCheckboxes(this, jobTypeCheckboxesRight);
+            debouncedFetchJobs();
+        });
+    });
+
+    jobTypeCheckboxesRight.forEach(checkbox => {
+        checkbox.addEventListener("change", function() {
+            syncCheckboxes(this, jobTypeCheckboxesLeft);
+            debouncedFetchJobs();
+        });
+    });
+
+    searchInputs[0].addEventListener("input", function() {
+            syncInputs(this, searchInputs[1]);
+            debouncedFetchJobs();
+    });
+
+    searchInputs[1].addEventListener("input", function() {
+        syncInputs(this, searchInputs[0]);
+        debouncedFetchJobs();
+    });
+
     sortRadios.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
 });
 

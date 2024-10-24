@@ -77,6 +77,7 @@ header {
 .navbar-list {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .navbar-list li {
@@ -182,6 +183,7 @@ header {
 .pop-profile{
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .profile-details{
@@ -208,7 +210,6 @@ header {
 }
 
 .view-profile{
-  margin-top: 10px;
   padding: 5px;
   color: var(--blue);
   border: 3px solid var(--blue);
@@ -228,21 +229,6 @@ header {
   border-top: 2px solid var(--lightgray);
   color: var(--gray);
 }
-
 .logout-btn:hover{
   text-decoration: underline;
-}
-
-@media (min-width: 576px) {
-  .navbar {
-    width: auto;
-  }
-
-  .logo-container {
-    width: auto;
-  }
-
-  .navbar-list li {
-    margin-right: 20px;
-  }
 }

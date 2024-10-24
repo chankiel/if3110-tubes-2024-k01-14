@@ -5,7 +5,5 @@ RewriteEngine On
 # Stop processing if already in the /public directory
 RewriteRule ^public/ - [L]
 
-RewriteRule ^storage/ - [L]
-
 # Push every other request to index.php
 RewriteRule ^(.+)$ index.php [QSA]

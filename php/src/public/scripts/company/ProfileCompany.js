@@ -22,7 +22,7 @@ profileForm.addEventListener("submit", function (e) {
 
   isError = validateInput(inputNama, errNama, divNama) || isError;
   isError = validateInput(inputLokasi, errLokasi, divLokasi) || isError;
-  isError = validateInput(inputAbout, errAbout, divAbout) || isError;
+  isError = validateQuil(inputAbout, errAbout, divAbout) || isError;
   if (isError) return;
 
   const xhr = new XMLHttpRequest();

@@ -70,17 +70,25 @@ class Router
         self::get("/not-found","Controller@showNotFound");
 
         self::post("/jobs/{id}/close","LowonganController@changeOpenClosed");
+
+        self::get("/storage/cv/{filename}","FileController@accessFile");
+        self::get("/storage/video/{filename}","FileController@accessFile");
     }
 
     public static function dispatch()
     {
         // Ubah http://tes.com/user/123/?q=a -> /user/123/ -> user/123/ 
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
         // Ambil method request (GET/POST/...)
         $requestMethod = $_SERVER['REQUEST_METHOD'];
+
         foreach (self::$routes as $route) {
-            // Ubah user/{id} jadi user/([a-zA-Z0-9_]+)
-            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', '([0-9]+)', trim($route['uri'], '/'));
+            $replacePattern = '([0-9]+)';
+            if(strpos($route['uri'], 'storage') !== false){
+                $replacePattern = '([a-zA-Z0-9_\-]+\.[a-zA-Z0-9]{2,5})';
+            }
+            $routeUri = preg_replace('#\{[a-zA-Z0-9_]+\}#', $replacePattern, trim($route['uri'], '/'));
 
             if ($route['method'] === $requestMethod && preg_match("#^{$routeUri}$#", $requestUri, $matches)) {
                 array_shift($matches);
@@ -88,6 +96,7 @@ class Router
                 if (is_callable($route['callback'])) {
                     return call_user_func($route['callback'], $matches);
                 } 
+
                 // Kalau bentuk callbacknya seperti LamaranController@showRiwayat
                 elseif (is_string($route['callback'])) {
                     list($controller, $method) = explode('@', $route['callback']);
