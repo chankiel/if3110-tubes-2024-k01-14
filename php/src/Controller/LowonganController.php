@@ -9,8 +9,6 @@ use Helper\FileManager;
 
 class LowonganController extends Controller
 {
-    private Lowongan $lowongan;
-
     public function __construct()
     {
         parent::__construct();

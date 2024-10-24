@@ -12,7 +12,6 @@ use Model\User;
 class LamaranController extends Controller
 {
     private Lamaran $lamaran;
-    private Lowongan $lowongan;
     private User $user;
 
     public function __construct()

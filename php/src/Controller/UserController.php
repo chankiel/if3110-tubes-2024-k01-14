@@ -9,13 +9,13 @@ class UserController extends Controller
 {
     private $user;
     private $userAuth;
-    private $lowongan;
+    private $lowonganCon;
     public function __construct()
     {
         parent::__construct();
         $this->user = new User();
         $this->userAuth = new AuthController();
-        $this->lowongan = new LowonganController();
+        $this->lowonganCon = new LowonganController();
     }
 
     public function register()
@@ -138,13 +138,13 @@ class UserController extends Controller
 
         $jobListHtml = '';
 
-        $allLowongan = $this->lowongan->fetchOpenLowongan($search, $location, $job_type, $sort, $page, $perPage);
+        $allLowongan = $this->lowonganCon->fetchOpenLowongan($search, $location, $job_type, $sort, $page, $perPage);
 
         $totalJobs = count($allLowongan);
         $totalPages = ceil($totalJobs / $perPage);
         $jobs = array_slice($allLowongan, ($page - 1) * $perPage, $perPage);
 
-        $jobListHtml = $this->lowongan->renderJobAndPagination($jobs, $page, $totalPages);
+        $jobListHtml = $this->lowonganCon->renderJobAndPagination($jobs, $page, $totalPages);
 
         $data = [
             "jobListHtml" => $jobListHtml,
