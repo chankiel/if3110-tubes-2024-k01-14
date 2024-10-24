@@ -2,9 +2,16 @@
 
 function toast($class, $msg, $errors = [])
 {
+
+    $icon = $class == "success" ?
+        '<span class="material-symbols-outlined icon-toast">check</span>'
+        : '<span class="material-symbols-outlined icon-toast">error</span>';
+    $status = ucfirst($class);
     $html = <<<"EOT"
         <div id="toast" class="toast $class">
+            $icon
             <div class="toast-content">
+                <h1>{$status}</h1>
                 <p>{$msg}!</p>
     EOT;
 

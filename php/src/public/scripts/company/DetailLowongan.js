@@ -1,16 +1,6 @@
-const modal = document.getElementById("modal");
-const modalOkBtn = document.getElementById("modalOkBtn");
-
-function hideModal() {
-  modal.classList.remove("modal-active");
-  modal.classList.add("hidden");
-
-}
-
-if (modalOkBtn) {
-  modalOkBtn.addEventListener("click", hideModal);
-}
-
-if (modal) {
-  modal.classList.add("modal-active");
-}
+const deleteTrigger = document.getElementById("delete-trigger");
+const deleteModal = document.getElementById("delete-modal");
+deleteTrigger.addEventListener("click",function(){
+  deleteModal.classList.add("modal-active");
+  deleteModal.classList.remove("hidden");
+})

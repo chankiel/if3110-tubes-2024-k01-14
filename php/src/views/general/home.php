@@ -1,3 +1,13 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$response = isset($_SESSION['response']) ? $_SESSION['response'] : null;
+
+unset($_SESSION['response']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +19,7 @@
     <link rel="stylesheet" href="../../public/styles/home/home.css">
     <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="../../public/styles/template/sidebar.css">
+    <link rel="stylesheet" href="../../public/styles/template/toast.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,9 +46,16 @@
             </aside>
         </div>
     </section>
-
-    <script src="../../public/scripts/home/home.js"></script>
+    <?php if ($response): ?>
+        <?php if ($response['success']): ?>
+            <?php toast("success", $response['message']); ?>
+        <?php elseif (!$response['success']): ?>
+            <?php toast("error", $response['message'], $response["errors"]); ?>
+        <?php endif; ?>
+    <?php endif; ?>
 </body>
+<script src="/public/scripts/home/home.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
+<script src="/public/scripts/template/toast.js"></script>
 
 </html>

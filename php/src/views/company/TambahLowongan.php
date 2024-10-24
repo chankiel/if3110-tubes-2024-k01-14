@@ -16,13 +16,14 @@ unset($_SESSION['response']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit lowongan</title>
+    <title>Add Job</title>
     <link rel="stylesheet" href="../../public/styles/company/FormLowongan.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="../../public/styles/style.css">
     <link rel="stylesheet" href="../../public/styles/template/navbar.css">
     <link rel="stylesheet" href="../../public/styles/template/sidebar.css">
     <link rel="stylesheet" href="../../public/styles/template/modal.css">
+    <link rel="stylesheet" href="../../public/styles/template/toast.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
 </head>
@@ -30,15 +31,16 @@ unset($_SESSION['response']);
 <body>
     <?php
     include(dirname(__DIR__) . '/../components/template/navbar.php');
-    include(dirname(__DIR__) . '/../components/template/modal.php')
+    include(dirname(__DIR__) . '/../components/template/modal.php');
+    include(dirname(__DIR__) . '/../components/template/toast.php');
     ?>
     <main>
         <?php
         include(dirname(__DIR__) . '/../components/template/sidebar.php');
         ?>
-        <section class="form-lowongan" data-mode='tambah'>
+        <section class="form-lowongan">
             <h1>Add New Job for Your Company</h1>
-            <form action="/jobs" method="POST" enctype="multipart/form-data" id="form-lowongan">
+            <form action="/jobs" method="POST" enctype="multipart/form-data" id="form-lowongan" data-mode='tambah'>
                 <div class="input-area normal-state" id="div-posisi">
 
                     <label for="posisi">Position*</label>
@@ -87,9 +89,9 @@ unset($_SESSION['response']);
         </section>
         <?php if ($response): ?>
             <?php if ($response['success']): ?>
-                <?php modal("success", $response['message']); ?>
+                <?php toast("success", $response['message']); ?>
             <?php elseif (!$response['success']): ?>
-                <?php modal("error", $response['message'], $response["errors"]); ?>
+                <?php toast("error", $response['message'], $response["errors"]); ?>
             <?php endif; ?>
         <?php endif; ?>
     </main>
@@ -98,7 +100,8 @@ unset($_SESSION['response']);
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="/public/scripts/template/modal.js"></script>
 <script src="/public/scripts/general/form.js"></script>
-<script src="/public/scripts/company/FormLowongan.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
+<script src="/public/scripts/template/toast.js"></script>
+<script src="/public/scripts/company/FormLowongan.js"></script>
 
 </html>

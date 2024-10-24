@@ -1,4 +1,4 @@
-#modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,13 +10,23 @@
     z-index: 100;
 }
 
+.modal textarea{
+    display: none;
+}
+
 .modal-active {
     display: flex;
 }
 
+.modal-btn-container{
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+}
+
 .modal-content {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 6px;
     padding: 30px;
     width: 400px;
     max-width: 90%;
@@ -25,11 +35,18 @@
     font-family: 'Arial', sans-serif;
 }
 
+.modal-icon{
+    font-size: 64px;
+    padding: 10px;
+    display: inline-block;
+}
+
 .modal-content h2 {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 1rem;
+    margin-top: 10px;
 }
 
 .modal-content p {
@@ -38,22 +55,66 @@
     margin-bottom: 1.5rem;
 }
 
-.modal-content button {
-    background-color: #0a66c2;
+.modal-btn-container button {
     color: white;
     border: none;
     padding: 12px 20px;
     font-size: 1rem;
     font-weight: bold;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.modal-content button:hover {
-    background-color: #004182;
+.cancel-btn{
+    background-color: #6c757d;
+    width: 50%;
 }
+
+.confirm-btn{
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.approve-modal-btn{
+    background-color: var(--green);
+}
+
+.delete-modal-btn,.reject-modal-btn{
+    background-color: #e3342f;
+}
+
+.delete-modal-btn:hover {
+    background-color: #cc1f1a;
+}
+
+.cancel-btn:hover{
+    background-color: #5a6268;
+}
+
+.modal-content form{
+    width: 50%;
+}
+
 
 .hidden{
     display: none;
+}
+
+.approve-icon{
+    color: var(--green);
+    border-color: var(--green);
+}
+
+.reject-icon{
+    border-color: red;
+}
+
+.approve-icon,.reject-icon{
+    border: 5px solid;
+    border-radius: 50%;
+}
+
+.delete-icon, .reject-icon{
+    color: red;
 }

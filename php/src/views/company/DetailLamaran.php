@@ -22,6 +22,7 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/template/modal.css">
+    <link rel="stylesheet" href="/public/styles/template/toast.css">
     <link rel="stylesheet" href="/public/styles/company/DetailLamaran.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
@@ -30,7 +31,8 @@ unset($_SESSION['response']);
 <body>
     <?php
     include(dirname(__DIR__) . '/../components/template/navbar.php');
-    include(dirname(__DIR__) . '/../components/template/modal.php')
+    include(dirname(__DIR__) . '/../components/template/modal.php');
+    include(dirname(__DIR__) . '/../components/template/toast.php')
     ?>
     <main>
         <?php
@@ -52,12 +54,12 @@ unset($_SESSION['response']);
                 </div>
                 <div class="video-section">
                     <h3>Introduction Video
-                    <?php if (!empty($video_path)): ?>
-                        (<a href="<?= $cv_path ?>">Download</a>)
+                        <?php if (!empty($video_path)): ?>
+                            (<a href="<?= $cv_path ?>">Download</a>)
                         <?php endif; ?>
                     </h3>
                     <?php if (!empty($video_path)): ?>
-                    <p class="fail-attachment">Click <a href="<?= $video_path ?>" download>here</a> to download Video</p>
+                        <p class="fail-attachment">Click <a href="<?= $video_path ?>" download>here</a> to download Video</p>
                         <video controls width="100%">
                             <source src="<?php echo htmlspecialchars($video_path); ?>" type="video/mp4">
                             <p class="fail-attachment">Your browser does not support the video tag. Link video <a href="<?= $video_path ?>">here</a></p>
@@ -72,7 +74,7 @@ unset($_SESSION['response']);
             <?php if ($status !== 'waiting'): ?>
                 <div class="applied-details">
                     <div class="applied-status">
-                        <h2 class="applied-detail-heading">Status:
+                        <h2 class="section-heading">Status:
                             <span class="status 
                     <?php
                     if ($status == "accepted") {
@@ -85,7 +87,8 @@ unset($_SESSION['response']);
                     ?>">
                                 <?= ucfirst($status) ?></span>
                         </h2>
-                        <p><?= $status_reason ?></p>
+                        <h1 class="status-reason-heading">Status Reason:</h1>
+                        <div class="status-reason"><?= $status_reason ?></div>
                     </div>
                 </div>
             <?php endif; ?>
@@ -96,14 +99,17 @@ unset($_SESSION['response']);
                     <div class="approval-div-input">
                         <input type="hidden" id="lamaran_id" value="<?php echo htmlspecialchars($id); ?>">
                         <div class="approval-buttons">
-                            <form action="/applications/<?= $lowongan_id ?>/approve" class="approve-form">
+                            <!-- <form action="/applications//approve" class="approve-form">
                                 <button type="submit" name="action" value="approve" class="approve-btn">Approve</button>
                                 <textarea name="status_reason" id="approve-input"></textarea>
-                            </form>
-                            <form action="/applications/<?= $lowongan_id ?>/reject" class="reject-form">
+                            </form> -->
+                            <button class="approve-btn" id="approve-trigger">Approve</button>
+                            <button class="reject-btn" id="reject-trigger">Reject</button>
+
+                            <!-- <form action="/applications//reject" class="reject-form">
                                 <button type="submit" name="action" value="approve" class="reject-btn">Reject</button>
                                 <textarea name="status_reason" id="reject-input"></textarea>
-                            </form>
+                            </form> -->
                         </div>
                         <div class="rich-text-editor">
                             <label for="status_reason">Reason / Follow-up</label>
@@ -113,22 +119,42 @@ unset($_SESSION['response']);
                     </div>
                 </div>
             <?php endif; ?>
-
             <?php if ($response): ?>
                 <?php if ($response['success']): ?>
-                    <?php modal("success", $response['message']); ?>
+                    <?php toast("success", $response['message']); ?>
                 <?php elseif (!$response['success']): ?>
-                    <?php modal("error", $response['message'], $response["errors"]); ?>
+                    <?php toast("error", $response['message'], $response["errors"]); ?>
                 <?php endif; ?>
             <?php endif; ?>
+
+            <?php modal(
+                "approve",
+                "Approve Applicant",
+                "Are you sure you want to approve this applicant? By approving, you confirm that the applicant is suitable for this position",
+                "/applications/<?= $lowongan_id ?>/approve",
+                "Approve",
+                "status_reason",
+                "approve-input"
+            ); ?>
+
+            <?php modal(
+                "reject",
+                "Reject Applicant",
+                "Are you sure you want to reject this applicant? Once rejected, the applicant will be informed of your decision",
+                "/applications/<?= $lowongan_id ?>/reject",
+                "Reject",
+                "status_reason",
+                "reject-input"
+            ); ?>
         </section>
     </main>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-<script src="/public/scripts/company/DetailLamaran.js"></script>
 <script src="/public/scripts/template/modal.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
+<script src="/public/scripts/template/toast.js"></script>
+<script src="/public/scripts/company/DetailLamaran.js"></script>
 
 
 

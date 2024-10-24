@@ -1,3 +1,17 @@
+const approveTrigger = document.getElementById("approve-trigger");
+const approveModal = document.getElementById("approve-modal");
+approveTrigger.addEventListener("click",function(){
+  approveModal.classList.add("modal-active");
+  approveModal.classList.remove("hidden");
+})
+
+const deleteTrigger = document.getElementById("reject-trigger");
+const rejectModal = document.getElementById("reject-modal");
+deleteTrigger.addEventListener("click",function(){
+  rejectModal.classList.add("modal-active");
+  rejectModal.classList.remove("hidden");
+})
+
 
 const approveForm = document.querySelector(".approve-form");
 const rejectForm = document.querySelector(".reject-form");
@@ -26,7 +40,7 @@ if(statusLamaran=="waiting"){
       } else {
         console.log("Error", xhr.responseText);
       }
-      // location.reload();
+      location.reload();
     };
   
     xhr.onerror = function () {

@@ -1,16 +1,16 @@
-const modal = document.getElementById("modal");
-const modalOkBtn = document.getElementById("modalOkBtn");
+const modalCancelBtns = document.querySelectorAll(".modalCancelBtn");
 
-function hideModal() {
-  modal.classList.remove("modal-active");
-  modal.classList.add("hidden");
-
+function hideModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove("modal-active");
+    modal.classList.add("hidden");
+  }
 }
 
-if (modalOkBtn) {
-  modalOkBtn.addEventListener("click", hideModal);
-}
-
-if (modal) {
-  modal.classList.add("modal-active");
-}
+modalCancelBtns.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modalId = button.getAttribute("data-modal");
+    hideModal(modalId);
+  });
+});

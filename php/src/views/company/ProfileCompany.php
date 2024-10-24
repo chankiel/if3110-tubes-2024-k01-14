@@ -20,6 +20,7 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/style.css">
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/modal.css">
+    <link rel="stylesheet" href="/public/styles/template/toast.css">
     <link rel="stylesheet" href="/public/styles/company/ProfileCompany.css">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 </head>
@@ -27,7 +28,8 @@ unset($_SESSION['response']);
 <body>
     <?php
     include(dirname(__DIR__) . '/../components/template/navbar.php');
-    include(dirname(__DIR__) . '/../components/template/modal.php')
+    include(dirname(__DIR__) . '/../components/template/modal.php');
+    include(dirname(__DIR__) . '/../components/template/toast.php');
     ?>
     <main>
         <div class="img-container">
@@ -60,9 +62,9 @@ unset($_SESSION['response']);
         </section>
         <?php if ($response): ?>
             <?php if ($response['success']): ?>
-                <?php modal("success", $response['message']); ?>
+                <?php toast("success", $response['message']); ?>
             <?php elseif (!$response['success']): ?>
-                <?php modal("error", $response['message'], $response["errors"]); ?>
+                <?php toast("error", $response['message'], $response["errors"]); ?>
             <?php endif; ?>
         <?php endif; ?>
     </main>
@@ -71,6 +73,7 @@ unset($_SESSION['response']);
 <script src="../public/scripts/general/form.js"></script>
 <script src="../public/scripts/company/ProfileCompany.js"></script>
 <script src="../public/scripts/template/modal.js"></script>
+<script src="../public/scripts/template/toast.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
 
 </html>

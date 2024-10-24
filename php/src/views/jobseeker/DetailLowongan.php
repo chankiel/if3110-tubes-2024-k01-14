@@ -22,13 +22,15 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/template/navbar.css">
     <link rel="stylesheet" href="/public/styles/template/modal.css">
     <link rel="stylesheet" href="/public/styles/template/sidebar.css">
+    <link rel="stylesheet" href="/public/styles/template/toast.css">
     <link rel="stylesheet" href="/public/styles/jobseeker/DetailLowongan.css">
 </head>
 
 <body>
     <?php
     include(dirname(__DIR__) . '/../components/template/navbar.php');
-    include(dirname(__DIR__) . '/../components/template/modal.php')
+    include(dirname(__DIR__) . '/../components/template/modal.php');
+    include(dirname(__DIR__) . '/../components/template/toast.php');
     ?>
     <main>
         <?php
@@ -155,15 +157,16 @@ unset($_SESSION['response']);
     <?php endif; ?>
     <?php if ($response):  ?>
         <?php if ($response['success']): ?>
-            <?php modal("success", $response['message']); ?>
+            <?php toast("success", $response['message']); ?>
         <?php elseif (!$response['success']): ?>
-            <?php modal("error", $response['message'], $response["errors"]); ?>
+            <?php toast("error", $response['message'], $response["errors"]); ?>
         <?php endif; ?>
     <?php endif; ?>
     </main>
 </body>
 
-<script src="/public/scripts/company/DetailLowongan.js"></script>
+<script src="/public/scripts/jobseeker/DetailLowongan.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
+<script src="/public/scripts/template/toast.js"></script>
 
 </html>

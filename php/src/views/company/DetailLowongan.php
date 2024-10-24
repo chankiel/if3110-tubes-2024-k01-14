@@ -24,7 +24,6 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="/public/styles/template/sidebar.css">
     <link rel="stylesheet" href="/public/styles/template/toast.css">
     <link rel="stylesheet" href="/public/styles/company/DetailLowonganCompany.css">
-    <!-- <link rel="stylesheet" href="/public/styles/jobseeker/DetailLowongan.css"> -->
 </head>
 <body>
     <?php
@@ -72,22 +71,20 @@ unset($_SESSION['response']);
                 </li>
             </ul>
             <div class="container-button">
-                <form action="/jobs/<?=$id?>/delete" method="POST">
-                    <form action="/jobs/<?=$id?>/close" method="POST">
-                    <button type="submit" class="general-button">Delete Job</button>
-                </form>
+                <button class="general-button" id="delete-trigger">Delete Job</button>
+                <?php modal("delete", "Are you sure?","Do you really want to delete this Job? This process cannot be undone.","/jobs/$id/delete","Delete"); ?>
                 <form action="/jobs/<?=$id?>/close" method="POST">
                     <?php if ($is_open) :?>
                     <button name="action" value="close" class="general-button">Close Job</button>
                     <?php else : ?>
-                    <button name="action" value="open" class="general-button">Open Job</button>
-                    <?php endif;?>
-                </form>
-            </div>
-            <h1 class="lowongan-heading">Job Description</h1>
-            <p><?= $deskripsi ?></p>
-
-            <?php if ($attachments): ?>
+                        <button name="action" value="open" class="general-button">Open Job</button>
+                        <?php endif;?>
+                    </form>
+                </div>
+                <h1 class="lowongan-heading">Job Description</h1>
+                <p><?= $deskripsi ?></p>
+                
+                <?php if ($attachments): ?>
                 <div>
                     <h1 class="lowongan-heading">Attachments</h1>
                     <div class="attachments-container">
@@ -150,4 +147,5 @@ unset($_SESSION['response']);
 <script src="/public/scripts/template/modal.js"></script>
 <script src="/public/scripts/template/navbar.js"></script>
 <script src="/public/scripts/template/toast.js"></script>
+<script src="/public/scripts/company/DetailLowongan.js"></script>
 </html>
