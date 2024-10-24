@@ -162,7 +162,7 @@ class LowonganController extends Controller
         }
         $response =  [
             "success" => true,
-            "message" => "Job updated successfully!"
+            "message" => "Job uploaded successfully!"
         ];
 
         $_SESSION['response'] = $response;
@@ -182,9 +182,7 @@ class LowonganController extends Controller
         $lowonganData = $this->validateDetailsLowongan($validator, $hasFiles, false);
 
         if (!$validator->passes()) {
-            $this->handleErrors($validator->errors());
-            header("Location: /jobs/edit/{$lowongan_id}");
-            exit();
+            $this->handleErrors($validator->errors(), "/jobs/edit/{$lowongan_id}");
         }
 
         $this->lowongan->updateLowongan($lowonganData, "id=:id", ['id' => $lowongan_id]);
@@ -214,10 +212,8 @@ class LowonganController extends Controller
 
         $lowongan_id = $matches[0];
         $lowongan = $this->validateLowongan($lowongan_id, $this->cur_user['id'], true);
-
         $this->lowongan->deleteLowongan("id= :id", ["id" => $lowongan_id]);
         $this->lowongan->deleteAttachments($lowongan_id);
-
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -281,7 +277,7 @@ class LowonganController extends Controller
 
         $response =  [
             "success" => true,
-            "message" => "status change succesfully!"
+            "message" => "Job's Status changed to ". ucfirst($is_open). "!",
         ];
         $_SESSION['response'] = $response;
         header("Location: /jobs/$lowongan_id");
