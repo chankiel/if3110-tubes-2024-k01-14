@@ -29,6 +29,7 @@ class AuthController extends Controller
                 $user = $user[0];
                 $_SESSION["user_id"] = $user["id"];
                 $_SESSION["email"] = $user["email"];
+                $_SESSION["nama"] = $user["nama"];
                 $_SESSION["role"] = $user["role"];
 
                 header('Location: /');
@@ -48,7 +49,8 @@ class AuthController extends Controller
             session_start();
         }
         unset($_SESSION["user_id"]);
-        unset($_SESSION["name"]);
+        unset($_SESSION["nama"]);
+        unset($_SESSION["email"]);
         unset($_SESSION["role"]);
         header('Location: /');
         exit();
@@ -65,7 +67,8 @@ class AuthController extends Controller
                 "user" => [
                     "id" => $_SESSION['user_id'],
                     "email" => $_SESSION['email'],
-                    "role" => $_SESSION['role']
+                    "role" => $_SESSION['role'],
+                    "nama" => $_SESSION['nama'],
                 ]
             ];
         }
@@ -87,7 +90,6 @@ class AuthController extends Controller
 
     public function getRole()
     {
-
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -101,6 +103,15 @@ class AuthController extends Controller
             session_start();
         }
         return $_SESSION['email'];
+    }
+
+    public function getNama()
+    {
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        return $_SESSION['nama'];
     }
 
     public function getUserId()

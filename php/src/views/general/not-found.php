@@ -27,5 +27,6 @@
     </main>
 </body>
 <script src="/public/scripts/general/not-found.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
 
 </html>

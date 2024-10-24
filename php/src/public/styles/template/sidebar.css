@@ -63,17 +63,23 @@ aside {
   font-weight: 500;
 }
 
+.role-explanation img{
+  height: 100px;
+  margin: 10px 0; 
+}
+
 .role-explanation p {
-  font-size: 17px;
-}
-
-.role-explanation ul {
-  list-style-type: disc;
-  list-style-position: inside;
-}
-
-.role-explanation li {
   font-size: 15px;
+}
+
+.linkinpurry{
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.role-inex{
+  font-size: 17px;
+  font-weight: bold;
 }
 
 @media (min-width: 640px) {

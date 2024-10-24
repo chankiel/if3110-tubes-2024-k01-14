@@ -128,6 +128,8 @@ unset($_SESSION['response']);
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script src="/public/scripts/company/DetailLamaran.js"></script>
 <script src="/public/scripts/template/modal.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
+
 
 
 </html>

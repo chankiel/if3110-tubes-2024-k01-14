@@ -164,5 +164,6 @@ unset($_SESSION['response']);
 </body>
 
 <script src="/public/scripts/company/DetailLowongan.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
 
 </html>

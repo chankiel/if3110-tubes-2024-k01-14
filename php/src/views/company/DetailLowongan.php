@@ -148,5 +148,6 @@ unset($_SESSION['response']);
     </main>
 </body>
 <script src="/public/scripts/template/modal.js"></script>
+<script src="/public/scripts/template/navbar.js"></script>
 <script src="/public/scripts/template/toast.js"></script>
 </html>

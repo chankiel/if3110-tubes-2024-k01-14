@@ -3,26 +3,26 @@
 
         <div class="img-container">
             <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
-            <img src="/public/images/linkedin.png" alt="profile-picture" class="img-logo">
+            <?php if (isset($user)): ?>
+                <img src="/public/images/perry-casino.jpg" alt="profile-picture" class="img-logo">
+            <?php else: ?>
+                <img src="/public/images/question-mark.jpg" alt="profile-picture" class="img-logo">
+            <?php endif; ?>
         </div>
         <div class="profile-container">
-            <h1>Ambatukam</h1>
-            <h2>ambatukam@gmail.com</h2>
+            <?php if (isset($user)): ?>
+
+                <h1><?= $user['nama'] ?></h1>
+                <h2><?= $user['email'] ?></h2>
+            <?php else: ?>
+                <h1>Guest</h1>
+            <?php endif; ?>
+
         </div>
     </div>
     <div class="part-container role-explanation">
-        <h1>Jobseeker</h1>
-        <p>As a jobseeker, you can do:</p>
-        <ul>
-            <li>
-                View list of available jobs
-            </li>
-            <li>
-                Apply for jobs
-            </li>
-            <li>
-                View applications history
-            </li>
-        </ul>
+        <h1>Welcome to LinkInPurry!</h1>
+        <img src="/public/images/linkedin.png" alt="profile-picture">
+        <p><span class="linkinpurry">LinkinPurry </span>is a professional networking platform designed to help individuals connect, grow, and succeed in their careers. Whether you're a <span class="role-inex">Jobseeker</span> looking for opportunities or a <span class="role-inex">Company</span> searching for talent, Linkin Purry brings people together through meaningful connections. </p>
     </div>
 </aside>
