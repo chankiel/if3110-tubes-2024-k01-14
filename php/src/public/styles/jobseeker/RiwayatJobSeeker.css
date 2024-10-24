@@ -1,9 +1,6 @@
 section {
   background-color: var(--subtleyellow);
-}
-
-main{
-  min-height: 0;
+  box-shadow: none;
 }
 
 .lamaran-item {

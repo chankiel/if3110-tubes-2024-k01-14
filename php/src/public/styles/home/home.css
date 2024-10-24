@@ -655,7 +655,7 @@ input[type="radio"]:checked + span {
         display: block !important;
         width: 100%;
         flex-direction: column;
-        z-index: 100;
+        z-index: 10;
     }
 
     .main-content {
