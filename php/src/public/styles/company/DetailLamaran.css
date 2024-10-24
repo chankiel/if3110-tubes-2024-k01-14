@@ -9,7 +9,7 @@
 }
 
 .rejected {
-  color: var(--red);
+  color: red;
 }
 
 .waiting {
@@ -112,6 +112,15 @@ section > * {
   color: var(--gray);
 }
 
+.status-reason-heading{
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.status-reason{
+  margin-top: 5px;
+}
+
 #status_reason{
   height: 20vh;
 }
@@ -131,7 +140,7 @@ section > * {
 } 
 
 .approve-btn {
-  background-color: #28a745;
+  background-color: var(--green);
   color: white;
 }
 
