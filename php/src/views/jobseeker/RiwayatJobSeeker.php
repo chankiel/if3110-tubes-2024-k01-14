@@ -18,6 +18,11 @@
     <main>
         <?php include(dirname(__DIR__) . '/../components/template/sidebar.php') ?>
         <section>
+            <?php if(empty($lamarans)): ?>
+                <div class="empty-desc">
+                    You haven't applied to any Job<br><span class="history">Your Applications History will be listed here</span>
+                </div>
+            <?php endif; ?>
             <ul>
                 <?php foreach ($lamarans as $lamaran): ?>
                     <li class="lamaran-item">
