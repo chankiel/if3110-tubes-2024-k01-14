@@ -221,28 +221,3 @@ header {
   background-color: var(--hoverblue);
   border-color: var(--darkblue);
 }
-
-.logout-form{
-  text-align: left;
-  padding-top: 10px;
-  border-top: 2px solid var(--lightgray);
-  color: var(--gray);
-}
-
-.logout-btn:hover{
-  text-decoration: underline;
-}
-
-@media (min-width: 576px) {
-  .navbar {
-    width: auto;
-  }
-
-  .logo-container {
-    width: auto;
-  }
-
-  .navbar-list li {
-    margin-right: 20px;
-  }
-}
