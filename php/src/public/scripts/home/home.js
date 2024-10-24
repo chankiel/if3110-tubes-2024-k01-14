@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
         fetchJobs(1);
     }, 300);
 
-    const searchInput = document.getElementById("job-search");
+    const searchInputs = document.querySelectorAll(".job-search");
     const filterCheckboxesLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="filter[]"]');
     const filterCheckboxesRight = document.querySelectorAll('.search-filter-right-sidebar input[name="filter[]"]');
     const jobTypeCheckboxesLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="job-type[]"]');
@@ -78,7 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    
+    function syncInputs(sourceInput, inputToSync) {
+            inputToSync.value = sourceInput.value;
+    }
 
     filterCheckboxesLeft.forEach(checkbox => {
         checkbox.addEventListener("change", function() {
@@ -108,7 +110,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    searchInput.addEventListener("input", debouncedFetchJobs);
+    searchInputs[0].addEventListener("input", function() {
+            syncInputs(this, searchInputs[1]);
+            debouncedFetchJobs();
+    });
+
+    searchInputs[1].addEventListener("input", function() {
+        syncInputs(this, searchInputs[0]);
+        debouncedFetchJobs();
+    });
 
     sortRadios.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
 });
