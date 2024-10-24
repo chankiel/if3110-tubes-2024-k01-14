@@ -19,6 +19,7 @@ class LowonganController extends Controller
 
     public function showTambahLowongan()
     {
+        $this->authorizeRole('company');
         $this->view("/company/TambahLowongan");
     }
 
