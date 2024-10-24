@@ -183,6 +183,7 @@ header {
 .pop-profile{
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
 }
 
 .profile-details{
@@ -209,7 +210,6 @@ header {
 }
 
 .view-profile{
-  margin-top: 10px;
   padding: 5px;
   color: var(--blue);
   border: 3px solid var(--blue);
