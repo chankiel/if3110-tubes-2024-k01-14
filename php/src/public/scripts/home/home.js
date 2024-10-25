@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterCheckboxesRight = document.querySelectorAll('.search-filter-right-sidebar input[name="filter[]"]');
     const jobTypeCheckboxesLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="job-type[]"]');
     const jobTypeCheckboxesRight = document.querySelectorAll('.search-filter-right-sidebar input[name="job-type[]"]');
-    const sortRadios = document.querySelectorAll('input[name="job_sort"]');
+    const sortRadiosLeft = document.querySelectorAll('.search-filter-left-sidebar input[name="job_sort"]');
+    const sortRadiosRight = document.querySelectorAll('.search-filter-right-sidebar input[name="job_sort"]');
 
     function syncCheckboxes(sourceCheckbox, checkboxesToSync) {
         checkboxesToSync.forEach(checkbox => {
@@ -79,7 +80,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function syncInputs(sourceInput, inputToSync) {
-            inputToSync.value = sourceInput.value;
+        inputToSync.value = sourceInput.value;
+    }
+
+    function syncRadios(sourceRadio, radiosToSync) {
+        radiosToSync.forEach(radio => {
+            if (radio.value === sourceRadio.value) {
+                radio.checked = true;
+            } else {
+                radio.checked = false;
+            }
+        });
     }
 
     filterCheckboxesLeft.forEach(checkbox => {
@@ -110,9 +121,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    searchInputs[0].addEventListener("input", function() {
-            syncInputs(this, searchInputs[1]);
+    sortRadiosLeft.forEach(radio => {
+        radio.addEventListener("change", function() {
+            syncRadios(this, sortRadiosRight);
             debouncedFetchJobs();
+        });
+    });
+
+    sortRadiosRight.forEach(radio => {
+        radio.addEventListener("change", function() {
+            syncRadios(this, sortRadiosLeft);
+            debouncedFetchJobs();
+        });
+    });
+
+    searchInputs[0].addEventListener("input", function() {
+        syncInputs(this, searchInputs[1]);
+        debouncedFetchJobs();
     });
 
     searchInputs[1].addEventListener("input", function() {
@@ -120,7 +145,8 @@ document.addEventListener("DOMContentLoaded", function() {
         debouncedFetchJobs();
     });
 
-    sortRadios.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
+    sortRadiosLeft.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
+    sortRadiosRight.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
 });
 
 document.querySelector('.add-job').addEventListener('click', function() {

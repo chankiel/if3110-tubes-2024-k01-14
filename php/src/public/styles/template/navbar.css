@@ -72,6 +72,7 @@ header {
 .logo-container img {
   height: auto;
   max-height: 100%;
+  border: transparent;
 }
 
 .navbar-list {

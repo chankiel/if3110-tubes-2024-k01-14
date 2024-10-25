@@ -23,54 +23,42 @@
         <div class="part-container role-explanation">
             <h1 class="title-recent-applicants">Recent Applicants</h1>
             <ul class="recent-pelamar">
-            <?php foreach($recentApplicants as $recentApplicant) { ?>
-                <li class="data-recent-pelamar">
-                    <a href="/applications/<?php echo htmlspecialchars($recentApplicant['idlamaran']) ?>">
-                        <div class="applicant-info">
-                            <h3><strong><?php echo htmlspecialchars($recentApplicant['nama']) ?></strong></h3>
-                            <p><?php echo htmlspecialchars($recentApplicant['posisi'])?></p>
-                            <small><?php echo htmlspecialchars($recentApplicant['lowongan_diffTime'])?> ago</small>
-                        </div>
-                        <span class="material-symbols-outlined" data-icon="arrow">
-                            arrow_circle_right
-                        </span>
-                    </a>
-                </li>
-            <?php } ?>
+                <?php foreach($recentApplicants as $recentApplicant) { ?>
+                    <li class="data-recent-pelamar">
+                        <a href="/applications/<?php echo htmlspecialchars($recentApplicant['idlamaran']) ?>">
+                            <div class="applicant-info">
+                                <h3><strong class="subjudul-sidebar"><?php echo htmlspecialchars($recentApplicant['nama']) ?></strong></h3>
+                                <p><?php echo htmlspecialchars($recentApplicant['posisi'])?></p>
+                                <small><?php echo htmlspecialchars($recentApplicant['lowongan_diffTime'])?> ago</small>
+                            </div>
+                            <span class="material-symbols-outlined" data-icon="arrow">
+                                arrow_circle_right
+                            </span>
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     <?php else : ?>
-    <div class="part-container recomendation-container">
-        <h1 class="recom-heading">Jobs Recomendation</h1>
-        <ul>
-            <?php foreach ($recommendations as $recommendation) :?>
-                <li class="list-rec-jobs">
-                    <div class="rec-list-container">
-                        <p class="rec-posisi"><?=$recommendation["posisi"]?></p>
-                        <p class="rec-jenis-pekerjaan"><?=$recommendation["jenis_pekerjaan"]?></p>
-                        <div class="row blue">
-                            <span class="material-symbols-outlined">
-                            apartment
-                            </span>
-                            <p class="rec-company-name"><?=$recommendation["company_name"]?></p>
-                        </div>
-                        <div class="row">
-                            <span class='material-symbols-outlined'>
-                                location_on
-                            </span>
-                            <p class="rec-jenis-lokasi"><?=$recommendation["jenis_lokasi"]?></p>
-                        </div>
-                    </div>
-                    <a href="/jobs/<?= $recommendation["id"]?>/details" class="rec-button">
-                        <button class="see-button">
-                            <span class="material-symbols-outlined">
+        <div class="part-container recomendation-container">
+            <h1 class="title-recent-applicants">Jobs Recomendation</h1>
+            <ul class="recent-pelamar">
+                <?php foreach ($recommendations as $recommendation) :?>
+                    <li class="data-recent-pelamar">
+                        <a href="/jobs/<?php echo htmlspecialchars($recommendation["id"]) ?>/details">
+                            <div class="applicant-info">
+                                <h3><?php echo htmlspecialchars($recommendation["posisi"]) ?></h3>
+                                <p><?php echo htmlspecialchars($recommendation["jenis_pekerjaan"])?></p>
+                                <h5><?php echo htmlspecialchars($recommendation["company_name"])?></h5>
+                                <p><?php echo htmlspecialchars($recommendation["jenis_lokasi"])?></p>
+                            </div>
+                            <span class="material-symbols-outlined" data-icon="arrow">
                                 arrow_circle_right
                             </span>
-                        </button>
-                    </a>
-                </li>
-            <?php endforeach;?>
-        </ul>
-    </div>
+                        </a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
     <?php endif; ?>
 </aside>

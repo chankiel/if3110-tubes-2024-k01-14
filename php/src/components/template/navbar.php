@@ -1,7 +1,7 @@
 <header class="">
     <div class="header-container">
         <a class="logo-container" href="/">
-            <img src="/public/images/linkedin.png" alt="logo">
+            <img src="/public/images/linkedin.svg" alt="logo">
         </a>
         <nav class="navbar ">
             <ul class="navbar-list ">

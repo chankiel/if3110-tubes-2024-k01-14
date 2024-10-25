@@ -22,13 +22,16 @@ if (isset($_SESSION["error_message"])) {
     <title>Sign In</title>
 </head>
 <body>
-    <header>
+    <!-- <header>
         <div class="header-subtitle">
             Stay updated on your professional world
         </div>
-    </header>
+    </header> -->
 
     <section class="form-register-login">
+        <div class="header-subtitle">
+            Stay updated on your professional world
+        </div>
         <div class="register-login-container">
             <h1>Login</h1>
             <?php if ($errorMessage): ?>
