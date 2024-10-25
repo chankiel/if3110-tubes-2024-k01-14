@@ -34,7 +34,7 @@ unset($_SESSION['response']);
     <main>
         <div class="img-container">
             <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
-            <img src="/public/images/linkedin.png" alt="profile-picture" class="img-logo">
+            <img src="/public/images/perry-casino.jpg" alt="profile-picture" class="img-logo">
         </div>
         <section class="edit-container">
             <form action="" class="profile-form">
