@@ -38,7 +38,6 @@ unset($_SESSION['response']);
         ?>
         <section>
             <div class="bubble-container">
-
                 <div class="heading-container">
                     <div>
                         <div class="company-container">
@@ -110,43 +109,45 @@ unset($_SESSION['response']);
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="bubble-container">
-                    <div class="list-application">
-                        <?php if (empty($applications)): ?>
-                            <div class="no-application">
-                                <h2 class="no-application">No application available</h2>
-                            </div>
-                        <?php else: ?>
-                            <h1 class="application-heading">List Application</h1>
-                            <?php foreach ($applications as $application): ?>
-                                <div class="preview-lamaran">
-                                    <div class="nama-status">
-                                        <p class="nama"> Name : <?= $application["nama"]; ?></p>
-                                        <p>Status :
-                                            <span class="status 
-                                <?php
-                                if ($application["status"] == "accepted") {
-                                    echo "accepted";
-                                } else if ($application["status"] == "rejected") {
-                                    echo "rejected";
-                                } else {
-                                    echo "waiting";
-                                }
-                                ?>">
-                                                <?= ucfirst($application["status"]); ?>
-                                        </p>
-                                        </span>
-                                    </div>
-                                    <a href="/applications/<?= $application["lamaran_id"] ?>" class="button-container">
-                                        <button class="general-button">
-                                            View Details
-                                        </button>
-                                    </a>
+            </div>
+
+            <div class="bubble-container">
+                <div class="list-application">
+                    <?php if (empty($applications)): ?>
+                        <div class="no-application">
+                            <h2 class="no-application">No application available</h2>
+                        </div>
+                    <?php else: ?>
+                        <h1 class="application-heading">List Application</h1>
+                        <?php foreach ($applications as $application): ?>
+                            <div class="preview-lamaran">
+                                <div class="nama-status">
+                                    <p class="nama"> Name : <?= $application["nama"]; ?></p>
+                                    <p>Status :
+                                        <span class="status 
+                            <?php
+                            if ($application["status"] == "accepted") {
+                                echo "accepted";
+                            } else if ($application["status"] == "rejected") {
+                                echo "rejected";
+                            } else {
+                                echo "waiting";
+                            }
+                            ?>">
+                                            <?= ucfirst($application["status"]); ?>
+                                    </p>
+                                    </span>
                                 </div>
-                        <?php endforeach;
-                        endif; ?>
-                    </div>
+                                <a href="/applications/<?= $application["lamaran_id"] ?>" class="button-container">
+                                    <button class="general-button">
+                                        View Details
+                                    </button>
+                                </a>
+                            </div>
+                    <?php endforeach;
+                    endif; ?>
                 </div>
+            </div>
 
         </section>
         <?php if ($response): ?>
