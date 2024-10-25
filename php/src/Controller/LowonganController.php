@@ -309,11 +309,13 @@ class LowonganController extends Controller
                                                 edit
                                             </span>
                                         </a>
-                                        
-                                            <span class='material-symbols-outlined' style='color: red;'>
-                                                delete
-                                            </span>
-                                        
+                                        <form action='/jobs/". htmlspecialchars($job['lowonganid']) ."/delete' method='POST' style='display: inline;''>
+                                            <button type='submit' title='Delete Job' style='background: none; border: none; cursor: pointer;'>
+                                                <span class='material-symbols-outlined' style='color: red;'>
+                                                    delete
+                                                </span>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class='job-info'>

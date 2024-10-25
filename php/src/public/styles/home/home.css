@@ -461,6 +461,10 @@ input[type="radio"]:checked + span {
     transform: translateX(5px);
 }
 
+.page-item {
+    cursor: pointer;
+}
+
 .current-page, .dots {
     background: white;
     width: 45px;

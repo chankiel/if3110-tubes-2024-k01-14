@@ -147,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     sortRadiosLeft.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
     sortRadiosRight.forEach(radio => radio.addEventListener("change", debouncedFetchJobs));
-});
-
-document.querySelector('.add-job').addEventListener('click', function() {
-    window.location.href = '/jobs/add';
+    
+    document.querySelector('.add-job').addEventListener('click', function() {
+        window.location.href = '/jobs/add';
+    });
 });
