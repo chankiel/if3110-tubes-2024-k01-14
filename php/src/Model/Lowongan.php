@@ -148,7 +148,7 @@ class Lowongan
         $details = array_merge(
             $lowongan_details,
             [
-                'attachments' => $attachments["0"]??null,
+                'attachments' => empty($attachments) ? null : $attachments,
                 'company_lokasi' => $company["lokasi"],
                 'company_about' => $company["about"],
                 "company_name"=>$company_name["nama"],
@@ -211,7 +211,7 @@ class Lowongan
         $details = array_merge(
             $lowongan_details,
             [
-                'attachments' => $attachments["0"]??null,
+                'attachments' => empty($attachments) ? null : $attachments,
                 'company_lokasi' => $company["lokasi"],
                 'company_about' => $company["about"],
                 'applications' => $lamaran_details
