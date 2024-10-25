@@ -10,3 +10,6 @@ COPY ./php/src/ /var/www/html/
 
 # Enable mod_rewrite
 RUN a2enmod rewrite
+
+# Run the seeder script
+CMD php /var/www/html/seeder.php && apache2-foreground
