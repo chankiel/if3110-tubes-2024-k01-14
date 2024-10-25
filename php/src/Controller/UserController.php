@@ -119,11 +119,19 @@ class UserController extends Controller
 
     public function showRegister()
     {
+        if ($this->userAuth->isLoggedIn()) {
+            header('Location: /');
+            exit();
+        }
         $this->view("/general/register");
     }
 
     public function showLogin()
     {
+        if ($this->userAuth->isLoggedIn()) {
+            header('Location: /');
+            exit();
+        }
         $this->view("/general/login");
     }
 

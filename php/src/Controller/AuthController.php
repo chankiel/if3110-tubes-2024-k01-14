@@ -19,6 +19,7 @@ class AuthController extends Controller
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
         $email = $_POST["email"];
         $password = $_POST["password"];
 
