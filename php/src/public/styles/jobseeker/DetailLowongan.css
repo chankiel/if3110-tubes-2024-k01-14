@@ -19,10 +19,6 @@ section {
   border-radius: 10px;
 }
 
-.attachment-img{
-  width: 100px;
-}
-
 section > *{
   width: 90%;
   margin-left: auto;
@@ -155,17 +151,24 @@ section > *{
   text-decoration: underline;
 }
 
-.attachments-img{
+.attachments-container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4,1fr);
+  margin-top: 20px;
+}
+
+.attachment-img {
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1; 
+  border-radius: 8px; 
+  transition: transform 0.3s ease;
 }
 
-.attachments-container{
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.attachments-container a{
-  max-width: 200px;
+.attachment-img:hover {
+  transform: scale(1.05);
 }
 
 @media (min-width: 640px) {
