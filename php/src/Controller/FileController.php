@@ -6,12 +6,9 @@ use Model\Lamaran;
 
 class FileController extends Controller
 {
-    private Lamaran $lamaran;
-
     public function __construct()
     {
         parent::__construct();
-        $this->lamaran = new Lamaran();
     }
 
     public function accessFile($matches)

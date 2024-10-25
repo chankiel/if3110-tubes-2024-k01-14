@@ -3,6 +3,7 @@
 namespace Model;
 
 use Core\DbCon;
+use Helper\DateHelper;
 
 class Lamaran
 {
@@ -101,7 +102,7 @@ class Lamaran
     }
 
     public function getDataExportLamaran($lowongan_id) {
-        $sql = "SELECT u.nama as Nama_pelamar, lo.posisi as Posisi, l.created_at as Tanggal_melamar, l.cv_path as url_cv, l.video_path as url_vdeio, l.status as Status_lamaran
+        $sql = "SELECT u.nama as Nama_pelamar, lo.posisi as Posisi, l.created_at as Tanggal_melamar, l.cv_path as url_cv, l.video_path as url_video, l.status as Status_lamaran
                 FROM lamaran l
                 JOIN users u ON l.user_id = u.id
                 JOIN lowongan lo ON lo.id = l.lowongan_id
@@ -112,4 +113,25 @@ class Lamaran
 
         return $dataLamaran;
     }
+
+    public function getRecentApplicant($company_id) {
+        $sql = "SELECT l.id as idLamaran, u.nama as nama, lo.posisi as posisi, l.created_at
+                FROM lamaran l
+                JOIN users u ON l.user_id = u.id
+                JOIN lowongan lo ON lo.id = l.lowongan_id
+                WHERE lo.company_id = :company_id
+                ORDER BY l.created_at DESC
+                LIMIT 5";
+
+        $params = ["company_id" => $company_id];
+
+        $dataRecentApplicants = $this->db->prepareQuery($sql, $params);
+
+        foreach ($dataRecentApplicants as &$dataRecentApplicant) {
+            $dataRecentApplicant["lowongan_diffTime"] = DateHelper::timeDifference($dataRecentApplicant["created_at"]); 
+        }
+
+        return $dataRecentApplicants;
+    }
+    
 }

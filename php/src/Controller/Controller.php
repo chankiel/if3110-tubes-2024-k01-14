@@ -2,10 +2,17 @@
 
 namespace Controller;
 
+use Model\Lamaran;
+use Model\Lowongan;
+
 class Controller
 {
     protected $auth;
     protected $cur_user;
+
+    protected Lamaran $lamaran;
+
+    protected Lowongan $lowongan;
 
     public function __construct()
     {
@@ -13,6 +20,8 @@ class Controller
         if (isset($this->auth['user'])) {
             $this->cur_user = $this->auth['user'];
         }
+        $this->lamaran = new Lamaran();
+        $this->lowongan = new Lowongan();
     }
 
     public function model($model)
@@ -24,7 +33,19 @@ class Controller
     public function view($view, $data = [])
     {
         extract($data);
+        
         extract($this->auth);
+
+        if(isset($this->cur_user) && $this->cur_user["role"] === "company") {
+            $dataRecenApplicant = ["recentApplicants"=>$this->lamaran->getRecentApplicant($this->cur_user["id"])];
+            extract($dataRecenApplicant);
+        } else {
+            $user_id = isset($this->cur_user) ? $this->cur_user["id"] :-1;
+            $recommendation = $this->lowongan->getJobsRecommendation($user_id);
+            $recommendations = ['recommendations'=> $recommendation];
+            extract($recommendations);
+        }
+
 
         require_once __DIR__ . '/../views/' . $view . '.php';
     }

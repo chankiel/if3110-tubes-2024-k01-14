@@ -11,15 +11,11 @@ use Model\User;
 
 class LamaranController extends Controller
 {
-    private Lamaran $lamaran;
-    private Lowongan $lowongan;
     private User $user;
 
     public function __construct()
     {
         parent::__construct();
-        $this->lamaran = new Lamaran();
-        $this->lowongan = new Lowongan();
         $this->user = new User();
     }
 
@@ -177,6 +173,8 @@ class LamaranController extends Controller
 
         $this->view("/company/DetailLamaran", $data);
     }
+
+    
 
     public function getExportLamaran($matches) 
     {
