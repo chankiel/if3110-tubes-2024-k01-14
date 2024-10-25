@@ -1,8 +1,11 @@
 .heading-container {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.heading-container p {
+.company-name {
   font-size: 20px;
   line-height: 10px;
 }
@@ -73,10 +76,6 @@ section {
   gap: 5px;
 }
 
-.container-button {
-  display: flex;
-  flex-direction: column;
-}
 
 .general-button {
   background-color: var(--blue);
@@ -90,8 +89,40 @@ section {
   width: 160px;
 }
 
+.action-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+.action-button{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 30px;
+}
+
 .general-button:hover {
   background-color: var(--darkblue);
+}
+
+.edit-button{
+  background-color: var(--blue);
+}
+
+.delete-button-trigger{
+  background-color: #dc3545;
+}
+
+.close-button{
+  background-color: #FFC107;
+}
+
+.open-button{
+  background-color: var(--green);
 }
 
 .lowongan-heading {
@@ -187,9 +218,7 @@ section {
 }
 
 @media (min-width: 640px) {
-  .container-button {
-    flex-direction: row;
-  }
+  
 }
 
 @media (min-width: 768px) {
