@@ -72,35 +72,34 @@ unset($_SESSION['response']);
                         </span>
                         <p><?= $jenis_lokasi ?></p>
                     </li>
-                    <?php if (!$lamaran_details): ?>
-                    <?php if ($is_open): ?>
-                            <?php if (!isset($user)): ?>
-                                <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
-                                    Lamar
-                                </a>
-                            <?php else: ?>
-                                <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
-                                    Lamar
-                                </a>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <button class="general-btn closed-btn" disabled>Closed</button>
-                        <?php endif; ?>
-                    <?php endif; ?>
                 </ul>
-            <?php if ($lamaran_details): ?>
-                <button class="general-btn applied-btn">
-                    <span class="material-symbols-outlined">
-                        check
-                    </span>
-                    <p>
-                        Applied
-                    </p>
-                </button>
-                <div class="applied-details">
-                    <div class="applied-status">
-                        <h2 class="applied-detail-heading">Status:
-                            <span class="status 
+                <?php if (!$lamaran_details): ?>
+                    <?php if ($is_open): ?>
+                        <?php if (!isset($user)): ?>
+                            <a class="general-btn lamar-btn disabled" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php else: ?>
+                            <a class="general-btn lamar-btn <?= $user['role'] == "company" ? "disabled" : "" ?>" href="/jobs/<?= $id ?>/apply">
+                                Lamar
+                            </a>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <button class="general-btn closed-btn" disabled>Closed</button>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <button class="general-btn applied-btn">
+                        <span class="material-symbols-outlined">
+                            check
+                        </span>
+                        <p>
+                            Applied
+                        </p>
+                    </button>
+                    <div class="applied-details">
+                        <div class="applied-status">
+                            <h2 class="applied-detail-heading">Status:
+                                <span class="status 
                             <?php
                             if ($lamaran_details["status"] == "accepted") {
                                 echo "accepted";
@@ -110,33 +109,33 @@ unset($_SESSION['response']);
                                 echo "waiting";
                             }
                             ?>">
-                                <?= ucfirst($lamaran_details["status"]) ?></span>
-                        </h2>
-                        <p><?= $lamaran_details["status_reason"] ?></p>
-                        <h2 class="applied-detail-heading">Attachments:</h2>
-                        <ul class="details-format attachment-list">
-                            <li>
-                                <a href="<?= $lamaran_details["cv_path"] ?>" target="_blank">
-                                    <span class="material-symbols-outlined">
-                                        description
-                                    </span>
-                                    <p><?= basename($lamaran_details["cv_path"]) ?></p>
-                                </a>
-                            </li>
-                            <?php if ($lamaran_details["video_path"]): ?>
+                                    <?= ucfirst($lamaran_details["status"]) ?></span>
+                            </h2>
+                            <p><?= $lamaran_details["status_reason"] ?></p>
+                            <h2 class="applied-detail-heading">Attachments:</h2>
+                            <ul class="details-format attachment-list">
                                 <li>
-                                    <a href="<?= $lamaran_details["video_path"] ?>" target="_blank">
+                                    <a href="<?= $lamaran_details["cv_path"] ?>" target="_blank">
                                         <span class="material-symbols-outlined">
-                                            videocam
+                                            description
                                         </span>
-                                        <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                        <p><?= basename($lamaran_details["cv_path"]) ?></p>
                                     </a>
                                 </li>
-                            <?php endif; ?>
-                        </ul>
+                                <?php if ($lamaran_details["video_path"]): ?>
+                                    <li>
+                                        <a href="<?= $lamaran_details["video_path"] ?>" target="_blank">
+                                            <span class="material-symbols-outlined">
+                                                videocam
+                                            </span>
+                                            <p><?= basename($lamaran_details["video_path"]) ?></p>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
             </div>
             <div>
                 <h1 class="lowongan-heading">About Company <?= $company_name ?></h1>
