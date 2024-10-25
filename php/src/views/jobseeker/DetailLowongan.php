@@ -152,8 +152,8 @@ unset($_SESSION['response']);
                         <h1 class="lowongan-heading">Attachments</h1>
                         <div class="attachments-container">
                             <?php foreach ($attachments as $attachment): ?>
-                                <a href="<?= $attachment ?>" target="_blank">
-                                    <img src="<?= $attachment  ?>" alt="attachment-img" class="attachment-img">
+                                <a href="<?= $attachment['file_path'] ?>" target="_blank">
+                                    <img src="<?= $attachment['file_path'] ?>" alt="attachment-img" class="attachment-img">
                                 </a>
                             <?php endforeach; ?>
                         </div>
