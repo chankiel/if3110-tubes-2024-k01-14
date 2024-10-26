@@ -182,8 +182,14 @@ class LamaranController extends Controller
 
         $dataLamaran = $this->lamaran->getDataExportLamaran($lowongan_id);
 
-        $csvFile = "storage/daftar_pelamar_" . $lowongan_id . "_" . date('Ymd') . ".csv";
+        $storageDir = "storage";
         
+        if (!is_dir($storageDir)) {
+            mkdir($storageDir, 0755, true);
+        }
+
+        $csvFile = "$storageDir/daftar_pelamar_" . $lowongan_id . "_" . date('Ymd') . ".csv";
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -197,15 +203,25 @@ class LamaranController extends Controller
 
             fclose($fileHandle);
 
-            $_SESSION['response'] = [
-                "success" => true,
-                "message" => "Successfully exported!"
-            ];
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="daftar_pelamar_' . $lowongan_id . '_' . date('Ymd') . '.csv"');
+            header('Cache-Control: no-cache, no-store, must-revalidate');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+
+            readfile($csvFile);
+            
+            unlink($csvFile);
+            
+            exit();
         } else {
             $_SESSION['response'] = [
                 "success" => false,
                 "message" => "Failed to export!"
             ];
+
+            header('Location: /error');
+            exit();
         }
     }
 }
