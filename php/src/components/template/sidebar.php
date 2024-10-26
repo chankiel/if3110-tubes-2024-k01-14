@@ -52,9 +52,9 @@
                         <li class="data-recent-pelamar">
                             <a href="/jobs/<?php echo htmlspecialchars($recommendation["id"]) ?>/details">
                                 <div class="applicant-info">
-                                    <h3><strong class="subjudul-sidebar"><?php echo htmlspecialchars($recommendation["posisi"]) ?></strong></h3>
+                                    <h1><strong class="subjudul-sidebar"><?php echo htmlspecialchars($recommendation["posisi"]) ?></strong></h3>
+                                    <h2><?php echo htmlspecialchars($recommendation["company_name"])?></h5>
                                     <p><?php echo htmlspecialchars($recommendation["jenis_pekerjaan"])?></p>
-                                    <h5><?php echo htmlspecialchars($recommendation["company_name"])?></h5>
                                     <p><?php echo htmlspecialchars($recommendation["jenis_lokasi"])?></p>
                                 </div>
                                 <span class="material-symbols-outlined" data-icon="arrow">
