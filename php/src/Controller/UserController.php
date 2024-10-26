@@ -26,6 +26,7 @@ class UserController extends Controller
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
         if ($this->user->userExists($_POST["email"]) || $this->user->userExists($_POST["email_company"])) {
             $_SESSION["error_message"] = "Email is already registered.";
             header('Location: /register');
@@ -146,7 +147,7 @@ class UserController extends Controller
 
         $jobListHtml = '';
 
-        $allLowongan = $this->lowonganCon->fetchOpenLowongan($search, $location, $job_type, $sort, $page, $perPage);
+        $allLowongan = $this->lowonganCon->fetchOpenLowongan($search, $location, $job_type, $sort);
 
         $totalJobs = count($allLowongan);
         $totalPages = ceil($totalJobs / $perPage);

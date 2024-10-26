@@ -123,6 +123,10 @@ http://localhost:8000/
 
 
 ## **Screenshot of Lighthouse**
+1. <strong>Halaman Login</strong>![login](./img/login.png)<br/><br/><br/>
+2. <strong>Halaman Register</strong>![register](./img/register.png)<br/><br/><br/>
+3. <strong>Halaman Home (Job Seeker)</strong>![home jobseeker](./img/home(jobseeker).png)<br/><br/><br/>
+3. <strong>Halaman Home (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
 
 ## **Bonus yang dikerjakan**
 

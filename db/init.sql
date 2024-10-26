@@ -56,29 +56,81 @@ INSERT INTO
 VALUES
     (
         'jobseeker@example.com',
-        'hashed_password_1',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
         'jobseeker',
         'John Doe'
     ),
     (
         'company@example.com',
-        'hashed_password_2',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
         'company',
         'Company Inc.'
     ),
     (
         'jobseeker2@example.com',
-        'hashed_password_3',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
         'jobseeker',
         'Jane Smith'
     ),
-    ('jobseeker3@example.com', 'hashed_password_4', 'jobseeker', 'Alice Johnson'),
-    ('jobseeker4@example.com', 'hashed_password_5', 'jobseeker', 'Bob Brown'),
-    ('jobseeker5@example.com', 'hashed_password_6', 'jobseeker', 'Charlie Davis'),
-    ('jobseeker6@example.com', 'hashed_password_7', 'jobseeker', 'Diana Evans'),
-    ('company2@example.com', 'hashed_password_8', 'company', 'NextGen Solutions'),
-    ('company3@example.com', 'hashed_password_9', 'company', 'Innovate Tech'),
-    ('company4@example.com', 'hashed_password_10', 'company', 'Creative Minds');
+    (   'jobseeker3@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'jobseeker', 
+        'Alice Johnson'
+    ),
+    (   'company2@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'company', 
+        'NextGen Solutions'
+    ),
+    (   'company3@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'company', 
+        'Innovate Tech'
+    ),
+    (   'company4@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'company', 
+        'Creative Minds'
+    ),
+    (   'jobseeker4@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'jobseeker', 
+        'Bob Brown'
+    ),
+    (   'jobseeker5@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'jobseeker', 
+        'Charlie Davis'
+    ),
+    (   'jobseeker6@example.com', 
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW', 
+        'jobseeker', 
+        'Diana Evans'
+    ),
+    (
+        'jobseeker7@example.com',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
+        'jobseeker',
+        'Eve Carter'
+    ),
+    (
+        'jobseeker8@example.com',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
+        'jobseeker',
+        'Frank Moore'
+    ),
+    (
+        'company5@example.com',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
+        'company',
+        'Tech Innovations'
+    ),
+    (
+        'company6@example.com',
+        '$2y$10$R7JArDscT9lePEQy0dOKnuh3TmbIgBckwgu4DiOgS2BpjdCevEdVW',
+        'company',
+        'Future Vision'
+    );
 
 INSERT INTO
     companydetail (user_id, lokasi, about)
@@ -88,14 +140,30 @@ VALUES
         'Jakarta, Indonesia',
         'We are a leading company in the tech industry.'
     ),
-    (
-        2,
-        'Bandung, Indonesia',
-        'Innovative solutions for modern problems.'
+    (   5, 
+        'Bali, Indonesia', 
+        'Providing tech solutions for businesses.'
     ),
-    (5, 'Medan, Indonesia', 'A startup focused on AI solutions.'),
-    (6, 'Bali, Indonesia', 'Providing tech solutions for businesses.'),
-    (7, 'Jakarta, Indonesia', 'Creative agency offering innovative marketing solutions.');
+    (
+        6,
+        'Cyberjaya, Malaysia',
+        'Leading tech firm developing the next generation of software solutions.'
+    ),
+    (
+        7,
+        'Bangkok, Thailand',
+        'Innovators in sustainable technology.'
+    ),
+    (
+        13,
+        'Singapore',
+        'Creating disruptive technologies for various industries.'
+    ),
+    (
+        14,
+        'Ho Chi Minh City, Vietnam',
+        'Positive impact through technology and consultancy.'
+    );
 
 INSERT INTO
     lowongan (
@@ -145,8 +213,8 @@ VALUES
         TRUE
     ),
     (
-        6,
-        'Innovate Tech',
+        5,
+        'NextGen Solutions',
         'Mobile App Developer',
         'Create and maintain mobile applications.',
         'Full-time',
@@ -154,8 +222,8 @@ VALUES
         TRUE
     ),
     (
-        7,
-        'Creative Minds',
+        5,
+        'NextGen Solutions',
         'Social Media Manager',
         'Manage social media accounts and create content.',
         'Part-time',
@@ -163,8 +231,8 @@ VALUES
         TRUE
     ),
     (
-        5,
-        'NextGen Solutions',
+        6,
+        'Innovate Tech',
         'System Analyst',
         'Analyze and improve business operations.',
         'Internship',
@@ -172,8 +240,8 @@ VALUES
         TRUE
     ),
     (
-        1,
-        'NextGen Solutions',
+        6,
+        'Innovate Tech',
         'System Analyst',
         'Analyze and improve business operations.',
         'Internship',
@@ -188,29 +256,101 @@ VALUES
         'Full-time',
         'On-site',
         TRUE
+    ),
+    (
+        7,
+        'Creative Minds',
+        'Frontend Developer',
+        'Build user-facing applications with responsiveness and performance in mind.',
+        'Full-time',
+        'Remote',
+        TRUE
+    ),
+    (
+        7,
+        'Creative Minds',
+        'DevOps Engineer',
+        'Manage deployments and operational efficiency for software applications.',
+        'Full-time',
+        'On-site',
+        TRUE
+    ),
+    (
+        7,
+        'Creative Minds',
+        'UX/UI Designer',
+        'Design user interfaces and enhance user experience across platforms.',
+        'Part-time',
+        'Remote',
+        TRUE
+    ),
+    (
+        13,
+        'Tech Innovations',
+        'Full Stack Developer',
+        'Collaborate across the full software stack.',
+        'Full-time',
+        'Hybrid',
+        TRUE
+    ),
+    (
+        13,
+        'Tech Innovations',
+        'Network Administrator',
+        'Manage and support the company’s network infrastructure.',
+        'Full-time',
+        'On-site',
+        TRUE
+    ),
+    (
+        14,
+        'Future Vision',
+        'Technical Project Manager',
+        'Oversee projects from initiation to closure ensuring delivery.',
+        'Internship',
+        'Hybrid',
+        TRUE
     );
 
 INSERT INTO
     attachmentlowongan (lowongan_id, file_path)
 VALUES
-    (1, '/path/to/resume_1.pdf'),
-    (1, '/path/to/cover_letter_1.pdf'),
-    (2, '/path/to/resume_2.pdf'),
-    (4, '/path/to/resume_4.pdf'),
-    (4, '/path/to/cover_letter_4.pdf'),
-    (5, '/path/to/resume_5.pdf'),
-    (6, '/path/to/resume_6.pdf');
+    (1, '/path/to/attachment_1.png'),
+    (2, '/path/to/attachment_2.png'),
+    (3, '/path/to/attachment_3.png'),
+    (4, '/path/to/attachment_4.png'),
+    (5, '/path/to/attachment_5.png'),
+    (6, '/path/to/attachment_6.png'),
+    (7, '/path/to/attachment_7.png'),
+    (8, '/path/to/attachment_8.png'),
+    (9, '/path/to/attachment_9.png'),
+    (10, '/path/to/attachment_10.png'),
+    (11, '/path/to/attachment_11.png'),
+    (12, '/path/to/attachment_12.png'),
+    (13, '/path/to/attachment_13.png'),
+    (14, '/path/to/attachment_14.png'),
+    (15, '/path/to/attachment_15.png');
 
 INSERT INTO
     lamaran (user_id, lowongan_id, status, status_reason, cv_path, video_path)
 VALUES
     (1, 1, 'waiting', NULL, '/storage/cv/lamaran_1.pdf','/storage/cv/lamaran_1.mp4' ),
     (1, 2, 'waiting', NULL , '/storage/cv/lamaran_2.pdf','/storage/cv/lamaran_2.mp4'),
-    (3, 1, 'accepted', 'Great fit for the team.', '/storage/cv/lamaran_3.pdf',NULL),
-    (2, 1, 'waiting', NULL, '/storage/cv/lamaran_4.pdf','/storage/cv/lamaran_4.mp4'),
-    (1, 3, 'accepted', 'Excellent qualifications for the role.', '/storage/cv/lamaran_5.pdf', NULL),
-    (2, 5, 'waiting', NULL, '/storage/cv/lamaran_6.pdf', '/storage/cv/lamaran_6.mp4'),
-    (3, 4, 'waiting', NULL, '/storage/cv/lamaran_7.pdf', '/storage/cv/lamaran_7.mp4'),
-    (5, 6, 'rejected', 'Lacked specific experience.', '/storage/cv/lamaran_8.pdf', NULL),
-    (6, 8, 'waiting', NULL, '/storage/cv/lamaran_9.pdf', '/storage/cv/lamaran_9.mp4'),
-    (4, 7, 'accepted', 'Strong portfolio.', '/storage/cv/lamaran_10.pdf', NULL);
+    (3, 3, 'accepted', 'Great fit for the team.', '/storage/cv/lamaran_3.pdf',NULL),
+    (4, 4, 'waiting', NULL, '/storage/cv/lamaran_4.pdf','/storage/cv/lamaran_4.mp4'),
+    (1, 5, 'accepted', 'Excellent qualifications for the role.', '/storage/cv/lamaran_5.pdf', NULL),
+    (3, 6, 'waiting', NULL, '/storage/cv/lamaran_6.pdf', '/storage/cv/lamaran_6.mp4'),
+    (3, 7, 'waiting', NULL, '/storage/cv/lamaran_7.pdf', '/storage/cv/lamaran_7.mp4'),
+    (8, 8, 'rejected', 'Lacked specific experience.', '/storage/cv/lamaran_8.pdf', NULL),
+    (8, 9, 'waiting', NULL, '/storage/cv/lamaran_9.pdf', '/storage/cv/lamaran_9.mp4'),
+    (4, 10, 'accepted', 'Strong portfolio.', '/storage/cv/lamaran_10.pdf', NULL),
+    (12, 11, 'waiting', NULL, '/storage/cv/lamaran_11.pdf', '/storage/cv/lamaran_11.mp4'),
+    (1, 12, 'waiting', NULL, '/storage/cv/lamaran_12.pdf', '/storage/cv/lamaran_12.mp4'),
+    (10, 13, 'accepted', 'Excellent skills match.', '/storage/cv/lamaran_13.pdf', NULL),
+    (11, 14, 'rejected', 'Insufficient experience.', '/storage/cv/lamaran_14.pdf', NULL),
+    (4, 14, 'waiting', NULL, '/storage/cv/lamaran_15.pdf', '/storage/cv/lamaran_15.mp4'),
+    (9, 1, 'waiting', NULL, '/storage/cv/lamaran_11.pdf', '/storage/cv/lamaran_11.mp4'),
+    (1, 2, 'waiting', NULL, '/storage/cv/lamaran_12.pdf', '/storage/cv/lamaran_12.mp4'),
+    (3, 3, 'accepted', 'Excellent skills match.', '/storage/cv/lamaran_13.pdf', NULL),
+    (11, 4, 'rejected', 'Insufficient experience.', '/storage/cv/lamaran_14.pdf', NULL),
+    (4, 5, 'waiting', NULL, '/storage/cv/lamaran_15.pdf', '/storage/cv/lamaran_15.mp4');;
