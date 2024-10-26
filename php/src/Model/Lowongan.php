@@ -160,7 +160,7 @@ class Lowongan
     }
 
     public function addAttachment($file_path,$lowongan_id){
-        $this->db->insert("attachmentlowongan",[
+        return $this->db->insert("attachmentlowongan",[
             "file_path" => $file_path,
             "lowongan_id" => $lowongan_id,
         ]);
