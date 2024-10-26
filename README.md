@@ -50,7 +50,9 @@ https://github.com/Labpro-21/if3110-tubes-2024-k01-14.git
 cd if3110-tubes-2024-k01-14
 ```
 
-3.Build and run your docker containers
+3. Copy .env.example and change the name of the new copy to .env
+
+4. Build and run your docker containers
 
 ```sh
 docker compose up --build
