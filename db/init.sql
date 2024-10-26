@@ -366,6 +366,6 @@ VALUES
     (4, 14, 'waiting', NULL, '/storage/cv/lamaran_15.pdf', '/storage/cv/lamaran_15.mp4'),
     (9, 1, 'waiting', NULL, '/storage/cv/lamaran_11.pdf', '/storage/cv/lamaran_11.mp4'),
     (1, 2, 'waiting', NULL, '/storage/cv/lamaran_12.pdf', '/storage/cv/lamaran_12.mp4'),
-    (3, 3, 'accepted', 'Excellent skills match.', '/storage/cv/lamaran_13.pdf', NULL),
+    (3, 1, 'accepted', 'Excellent skills match.', '/storage/cv/lamaran_13.pdf', NULL),
     (11, 4, 'rejected', 'Insufficient experience.', '/storage/cv/lamaran_14.pdf', NULL),
     (4, 5, 'waiting', NULL, '/storage/cv/lamaran_15.pdf', '/storage/cv/lamaran_15.mp4');;
