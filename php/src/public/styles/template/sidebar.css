@@ -113,10 +113,16 @@ aside {
   background-color: #f0f0f0;
 }
 
-.recent-pelamar h3 {
+.recent-pelamar h1 {
   margin: 0 0 5px;
   font-size: 18px;
+  color: black;
+  line-height: 1.2;
+}
+
+.recent-pelamar h2{
   color: #007BFF;
+  
 }
 
 strong .subjudul-sideba {
