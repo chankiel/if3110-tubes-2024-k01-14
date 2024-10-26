@@ -126,7 +126,15 @@ http://localhost:8000/
 1. <strong>Halaman Login</strong>![login](./img/login.png)<br/><br/><br/>
 2. <strong>Halaman Register</strong>![register](./img/register.png)<br/><br/><br/>
 3. <strong>Halaman Home (Job Seeker)</strong>![home jobseeker](./img/home(jobseeker).png)<br/><br/><br/>
-3. <strong>Halaman Home (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+4. <strong>Halaman Home (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+5. <strong>Halaman Tambah Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+6. <strong>Halaman Detail Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+7. <strong>Halaman Detail Lamaran (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+8. <strong>Halaman Edit Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+9. <strong>Halaman Detail Lowongan (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+10. <strong>Halaman Lamaran (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+11. <strong>Halaman Riwayat (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
+12. <strong>Halaman Profil (Company)</strong>![profile company](./img/profile(company).png)<br/><br/><br/>
 
 ## **Bonus yang dikerjakan**
 
