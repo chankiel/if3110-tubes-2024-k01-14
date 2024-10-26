@@ -84,8 +84,9 @@ aside {
 }
 
 .title-recent-applicants {
-  padding: 10px 15px;
+  padding: 5px;
   border-bottom: 2px solid black;
+  text-align: center;
 }
 
 .recent-pelamar {
@@ -209,6 +210,13 @@ strong .subjudul-sideba {
   color: blue;
   size: 30px;
   margin-right: 10px;
+}
+
+.no-recommendations {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  color: #0A66C2
 }
 
 @media (min-width: 640px) {
