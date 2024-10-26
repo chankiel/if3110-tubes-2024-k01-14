@@ -87,6 +87,7 @@ aside {
   padding: 5px;
   border-bottom: 2px solid black;
   text-align: center;
+  font-weight: bold;
 }
 
 .recent-pelamar {
@@ -125,8 +126,8 @@ aside {
   
 }
 
-strong .subjudul-sideba {
-  color: black;
+strong .subjudul-sidebar {
+  color: #007BFF;
 }
 
 .nama-pelamar {
