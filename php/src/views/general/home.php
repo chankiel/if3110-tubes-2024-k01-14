@@ -25,7 +25,10 @@ unset($_SESSION['response']);
 
 <body>
 
-    <?php include dirname(__DIR__) . '/../components/template/navbar.php' ?>
+    <?php 
+    include dirname(__DIR__) . '/../components/template/navbar.php'; 
+    include dirname(__DIR__) . '/../components/template/toast.php' 
+    ?>
 
     <section>
         <div class="container">

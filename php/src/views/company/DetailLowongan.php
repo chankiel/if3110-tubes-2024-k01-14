@@ -49,6 +49,27 @@ unset($_SESSION['response']);
                         <h1 class="position-heading">
                             <?= $posisi ?>
                         </h1>
+                        <p class="small-details"><?= $company_lokasi ?> · Posted <?= $lowongan_diffTime ?> ago</p>
+                        <ul class="lowongan-details details-format">
+                            <li>
+                                <span class="material-symbols-outlined">
+                                    person
+                                </span>
+                                <p><?= $posisi ?></p>
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined">
+                                    work
+                                </span>
+                                <p><?= $jenis_pekerjaan ?></p>
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined">
+                                    location_on
+                                </span>
+                                <p><?= $jenis_lokasi ?></p>
+                            </li>
+                        </ul>
                     </div>
                     <div class="action-container">
                         <a href="/jobs/edit/<?= $id ?>" class="edit-button action-button"><span class="material-symbols-outlined">
@@ -71,27 +92,7 @@ unset($_SESSION['response']);
                         </form>
                     </div>
                 </div>
-                <p class="small-details"><?= $company_lokasi ?> · Posted <?= $lowongan_diffTime ?> ago</p>
-                <ul class="lowongan-details details-format">
-                    <li>
-                        <span class="material-symbols-outlined">
-                            person
-                        </span>
-                        <p><?= $posisi ?></p>
-                    </li>
-                    <li>
-                        <span class="material-symbols-outlined">
-                            work
-                        </span>
-                        <p><?= $jenis_pekerjaan ?></p>
-                    </li>
-                    <li>
-                        <span class="material-symbols-outlined">
-                            location_on
-                        </span>
-                        <p><?= $jenis_lokasi ?></p>
-                    </li>
-                </ul>
+
                 <div class="details-container">
                     <h1 class="lowongan-heading">Job Description</h1>
                     <p><?= $deskripsi ?></p>
