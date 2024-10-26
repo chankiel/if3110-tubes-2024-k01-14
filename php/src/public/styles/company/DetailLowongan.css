@@ -49,7 +49,7 @@ section {
 }
 
 .rejected {
-  color: var(--red);
+  color: red;
 }
 
 .waiting {
