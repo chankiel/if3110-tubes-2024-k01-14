@@ -158,10 +158,10 @@ http://localhost:8000/
 | Register             | 13522038 |
 | Search, Sort, Filter | 13522038 |
 | Model User           | 13522038 |
-| Model Lowongan       | 13522030, 13522029 |
-| Model Lamaran        | 13522030, 13522029 |
+| Model Lowongan       | 13522029, 13522030 |
+| Model Lamaran        | 13522029, 13522030 |
 | Controller User      | 13522038 |
-| Controller Lowongan  | 13522030, 13522029 |
+| Controller Lowongan  | 13522029, 13522030 |
 | Controller Lamaran   | 13522029 |
 | Routing              | 13522029 |
 | Abstraksi Database   | 13522029 |
