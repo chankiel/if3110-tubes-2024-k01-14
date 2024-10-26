@@ -94,15 +94,39 @@ section {
   flex-direction: column;
   gap: 10px;
   color: white;
+  align-items: flex-end;
 }
 
 .action-button{
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 15px;
-  width: 100%;
+  width: 50px;
   padding: 10px 15px;
   border-radius: 30px;
+  gap: 5px;
+  overflow: hidden;
+  z-index: 20;
+  transition: width 0.5s ease;
+}
+
+.action-button:hover {
+  transform: scale(1.05);
+  width: 90px;
+}
+
+.edit-button:hover .edit-tag,
+.delete-button-trigger:hover .delete-tag,
+.close-button:hover .close-tag,
+.open-button:hover .open-tag,
+.export-button:hover .export-tag {
+  display: block;
+}
+
+.name-tag{
+  display: none;
+  font-weight: bold;
 }
 
 .general-button:hover {
@@ -123,6 +147,10 @@ section {
 
 .open-button{
   background-color: var(--green);
+}
+
+.export-button{
+  background-color: #800080;
 }
 
 .lowongan-heading {
@@ -216,6 +244,7 @@ section {
 .attachment-img:hover {
   transform: scale(1.1);
 }
+
 
 @media (min-width: 640px) {
   

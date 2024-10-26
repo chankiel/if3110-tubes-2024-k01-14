@@ -74,21 +74,26 @@ unset($_SESSION['response']);
                     <div class="action-container">
                         <a href="/jobs/edit/<?= $id ?>" class="edit-button action-button"><span class="material-symbols-outlined">
                                 edit
-                            </span></a>
+                            </span><span class="edit-tag name-tag">Edit</span></a>
                         <button class="delete-button-trigger action-button" id="delete-trigger"><span class="material-symbols-outlined">
                                 delete
-                            </span></button>
+                            </span><span class="delete-tag name-tag">Delete</span></button>
                         <?php modal("delete", "Are you sure?", "Do you really want to delete this Job? This process cannot be undone.", "/jobs/$id/delete", "Delete"); ?>
                         <form action="/jobs/<?= $id ?>/close" method="POST">
                             <?php if ($is_open) : ?>
-                                <button name="action" value="close" class="close-button action-button"><span class="material-symbols-outlined">
-                                        lock
-                                    </span></button>
-                            <?php else : ?>
-                                <button name="action" value="open" class="open-button action-button"><span class="material-symbols-outlined">
+                                <button name="action" value="close" class="open-button action-button"><span class="material-symbols-outlined">
                                         lock_open_right
-                                    </span></button>
+                                    </span><span class="open-tag name-tag">Open</span></button>
+                            <?php else : ?>
+                                <button name="action" value="open" class="close-button action-button"><span class="material-symbols-outlined">
+                                        lock
+                                    </span><span class="close-tag name-tag">Close</span></button>
                             <?php endif; ?>
+                        </form>
+                        <form action="/jobs/<?= $id ?>/export" method="GET">
+                            <button class="export-button action-button <?= empty($applications)?'disabled':''?>"><span class="material-symbols-outlined">
+                                    file_export
+                                </span><span class="export-tag name-tag">Export</span></button>
                         </form>
                     </div>
                 </div>
