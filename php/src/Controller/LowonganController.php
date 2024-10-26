@@ -61,11 +61,11 @@ class LowonganController extends Controller
         $this->authorizeRole("company");
         $lowongan_id = $matches[0];
         $data = $this->lowongan->getDataLowonganCompany($lowongan_id);
-        if($data['company_id']!== (int)$this->cur_user['id']){
+        if (empty($data)) {
             header("Location: /not-found");
             exit();
         }
-        if (!$data) {
+        if($data['company_id']!== (int)$this->cur_user['id']){
             header("Location: /not-found");
             exit();
         }
@@ -97,8 +97,8 @@ class LowonganController extends Controller
             $validator->enum("jenis_lokasi", $lowonganData['jenis_lokasi'], ['Remote', 'On-site', 'Hybrid'], 'Location\'s type');
         }
 
-        $allowedMimeTypes = ['image/jpeg', 'image/png'];
-        $allowedExtensions = ['jpeg', 'png', 'jpg'];
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff', 'image/svg+xml'];
+$allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg'];
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
             $fileName = $_FILES['files']['name'][$key];
             $fileTmpName = $_FILES['files']['tmp_name'][$key];
