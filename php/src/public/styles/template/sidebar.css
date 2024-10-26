@@ -101,7 +101,7 @@ aside {
   color: #333;
   display: block;
   background-color: #fff;
-  border-bottom: 2px solid black;
+  border-top: 2px solid black;
   padding: 15px;
   transition: background-color 0.3s;
   display: flex;
