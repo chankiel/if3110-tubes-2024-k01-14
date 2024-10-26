@@ -20,7 +20,6 @@ unset($_SESSION['response']);
     <link rel="stylesheet" href="../../public/styles/template/sidebar.css">
     <link rel="stylesheet" href="../../public/styles/template/toast.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <title>Home</title>
 </head>
 

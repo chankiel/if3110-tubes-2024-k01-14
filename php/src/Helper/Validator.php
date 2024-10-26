@@ -59,6 +59,15 @@ class Validator
         return $this;
     }
 
+    public function emailRegex($field, $value, $field_name = null) {
+        $pattern = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+
+        if (!preg_match($pattern, $value)) {
+            $this->errors[$field] = ($field_name ?? $field) . " must match the format example@example.com.";
+        }
+        return $this;
+    }
+
     public function fileType($field, $fileTmpName, $allowedTypes, $field_name = null)
     {
         $fileType = mime_content_type($fileTmpName);
