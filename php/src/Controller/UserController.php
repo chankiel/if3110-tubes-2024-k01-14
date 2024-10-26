@@ -27,6 +27,43 @@ class UserController extends Controller
             session_start();
         }
 
+        if ($role === "jobseeker") {
+            $userData = [
+                "nama" => $_POST["name"],
+                "email" => $_POST["email"],
+                "password" => $_POST["password"],
+            ];
+        } else {
+            $userData = [
+                "nama" => $_POST["name_company"],
+                "email" => $_POST["email_company"],
+                "lokasi" => $_POST["location"],
+                "about" => $_POST["about"],
+                "password" => $_POST["password_company"]
+            ];
+        }
+    
+        $validator = new Validator();
+    
+        $validator->required("nama", $userData['nama'], 'Company\'s name')
+            ->required("email", $userData['email'], 'Email is required')
+            ->emailRegex("email", $userData['email'], 'Email must match the format example@example.com')
+            ->required("password", $userData['password'], 'Password is required')
+            ->minLength("password", $userData['password'], 6, 'Password must be at least 6 characters long');
+    
+        if ($role !== "jobseeker") {
+            $validator->required("lokasi", $userData['lokasi'], 'Company\'s location')
+                ->required("about", $userData['about'], 'Company\'s about')
+                ->string("lokasi", $userData['lokasi'], 'Company\'s location must be a string')
+                ->string("about", $userData['about'], 'Company\'s about must be a string');
+        }
+    
+        if (!$validator->passes()) {
+            $_SESSION["error_message"] = "Email must match the format example@example.com";
+            header('Location: /register');
+            exit();
+        }
+
         if ($this->user->userExists($_POST["email"]) || $this->user->userExists($_POST["email_company"])) {
             $_SESSION["error_message"] = "Email is already registered.";
             header('Location: /register');
