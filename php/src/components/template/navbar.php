@@ -1,7 +1,7 @@
 <header class="">
     <div class="header-container">
         <a class="logo-container" href="/">
-            <img src="/public/images/linkedin.svg" alt="logo">
+            <img src="/public/images/linkedin.svg" width="150" height="100" alt="logo">
         </a>
         <nav class="navbar ">
             <ul class="navbar-list ">
@@ -25,13 +25,13 @@
                         </li>
                         <?php endif; ?>
                         <li class="icon" id="iconTrigger">
-                            <img src="/public/images/perry-casino.jpg" alt="logo">
+                            <img src="/public/images/perry-casino.webp" alt="logo">
                             <p class="name-link">Me <span class="material-symbols-outlined arrow-down">
                                     arrow_drop_down
                                 </span> </p>
                             <div id="popover" class="popover-content hidden">
                                 <div class="pop-profile">
-                                    <img src="/public/images/perry-casino.jpg" alt="profile-pic">
+                                    <img src="/public/images/perry-casino.webp" alt="profile-pic">
                                     <div class="profile-details">
                                         <h1><?= $user['nama']?></h1>
                                         <h2><?= ucfirst($user['role'])?></h2>
