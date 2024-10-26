@@ -44,6 +44,7 @@ unset($_SESSION['response']);
                     <?= $nama ?>
                 </h1>
                 <p><?= $email ?></p>
+                <h2 class="lowongan-link">Applied for <a href="/jobs/<?= $lowongan_id?>">this</a> job</h2>
             </div>
 
             <div class="attachments">
@@ -55,11 +56,10 @@ unset($_SESSION['response']);
                 <div class="video-section">
                     <h3>Introduction Video
                         <?php if (!empty($video_path)): ?>
-                            (<a href="<?= $cv_path ?>">Download</a>)
+                            (<a href="<?= $video_path ?>" download="">Download</a>)
                         <?php endif; ?>
                     </h3>
                     <?php if (!empty($video_path)): ?>
-                        <p class="fail-attachment">Click <a href="<?= $video_path ?>" download>here</a> to download Video</p>
                         <video controls width="100%">
                             <source src="<?php echo htmlspecialchars($video_path); ?>" type="video/mp4">
                             <p class="fail-attachment">Your browser does not support the video tag. Link video <a href="<?= $video_path ?>">here</a></p>
