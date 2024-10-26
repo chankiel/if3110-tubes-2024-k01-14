@@ -58,7 +58,7 @@ class Router
         self::put("/applications/{id}/reject","LamaranController@rejectLamaran");
         self::put("/profile/company","UserController@editCompany");
         self::post("/jobs/{id}/delete","LowonganController@deleteLowongan");
-        self::get("/applications/{id}","LamaranController@getExportLamaran");
+        self::get("/jobs/{id}/export","LamaranController@getExportLamaran");
 
         self::get("/jobs/{id}/details","LowonganController@showDetailLowonganJobseeker");
         self::get("/jobs/{id}/apply","LamaranController@showFormLamaran");
