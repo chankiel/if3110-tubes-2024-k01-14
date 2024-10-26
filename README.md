@@ -38,22 +38,22 @@ LinkinPurry adalah platform inovatif yang dirancang khusus untuk menghubungkan p
 
 ## **Cara Menginstall dan Menjalankan Program - How to Install and Run The Program**
 
-1. Clone repository ini
+1. Clone this repository
 
 ```sh
 https://github.com/Labpro-21/if3110-tubes-2024-k01-14.git
 ```
 
-2. Ubah current directory menjadi folder `wbd-10-backup`
+2. Change the current directory to `if3110-tubes-2024-k01-14`
 
 ```sh
 cd if3110-tubes-2024-k01-14
 ```
 
-3.Build and run your docker containers or run the bat file
+3.Build and run your docker containers
 
 ```sh
-sh clean-run.sh
+docker compose up --build
 ```
 
 4. Run the server in your localhost with port 8000
@@ -101,7 +101,7 @@ http://localhost:8000/
 | PUT `/applications/:id/reject`  | Reject suatu lamaran        | -                                                                     | `applicationId` |
 | PUT `/profile/company`          | Mengedit Profile Company | `nama`,`lokasi`,`about`                                               | -               |
 | POST `/jobs/:id/close`          | Mengubah status open Lowongan | -                                               | `jobId`               |
-| GET `/applications/:id` | Download export data lamaran | - | `jobId` |
+| GET `/jobs/:id/export` | Download export data lamaran | - | `jobId` |
 
 ### Job Seeker
 
@@ -119,22 +119,19 @@ http://localhost:8000/
 | ---------------------- | ---------------------- | ------------ | ------- |
 | POST `/jobs/:id/apply` | Menambah lowongan baru | `CV`,`video` | `jobId` |
 
-## **Screenshot of Application**
-
-
-## **Screenshot of Lighthouse**
+## **Screenshots of Application with Lighthouse**
 1. <strong>Halaman Login</strong>![login](./img/login.png)<br/><br/><br/>
 2. <strong>Halaman Register</strong>![register](./img/register.png)<br/><br/><br/>
-3. <strong>Halaman Home (Job Seeker)</strong>![home jobseeker](./img/home(jobseeker).png)<br/><br/><br/>
-4. <strong>Halaman Home (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-5. <strong>Halaman Tambah Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-6. <strong>Halaman Detail Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-7. <strong>Halaman Detail Lamaran (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-8. <strong>Halaman Edit Lowongan (Company)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-9. <strong>Halaman Detail Lowongan (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-10. <strong>Halaman Lamaran (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-11. <strong>Halaman Riwayat (Job Seeker)</strong>![home jobseeker](./img/home(company).png)<br/><br/><br/>
-12. <strong>Halaman Profil (Company)</strong>![profile company](./img/profile(company).png)<br/><br/><br/>
+3. <strong>Halaman Home (Job Seeker)</strong>![Home Jobseeker](./img/jobseeker_home.png)<br/><br/><br/>
+4. <strong>Halaman Home (Company)</strong>![Home Company](./img/company_home.png)<br/><br/><br/>
+5. <strong>Halaman Tambah Lowongan (Company)</strong>![Tambah Lowongan Company](./img/company_tambah_lowongan.png)<br/><br/><br/>
+6. <strong>Halaman Detail Lowongan (Company)</strong>![Detail Lowongan Company](./img/company_detail_lowongan.png)<br/><br/><br/>
+7. <strong>Halaman Detail Lamaran (Company)</strong>![Detail Lamaran Company](./img/company_detail_lamaran.png)<br/><br/><br/>
+8. <strong>Halaman Edit Lowongan (Company)</strong>![Edit lowongan Company](./img/company_edit_lowongan.png)<br/><br/><br/>
+9. <strong>Halaman Detail Lowongan (Job Seeker)</strong>![Detail Lowongan Jobseeker](./img/jobseeker_detail_lowongan.png)<br/><br/><br/>
+10. <strong>Halaman Lamaran (Job Seeker)</strong>![Lamaran Jobseeker](./img/jobseeker_lamaran.png)<br/><br/><br/>
+11. <strong>Halaman Riwayat (Job Seeker)</strong>![Riwayat Jobseeker](./img/jobseeker_riwayat.png)<br/><br/><br/>
+12. <strong>Halaman Profil (Company)</strong>![Profile Company](./img/company_profile.png)<br/><br/><br/>
 
 ## **Bonus yang dikerjakan**
 
@@ -150,9 +147,9 @@ http://localhost:8000/
 
 | Nama            | NIM      | Panggilan |
 | --------------- | -------- | --------- |
-| Alexander Jason | 13521100 | Jason     |
-| Addin Munawwar  | 13521085 | Addin     |
-| Syahrul Halik   | 10023327 | Syahrul   |
+| Ignatius Jhon Hezkiel Chan | 13522029 | Kiel     |
+| Imam Hanif Mulyarahman  | 13522030 | Imam     |
+| Francesco Michael Kusuma   | 13522038 | Fransesco   |
 
 **Server Side:**
 | Fitur | Nim |
