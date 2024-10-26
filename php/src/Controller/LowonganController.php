@@ -65,7 +65,7 @@ class LowonganController extends Controller
             header("Location: /not-found");
             exit();
         }
-        if($data['company_id']!== (int)$this->cur_user['id']){
+        if ($data['company_id'] !== (int)$this->cur_user['id']) {
             header("Location: /not-found");
             exit();
         }
@@ -98,7 +98,7 @@ class LowonganController extends Controller
         }
 
         $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff', 'image/svg+xml'];
-$allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg'];
+        $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg'];
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
             $fileName = $_FILES['files']['name'][$key];
             $fileTmpName = $_FILES['files']['tmp_name'][$key];
@@ -121,12 +121,13 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
     {
         foreach ($_FILES['files']['tmp_name'] as $key => $tmp_name) {
             $fileTmpName = $_FILES['files']['tmp_name'][$key];
-            $fileName = $_FILES['files']['name'][$key];
+            $fileName = preg_replace('/[^\w.-]+/', '-', $_FILES['files']['name'][$key]);
+            $fileName = trim($fileName, '._-');
 
             if ($_FILES['files']['error'][$key] === UPLOAD_ERR_NO_FILE || empty($fileTmpName)) {
                 continue;
             }
-            $fileUrl = FileManager::uploadFile('/public/', 'attachments', $fileTmpName, $fileName);
+            $fileUrl = FileManager::uploadFile('/public/', 'attachments', $fileTmpName, $lowongan_id."-".$fileName);
 
             if ($fileUrl) {
                 $this->lowongan->addAttachment($fileUrl, $lowongan_id);
@@ -186,10 +187,13 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
             $this->handleErrors($validator->errors(), "/jobs/edit/{$lowongan_id}");
         }
 
-        $this->lowongan->updateLowongan($lowonganData, "id=:id", ['id' => $lowongan_id]);
-
         if ($hasFiles) {
             $this->lowongan->deleteAttachments($lowongan_id);
+        }
+        
+        $this->lowongan->updateLowongan($lowonganData, "id=:id", ['id' => $lowongan_id]);
+
+        if($hasFiles){
             $this->uploadAttachments($lowongan_id);
         }
 
@@ -272,13 +276,13 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
         }
         $this->lowongan->updateLowongan(['is_open' => $status], "id=:id", ['id' => $lowongan_id]);
 
-    if (session_status() === PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
         $response =  [
             "success" => true,
-            "message" => "Job's Status changed to ". ucfirst($is_open). "!",
+            "message" => "Job's Status changed to " . ucfirst($is_open) . "!",
         ];
         $_SESSION['response'] = $response;
         header("Location: /jobs/$lowongan_id");
@@ -309,7 +313,7 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
                                                 edit
                                             </span>
                                         </a>
-                                        <form action='/jobs/". htmlspecialchars($job['lowonganid']) ."/delete' method='POST' style='display: inline;''>
+                                        <form action='/jobs/" . htmlspecialchars($job['lowonganid']) . "/delete' method='POST' style='display: inline;''>
                                             <button type='submit' title='Delete Job' style='background: none; border: none; cursor: pointer;'>
                                                 <span class='material-symbols-outlined' style='color: red;'>
                                                     delete
@@ -326,8 +330,8 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
                                                     <strong class='company-name'>
                                                         <span class='material-symbols-outlined'>
                                                             apartment
-                                                        </span>" 
-                                                        . htmlspecialchars($job['nama']) . "
+                                                        </span>"
+                        . htmlspecialchars($job['nama']) . "
                                                     </strong>
                                                 </a>
                                             </h2>
@@ -367,8 +371,8 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
                                                 <strong class='company-name'>
                                                     <span class='material-symbols-outlined'>
                                                         apartment
-                                                    </span>" 
-                                                    . htmlspecialchars($job['nama']) . "
+                                                    </span>"
+                        . htmlspecialchars($job['nama']) . "
                                                 </strong>
                                                 </a>
                                             </h2>
@@ -392,7 +396,7 @@ $allowedExtensions = ['jpeg', 'png', 'jpg', 'gif', 'bmp', 'webp', 'tiff', 'svg']
                                 </div>
                             </div>";
                 }
-            } 
+            }
         }
         $html .= '</div>';
 

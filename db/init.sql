@@ -47,6 +47,21 @@ CREATE TABLE
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
+CREATE OR REPLACE FUNCTION update_company_name()
+RETURNS TRIGGER
+AS $$
+BEGIN
+    UPDATE lowongan
+    SET company_name = NEW.nama
+    WHERE company_id = NEW.id;
+    RETURN NEW;
+END;
+$$ language plpgsql;
+
+CREATE OR REPLACE TRIGGER company_name_trigger
+AFTER UPDATE ON users
+FOR EACH ROW EXECUTE FUNCTION update_company_name();
+
 CREATE INDEX idx_user_email ON users (email);
 
 CREATE INDEX idx_lowongan_company ON lowongan (company_id);
