@@ -50,7 +50,7 @@
                 </div>
                 <div class="input-area">
                     <label for="video">Video Perkenalan</label>
-                    <input type="file" id="video" name="video" accept=".mp4">
+                    <input type="file" id="video" name="video" accept="video/*">
                 </div>
                 <p class="required-ctt">*required</p>
                 <button type="submit" class="submit-btn">Submit</button>
