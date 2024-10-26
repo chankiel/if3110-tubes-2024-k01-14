@@ -79,7 +79,7 @@ unset($_SESSION['response']);
                 </div>
 
                 <div class="input-area normal-state" id="div-attachments">
-                    <label for="cv">Attachments</label>
+                    <label for="files">Attachments</label>
                     <input type="file" id="files" name="files[]" accept="image/*" multiple>
                     <div id="preview-container">
                     </div>
