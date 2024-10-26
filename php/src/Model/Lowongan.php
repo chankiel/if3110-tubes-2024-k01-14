@@ -177,17 +177,21 @@ class Lowongan
         $this->db->delete("attachmentlowongan","lowongan_id=:id",['id'=>$lowongan_id]);
     }
 
+    public function getAttachments($id){
+        $attachments = $this->db->prepareQuery(
+            "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
+            ["lowongan_id" => $id]
+        );
+        return $attachments;
+    }
+
     public function getDataLowonganCompany($id){
-        // Lowongan Details
         $lowongan_details = $this->db->findById("lowongan", $id);
         if(!$lowongan_details){
             return [];
         }
 
-        $attachments = $this->db->prepareQuery(
-            "SELECT file_path FROM attachmentlowongan WHERE lowongan_id= :lowongan_id",
-            ["lowongan_id" => $id]
-        );
+        $attachments = $this->getAttachments($id);
 
         $lowongan_details["lowongan_diffTime"] = DateHelper::timeDifference($lowongan_details["created_at"]); 
 
@@ -222,7 +226,6 @@ class Lowongan
     }
 
     public function getJobsRecommendation($cur_user){
-
         $query = 
         "SELECT lowongan.id, company_name, posisi, jenis_pekerjaan, jenis_lokasi
         FROM lowongan JOIN lamaran ON lowongan.id = lowongan_id 
