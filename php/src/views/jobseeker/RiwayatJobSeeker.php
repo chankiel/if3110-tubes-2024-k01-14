@@ -31,7 +31,7 @@
                                 <h1 class="role">
                                     <?= $lamaran['posisi'] ?>
                                 </h1>
-                                <h3 class="status <?= $lamaran['status'] ?>"><?= ucfirst($lamaran['status']) ?></h3>
+                                <p class="status <?= $lamaran['status'] ?>"><?= ucfirst($lamaran['status']) ?></p>
                             </div>
                             <h2 class="company">
                                 at <?= $lamaran['company_name'] ?>
