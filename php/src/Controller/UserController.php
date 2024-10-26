@@ -90,9 +90,19 @@ class UserController extends Controller
 
         $this->user->addUser($data);
 
-        header("Location: /login");
+        $userArray = $this->user->getUserByEmail($userData["email"]);
+
+        $user = $userArray[0];
+
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["email"] = $user["email"];
+        $_SESSION["nama"] = $user["nama"];
+        $_SESSION["role"] = $role;
+
+        header("Location: /");
         exit();
     }
+    
 
     public function editCompany()
     {
