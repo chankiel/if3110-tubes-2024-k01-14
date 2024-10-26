@@ -41,8 +41,24 @@ class LamaranController extends Controller
 
         // Validate tipe video kalau ada
         if (!empty($_FILES['video']['tmp_name'])) {
-            $validator->fileType('video', $_FILES['video']['tmp_name'], ['video/mp4'], 'Video file')
-                ->fileExtension('video', $_FILES['video']['name'], ['mp4'], 'Video file');
+            $validator->fileType('video', $_FILES['video']['tmp_name'], [
+                'video/mp4',
+                'video/avi',
+                'video/mov',
+                'video/webm',
+                'video/ogg',
+                'video/x-msvideo',
+                'video/x-matroska',
+                'video/quicktime'
+            ], 'Video file')
+                ->fileExtension('video', $_FILES['video']['name'], [
+                    'mp4',
+                    'avi',
+                    'mov',
+                    'webm',
+                    'ogg',
+                    'mkv'
+                ], 'Video file');
         }
 
         // Cek pass validator
@@ -50,8 +66,8 @@ class LamaranController extends Controller
             return $this->handleErrors($validator->errors(), $target_url);
         }
 
-        $cv_path = FileManager::getAndUploadFile('/storage/', "cv","cv-$lowongan_id-{$this->cur_user['id']}");
-        $video_path = FileManager::getAndUploadFile('/storage/', "video","video-$lowongan_id-{$this->cur_user['id']}");
+        $cv_path = FileManager::getAndUploadFile('/storage/', "cv", "cv-$lowongan_id-{$this->cur_user['id']}");
+        $video_path = FileManager::getAndUploadFile('/storage/', "video", "video-$lowongan_id-{$this->cur_user['id']}");
 
         $data = [
             "user_id" => $this->cur_user['id'],
@@ -170,20 +186,19 @@ class LamaranController extends Controller
         $this->checkRule(!$data);
 
         $this->checkRule($data['company_id'] !== (int)$this->cur_user['id']);
-
         $this->view("/company/DetailLamaran", $data);
     }
 
-    
 
-    public function getExportLamaran($matches) 
+
+    public function getExportLamaran($matches)
     {
         $lowongan_id = $matches[0];
 
         $dataLamaran = $this->lamaran->getDataExportLamaran($lowongan_id);
 
         $storageDir = "storage";
-        
+
         if (!is_dir($storageDir)) {
             mkdir($storageDir, 0755, true);
         }
@@ -210,9 +225,9 @@ class LamaranController extends Controller
             header('Expires: 0');
 
             readfile($csvFile);
-            
+
             unlink($csvFile);
-            
+
             exit();
         } else {
             $_SESSION['response'] = [
