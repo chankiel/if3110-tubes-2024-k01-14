@@ -28,8 +28,7 @@ class FileController extends Controller
 
         if (file_exists($filePath)) {
             if(!$this->lamaran->authorizeFile($dbPath,$this->cur_user['id'])){
-                header("Location: /not-found");
-                exit();
+                echo "<h3 class='page-heading'>You're not authorized to access this file</h3>";
             }
 
             $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -52,7 +51,7 @@ class FileController extends Controller
             readfile($filePath);
             exit;
         } else {
-            header("Location: /not-found");
+            echo "<h3 class='page-heading'>File doesn't exist</h3>";
             exit();
         }
     }

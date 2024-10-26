@@ -3,7 +3,7 @@
         <div class="img-container">
             <img src="/public/images/bg-image-profile.png" alt="profile-picture" class="bg-image">
             <?php if (isset($user)): ?>
-                <img src="/public/images/perry-casino.jpg" alt="profile-picture" class="img-logo">
+                <img src="/public/images/perry-casino.webp" alt="profile-picture" class="img-logo">
             <?php else: ?>
                 <img src="/public/images/question-mark.jpg" alt="profile-picture" class="img-logo">
             <?php endif; ?>
