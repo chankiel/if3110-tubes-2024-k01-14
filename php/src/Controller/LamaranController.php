@@ -31,6 +31,12 @@ class LamaranController extends Controller
             exit();
         }
 
+        $lamaran = $this->lamaran->getLamaran($this->cur_user['id'], $lowongan_id);
+        if($lamaran){
+            header("Location: /not-found");
+            exit;
+        }
+
         // Validate keberadaan CV
         $validator->required('cv', $_FILES['cv']['tmp_name'], 'CV file');
 
