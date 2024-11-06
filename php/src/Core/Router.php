@@ -72,6 +72,8 @@ class Router
 
         self::get("/storage/cv/{filename}","FileController@accessFile");
         self::get("/storage/video/{filename}","FileController@accessFile");
+
+        self::get("/seed","Controller@seed");
     }
 
     public static function dispatch()

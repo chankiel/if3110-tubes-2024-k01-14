@@ -11,7 +11,6 @@ use Model\User;
 
 class LamaranController extends Controller
 {
-    private User $user;
 
     public function __construct()
     {
@@ -110,7 +109,7 @@ class LamaranController extends Controller
         if ($rowCount > 0) {
             $_SESSION['response'] = [
                 "success" => true,
-                "message" => "Application's Status updated to $status_reason!"
+                "message" => "Application's Status updated to $status!"
             ];
         } else {
             $_SESSION['response'] = [

@@ -238,4 +238,9 @@ class Lowongan
         $param = ["user_id"=> $cur_user];
         return $this->db->prepareQuery($query, $param);
     }
+
+    public function deleteAllLowongan(){
+        $this->db->rawQuery("TRUNCATE TABLE attachmentlowongan CASCADE");
+        $this->db->rawQuery("TRUNCATE TABLE lowongan CASCADE");
+    }
 }

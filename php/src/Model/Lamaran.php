@@ -133,5 +133,8 @@ class Lamaran
 
         return $dataRecentApplicants;
     }
-    
+
+    public function deleteAllLamaran(){
+        $this->db->rawQuery("TRUNCATE TABLE lamaran CASCADE");
+    }
 }

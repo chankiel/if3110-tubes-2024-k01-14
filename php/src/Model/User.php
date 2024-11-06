@@ -104,4 +104,9 @@ class User {
     public function deleteUser($id): bool {
         return $this->db->delete("users", "id = :id", ["id" => $id]) > 0;
     }
+
+    public function deleteAllUser(){
+        $this->db->rawQuery("TRUNCATE TABLE companydetail CASCADE");
+        $this->db->rawQuery("TRUNCATE TABLE users CASCADE");
+    }
 }

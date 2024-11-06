@@ -7,9 +7,9 @@ use Model\User;
 
 class UserController extends Controller
 {
-    private $user;
     private $userAuth;
     private $lowonganCon;
+
     public function __construct()
     {
         parent::__construct();
@@ -139,6 +139,7 @@ class UserController extends Controller
             "message" => "Company's Profile updated successfully!"
         ];
         $_SESSION['response'] = $response;
+        $_SESSION['nama'] = $userData['nama'];
         return $response;
     }
 
