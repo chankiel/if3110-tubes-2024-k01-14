@@ -58,11 +58,22 @@ cd if3110-tubes-2024-k01-14
 docker compose up --build
 ```
 
-4. Run the server in your localhost with port 8000
+5. Run the server in your localhost with port 8000
 
 ```sh
 http://localhost:8000/
 ```
+
+6. Seed your database by visiting /seed route. Wait a couple of minutes, it should show a "Seeding Successful" message if success.
+
+```sh
+http://localhost:8000/seed
+```   
+
+7. Other alternative is by using SQL seeder. move seeder files from /seed to /db and then perform docker compose up (docker compose down first if you have started your docker)
+```sh
+docker compose up
+```     
 
 ## Endpoints
 
@@ -79,6 +90,8 @@ http://localhost:8000/
 | POST `/login`   | Menghandle request login dari pengguna    | `credentials` | -     |
 | POST `/register`| Menghandle request register pengguna baru | `data pengguna` | -     |
 | POST `/logout`  | Menghandle request logout dari pengguna   | -             | -     |
+| GET `/seed` | Seeding Database                             | -             | -     |
+
 
 ### Company
 
